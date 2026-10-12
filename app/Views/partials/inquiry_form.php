@@ -7,6 +7,7 @@ $form     ??= ['values' => [], 'errors' => []];
 $swing     = config('Swing');
 $group     = in_array($type, ['foretag', 'grupp', 'tavling'], true);
 $values    = $form['values'] ?? [];
+$errors    = $form['errors'] ?? [];
 $packages  = ['after-work' => 'Swing After Work', 'tavling' => 'Tävling, t.ex. närmast hål eller längsta drive', 'hela-lokalen' => 'Hela lokalen för vårt sällskap', 'vet-ej' => 'Vet inte än – ge oss ett förslag'];
 
 if (! config('Inquiries')->enabled): ?>
@@ -37,17 +38,19 @@ if (! config('Inquiries')->enabled): ?>
     <?= partial('partials/field', ['name' => 'preferred_date', 'label' => 'Önskad dag och tid', 'hint' => 'T.ex. "fredag 14 november, från 17"', 'form' => $form]) ?>
   </div>
   <?php if ($type === 'foretag'): ?>
-  <fieldset class="field">
+  <fieldset class="field<?= isset($errors['package_interest']) ? ' has-error' : '' ?>"<?= isset($errors['package_interest']) ? ' aria-describedby="f-package_interest-err"' : '' ?>>
     <legend class="ilab">Vad är ni intresserade av? <span class="opt">(valfritt)</span></legend>
     <div class="choice-list">
       <?php foreach ($packages as $key => $label): ?>
-      <label class="choice"><input type="radio" name="package_interest" value="<?= esc($key) ?>"<?= ($values['package_interest'] ?? '') === $key ? ' checked' : '' ?> /><span><?= esc($label) ?></span></label>
+      <label class="choice"><input type="radio" name="package_interest" value="<?= esc($key) ?>"<?= ($values['package_interest'] ?? '') === $key ? ' checked' : '' ?><?= isset($errors['package_interest']) ? ' aria-invalid="true"' : '' ?> /><span><?= esc($label) ?></span></label>
       <?php endforeach; ?>
     </div>
+    <?php if (isset($errors['package_interest'])): ?><p class="ferr" id="f-package_interest-err"><?= icon('info', 16) ?><?= esc($errors['package_interest']) ?></p><?php endif; ?>
   </fieldset>
   <?php endif; ?>
-  <div class="field">
-    <label class="choice"><input type="checkbox" name="wants_food" value="1"<?= ($values['wants_food'] ?? '') === '1' ? ' checked' : '' ?> /><span>Vi vill gärna ha hjälp med mat eller catering</span></label>
+  <div class="field<?= isset($errors['wants_food']) ? ' has-error' : '' ?>">
+    <label class="choice"><input type="checkbox" name="wants_food" value="1"<?= ($values['wants_food'] ?? '') === '1' ? ' checked' : '' ?><?= isset($errors['wants_food']) ? ' aria-invalid="true" aria-describedby="f-wants_food-err"' : '' ?> /><span>Vi vill gärna ha hjälp med mat eller catering</span></label>
+    <?php if (isset($errors['wants_food'])): ?><p class="ferr" id="f-wants_food-err"><?= icon('info', 16) ?><?= esc($errors['wants_food']) ?></p><?php endif; ?>
   </div>
   <?php endif; ?>
   <?= partial('partials/field', ['name' => 'message', 'label' => $group ? 'Berätta mer' : 'Meddelande', 'type' => 'textarea', 'required' => ! $group, 'form' => $form, 'hint' => $group ? 'Önskemål om tävling, mat, personal på plats eller annat.' : null]) ?>

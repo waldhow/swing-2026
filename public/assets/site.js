@@ -95,13 +95,18 @@
       window.addEventListener("load", function () { setTimeout(showPot, 0); });
     }
 
-    // Formulär med fel: flytta fokus till felsammanfattningen. Webbläsaren
-    // återställer fokus när den scrollar till #fragmentet efter laddning,
-    // så fokus sätts igen efter load.
-    var alert = document.querySelector("[data-focus]");
-    if (alert) {
-      alert.focus();
-      window.addEventListener("load", function () { setTimeout(function () { alert.focus(); }, 0); });
+    // Formulär med fel: felen står vid fälten. Fokus till första felaktiga
+    // fältet (eller formulärets felruta när felet gäller hela formuläret) och
+    // visa fältet med sin etikett. Webbläsaren återställer fokus när den
+    // scrollar till #fragmentet efter laddning, så det görs igen efter load.
+    var invalid = document.querySelector("[data-focus]") || document.querySelector('form [aria-invalid="true"]');
+    if (invalid) {
+      var showError = function () {
+        invalid.focus({ preventScroll: true });
+        (invalid.closest(".field, fieldset") || invalid).scrollIntoView({ block: "start" });
+      };
+      showError();
+      window.addEventListener("load", function () { setTimeout(showError, 0); });
     }
   }
 

@@ -21,13 +21,15 @@ $error   = $form['errors']['belopp'] ?? null;
     <?php if ($error): ?><p class="ferr" id="f-belopp-err"><?= icon('info', 16) ?><?= esc($error) ?></p><?php endif; ?>
   </div>
   <?php if ($orders->supportsGiftCardDesign()): ?>
-  <fieldset class="field">
+  <?php $designError = $form['errors']['design'] ?? null; ?>
+  <fieldset class="field<?= $designError ? ' has-error' : '' ?>"<?= $designError ? ' aria-describedby="f-design-err"' : '' ?>>
     <legend class="ilab">Design</legend>
     <div class="choice-list choice-row">
       <?php foreach ($swing->giftCardDesigns as $key => $label): ?>
-      <label class="choice"><input type="radio" name="design" value="<?= esc($key) ?>"<?= $design === $key ? ' checked' : '' ?> /><span><?= esc($label) ?></span></label>
+      <label class="choice"><input type="radio" name="design" value="<?= esc($key) ?>"<?= $design === $key ? ' checked' : '' ?><?= $designError ? ' aria-invalid="true"' : '' ?> /><span><?= esc($label) ?></span></label>
       <?php endforeach; ?>
     </div>
+    <?php if ($designError): ?><p class="ferr" id="f-design-err"><?= icon('info', 16) ?><?= esc($designError) ?></p><?php endif; ?>
   </fieldset>
   <?php endif; ?>
   <?= partial('partials/field', ['name' => 'mottagare', 'label' => 'Namn på presentkortet', 'form' => $form, 'hint' => 'Mottagarens namn, om du vill att det står på kortet.', 'attrs' => ' maxlength="60"']) ?>

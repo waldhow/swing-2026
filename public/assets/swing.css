@@ -241,10 +241,8 @@ select.inp option{background:var(--leather);color:var(--cream)}
 .ferr svg{flex-shrink:0;margin-top:2px}
 .form-alert{padding:16px 18px;margin-bottom:22px;border-radius:var(--r-sm);border:1px solid rgba(217,119,111,.6);background:rgba(168,59,59,.18)}
 .form-alert:focus{outline:2px solid #f0a8a1;outline-offset:2px}
-.form-alert p{margin:0 0 6px;color:var(--cream)}
-.form-alert ul{margin:0;padding-left:18px}
-.form-alert li{font-size:14.5px;margin-top:4px}
-.form-alert a{color:#f6cdc8;text-decoration:underline}
+.form-alert p{display:flex;gap:9px;align-items:flex-start;margin:0;color:var(--cream);font-weight:600}
+.form-alert svg{flex-shrink:0;margin-top:3px;color:#f0a8a1}
 .choice-list{display:flex;flex-direction:column;gap:10px}
 .choice-row{flex-direction:row;flex-wrap:wrap}
 .choice{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-size:15.5px;color:var(--cream-2);line-height:1.45}
@@ -317,7 +315,7 @@ label.pot-card:hover{transform:translateY(-2px)}
 .pot-card:has(.pot-radio:checked) .pot-pick{background:linear-gradient(180deg,var(--brass),var(--brass-deep));border-color:transparent;color:#1c1108}
 .pot-card:has(.pot-radio:checked) .pot-pick .on{display:inline-flex;align-items:center;gap:7px}
 .pot-card:has(.pot-radio:checked) .pot-pick .off{display:none}
-.pot-shop .ferr{margin-top:14px}
+.pot-fieldset>.ferr{margin:0 0 16px}
 .pot-checkout{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;margin-top:28px;align-items:start}
 @media(max-width:900px){.pot-checkout{grid-template-columns:1fr}}
 .checkout-title{font-family:var(--fd)!important;font-weight:500!important;font-size:24px!important;margin:0 0 18px!important}

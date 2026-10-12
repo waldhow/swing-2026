@@ -38,11 +38,12 @@ $tag = $interactive ? 'label' : 'div';
   <?= partial('partials/honeypot') ?>
   <fieldset class="pot-fieldset" id="f-produkt"<?= $error ? ' aria-describedby="f-produkt-err"' : '' ?>>
     <legend class="sr-only"><?= esc($legend) ?></legend>
+    <?php if ($error): ?><p class="ferr" id="f-produkt-err"><?= icon('info', 16) ?><?= esc($error) ?></p><?php endif; ?>
 <?php endif; ?>
     <div class="pot-cards">
       <?php foreach ($cards as $card): $bonus = $card['value'] - $card['pay']; ?>
       <<?= $tag ?> class="offer pot-card<?= $card['theme'] ?>"<?= $interactive ? ' id="' . esc($card['key']) . '"' : '' ?>>
-        <?php if ($interactive): ?><input class="pot-radio" type="radio" name="produkt" value="<?= esc($card['key']) ?>" required<?= $selected === $card['key'] ? ' checked' : '' ?> /><?php endif; ?>
+        <?php if ($interactive): ?><input class="pot-radio" type="radio" name="produkt" value="<?= esc($card['key']) ?>" required<?= $selected === $card['key'] ? ' checked' : '' ?><?= $error ? ' aria-invalid="true"' : '' ?> /><?php endif; ?>
         <span class="sheen"></span>
         <?php if ($card['campaign']): ?><span class="ribbon">KAMPANJ</span><?php endif; ?>
         <span class="name"><?= esc(mb_strtoupper($card['name'])) ?></span>
@@ -61,7 +62,6 @@ $tag = $interactive ? 'label' : 'div';
       <?php endforeach; ?>
     </div>
 <?php if ($interactive): ?>
-    <?php if ($error): ?><p class="ferr" id="f-produkt-err"><?= icon('info', 16) ?><?= esc($error) ?></p><?php endif; ?>
   </fieldset>
 
   <div class="pot-checkout">

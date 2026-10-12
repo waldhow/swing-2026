@@ -165,13 +165,26 @@ for (const width of [375, 1280]) {
       });
     }
 
-    test('felsammanfattningen syns under menyn efter inskick', async ({ page }) => {
+    test('första felaktiga fältet syns under menyn efter inskick', async ({ page }) => {
       await page.goto('/kontakt/');
       await page.locator('#formular button[type="submit"]').click();
-      await expect(page.locator('.form-alert')).toBeFocused();
+      await expect(page.locator('#f-name')).toBeFocused();
       const { navBottom, top } = await page.evaluate(() => ({
         navBottom: document.querySelector('.nav').getBoundingClientRect().bottom,
-        top: document.querySelector('.form-alert').getBoundingClientRect().top,
+        top: document.querySelector('label[for="f-name"]').getBoundingClientRect().top,
+      }));
+      expect(top).toBeGreaterThanOrEqual(navBottom);
+    });
+
+    test('pottfelet syns ovanför korten efter inskick', async ({ page }) => {
+      await page.goto('/spelpotter/');
+      await page.locator('#bestall button[type="submit"]').click();
+      await expect(page.locator('.pot-radio').first()).toBeFocused();
+      const err = page.locator('#f-produkt-err');
+      await expect(err).toBeInViewport();
+      const { navBottom, top } = await page.evaluate(() => ({
+        navBottom: document.querySelector('.nav').getBoundingClientRect().bottom,
+        top: document.querySelector('#f-produkt-err').getBoundingClientRect().top,
       }));
       expect(top).toBeGreaterThanOrEqual(navBottom);
     });
@@ -212,13 +225,14 @@ test('FAQ-svar öppnas med tangentbordet', async ({ page }) => {
   await expect(item.locator('.faq-a')).toContainText('avsluta med #');
 });
 
-test('formulärfel får fokus och anger fälten', async ({ page }) => {
+test('formulärfel visas vid fälten och första fältet får fokus', async ({ page }) => {
   await page.goto('/kontakt/');
   await page.locator('#formular button[type="submit"]').click();
-  const alert = page.locator('.form-alert');
-  await expect(alert).toBeFocused();
-  await expect(alert).toContainText('Fyll i namn.');
+  await expect(page.locator('.form-alert')).toHaveCount(0);
+  await expect(page.locator('#f-name')).toBeFocused();
+  await expect(page.locator('#f-name-err')).toContainText('Fyll i namn.');
   await expect(page.locator('#f-email')).toHaveAttribute('aria-invalid', 'true');
+  await expect(page.locator('#f-email')).toHaveAttribute('aria-describedby', /f-email-err/);
 });
 
 test('okänd sida ger 404 med vägar vidare', async ({ page }) => {

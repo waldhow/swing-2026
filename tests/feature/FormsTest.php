@@ -86,9 +86,9 @@ final class FormsTest extends CIUnitTestCase
 
         $result->assertStatus(422);
         $html = $this->body($result);
-        $this->assertStringContainsString('Kontrollera formuläret', $html);
-        $this->assertStringContainsString('Fyll i namn.', $html);
-        $this->assertStringContainsString('Ange en giltig e-postadress.', $html);
+        $this->assertStringNotContainsString('form-alert', $html, 'ingen samlad felruta – felen står vid fälten');
+        $this->assertMatchesRegularExpression('#id="f-name-err"[^>]*>.*Fyll i namn\.#s', $html);
+        $this->assertMatchesRegularExpression('#id="f-email-err"[^>]*>.*Ange en giltig e-postadress\.#s', $html);
         $this->assertStringContainsString('aria-invalid="true"', $html);
         $this->assertStringContainsString('value="inte-en-adress"', $html, 'ifyllda värden behålls');
         $this->dontSeeInDatabase('inquiries', ['email' => 'inte-en-adress']);
@@ -178,7 +178,10 @@ final class FormsTest extends CIUnitTestCase
         $result = $this->post('spelpotter', ['produkt' => 'pott-999', 'name' => 'Anna', 'email' => 'anna@exempel.se', 'villkor' => '1']);
 
         $result->assertStatus(422);
-        $this->assertStringContainsString('Välj vilken pott du vill beställa.', $this->body($result));
+        $html = $this->body($result);
+        $this->assertStringContainsString('Välj vilken pott du vill beställa.', $html);
+        $this->assertLessThan(strpos($html, 'class="offer pot-card'), strpos($html, 'id="f-produkt-err"'), 'pottfelet står ovanför korten');
+        $this->assertStringContainsString('value="pott-1000" required aria-invalid="true"', $html);
         $this->assertSame(0, $this->db->table('orders')->countAllResults());
     }
 
