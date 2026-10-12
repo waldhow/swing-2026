@@ -125,6 +125,7 @@ $current   = explode('/', trim(service('request')->getUri()->getPath(), '/'))[0]
   </div>
 </footer>
 
+<template id="ferr-icon"><?= icon('info', 16) ?></template>
 <script src="<?= asset('assets/site.js') ?>" defer></script>
 <?= $this->renderSection('scripts') ?>
 </body>

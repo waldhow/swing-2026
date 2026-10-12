@@ -118,6 +118,17 @@ test('knappar har aldrig understruken text', async ({ page }) => {
   }
 });
 
+// Vänta tills en (mjuk) skrollning har stannat i stället för en fast tid.
+async function scrollSettled(page) {
+  let last = -1;
+  await expect.poll(async () => {
+    const y = await page.evaluate(() => window.scrollY);
+    const still = y === last;
+    last = y;
+    return still;
+  }, { intervals: [100, 150, 200, 250], timeout: 5000 }).toBe(true);
+}
+
 // Ankarlänkar landar vid avsnittets rubrik och ingress — under den fasta menyn, inte bakom den.
 const anchorCases = [
   { name: 'Köp spelpott på spelpotter', path: '/spelpotter/', click: '.phero a[href="#kop"]', target: '#kop' },
@@ -139,14 +150,7 @@ for (const width of [375, 1280]) {
         await page.goto(c.path);
         await page.locator(c.click).first().click();
         await expect(page).toHaveURL(new RegExp(c.target + '$'));
-        // Vänta tills den mjuka scrollningen har stannat i stället för en fast tid.
-        let last = -1;
-        await expect.poll(async () => {
-          const y = await page.evaluate(() => window.scrollY);
-          const still = y === last;
-          last = y;
-          return still;
-        }, { intervals: [100, 150, 200, 250], timeout: 5000 }).toBe(true);
+        await scrollSettled(page);
         const r = await page.evaluate((sel) => {
           const el = document.querySelector(sel);
           const heading = el.querySelector('h2');
@@ -169,6 +173,7 @@ for (const width of [375, 1280]) {
       await page.goto('/kontakt/');
       await page.locator('#formular button[type="submit"]').click();
       await expect(page.locator('#f-name')).toBeFocused();
+      await scrollSettled(page);
       const { navBottom, top } = await page.evaluate(() => ({
         navBottom: document.querySelector('.nav').getBoundingClientRect().bottom,
         top: document.querySelector('label[for="f-name"]').getBoundingClientRect().top,
@@ -181,6 +186,7 @@ for (const width of [375, 1280]) {
       await page.locator('#bestall button[type="submit"]').click();
       await expect(page.locator('.pot-radio').first()).toBeFocused();
       const err = page.locator('#f-produkt-err');
+      await scrollSettled(page);
       await expect(err).toBeInViewport();
       const { navBottom, top } = await page.evaluate(() => ({
         navBottom: document.querySelector('.nav').getBoundingClientRect().bottom,
@@ -233,6 +239,55 @@ test('formulärfel visas vid fälten och första fältet får fokus', async ({ p
   await expect(page.locator('#f-name-err')).toContainText('Fyll i namn.');
   await expect(page.locator('#f-email')).toHaveAttribute('aria-invalid', 'true');
   await expect(page.locator('#f-email')).toHaveAttribute('aria-describedby', /f-email-err/);
+});
+
+test('formulär valideras i webbläsaren utan omladdning', async ({ page }) => {
+  await page.goto('/kontakt/');
+  let posted = false;
+  page.on('request', (r) => { if (r.method() === 'POST') posted = true; });
+  await page.locator('#formular button[type="submit"]').click();
+  await expect(page.locator('#f-name-err')).toContainText('Fyll i namn.');
+  await expect(page.locator('#f-message-err')).toContainText('Fyll i meddelande.');
+  await expect(page.locator('#f-name')).toBeFocused();
+  expect(posted).toBe(false);
+
+  // Felet försvinner när fältet är rättat.
+  await page.fill('#f-name', 'Anna');
+  await expect(page.locator('#f-name-err')).toHaveCount(0);
+  await expect(page.locator('#f-name')).not.toHaveAttribute('aria-invalid', 'true');
+
+  // Felet byter text medan man rättar: tomt → ogiltig adress → borta.
+  await page.fill('#f-email', 'inte-en-adress');
+  await expect(page.locator('#f-email-err')).toContainText('Ange en giltig e-postadress.');
+  await expect(page.locator('#f-email')).toHaveAttribute('aria-describedby', /f-email-err/);
+  await page.fill('#f-email', 'anna@exempel.se');
+  await expect(page.locator('#f-email-err')).toHaveCount(0);
+});
+
+test('friskvård: pottval och personnummer kontrolleras i webbläsaren', async ({ page }) => {
+  await page.goto('/friskvard/');
+  await page.fill('#f-personnummer', '19811218-9875');
+  await page.locator('#bestall button[type="submit"]').click();
+  await expect(page.locator('#f-produkt-err')).toContainText('Välj vilken pott du vill beställa.');
+  await expect(page.locator('#f-personnummer-err')).toContainText('Personnumret verkar inte stämma');
+  await expect(page.locator('.pot-radio').first()).toBeFocused();
+
+  await page.locator('label#pott-1000').click();
+  await expect(page.locator('#f-produkt-err')).toHaveCount(0);
+  await page.fill('#f-personnummer', '19811218-9876');
+  await expect(page.locator('#f-personnummer-err')).toHaveCount(0);
+});
+
+test.describe('utan JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
+
+  test('servern visar felen vid fälten', async ({ page }) => {
+    await page.goto('/kontakt/');
+    await page.locator('#formular button[type="submit"]').click();
+    await expect(page).toHaveURL(/\/kontakt\/#formular$/);
+    await expect(page.locator('#f-name-err')).toContainText('Fyll i namn.');
+    await expect(page.locator('#f-name')).toHaveAttribute('aria-invalid', 'true');
+  });
 });
 
 test('okänd sida ger 404 med vägar vidare', async ({ page }) => {

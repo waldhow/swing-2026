@@ -10,6 +10,11 @@ use CodeIgniter\HTTP\RedirectResponse;
  */
 class Inquiries extends BaseController
 {
+    /** Telefonnummer: siffror, mellanslag, +, parenteser och bindestreck (även i webbläsaren, data-pattern). */
+    public const PHONE_PATTERN = '[0-9 +()\-]{6,}';
+
+    public const MAX_PARTICIPANTS = 500;
+
     /** Sida → förfrågningstyp. */
     private const TYPES = [
         'kontakt'       => 'kontakt',
@@ -91,9 +96,9 @@ class Inquiries extends BaseController
         return [
             'name'             => ['label' => 'namn', 'rules' => 'required|max_length[120]'],
             'email'            => ['label' => 'e-post', 'rules' => 'required|valid_email|max_length[190]'],
-            'phone'            => ['label' => 'telefon', 'rules' => 'permit_empty|max_length[40]|regex_match[/^[0-9 +()\-]{6,}$/]'],
+            'phone'            => ['label' => 'telefon', 'rules' => 'permit_empty|max_length[40]|regex_match[/^' . self::PHONE_PATTERN . '$/]', 'errors' => ['regex_match' => lang('Forms.phone')]],
             'organisation'     => ['label' => 'företag eller förening', 'rules' => 'permit_empty|max_length[160]'],
-            'participants'     => ['label' => 'antal personer', 'rules' => 'permit_empty|is_natural_no_zero|less_than_equal_to[500]'],
+            'participants'     => ['label' => 'antal personer', 'rules' => 'permit_empty|is_natural_no_zero|less_than_equal_to[' . self::MAX_PARTICIPANTS . ']', 'errors' => ['is_natural_no_zero' => lang('Forms.participants', ['max' => self::MAX_PARTICIPANTS]), 'less_than_equal_to' => lang('Forms.participants', ['max' => self::MAX_PARTICIPANTS])]],
             'preferred_date'   => ['label' => 'önskad dag och tid', 'rules' => 'permit_empty|max_length[120]'],
             'package_interest' => ['label' => 'upplägg', 'rules' => 'permit_empty|in_list[after-work,tavling,hela-lokalen,vet-ej]'],
             'wants_food'       => ['label' => 'mat', 'rules' => 'permit_empty|in_list[1]'],

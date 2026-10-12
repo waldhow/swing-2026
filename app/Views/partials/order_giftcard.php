@@ -7,12 +7,12 @@ $amount  = $form['values']['belopp'] ?? '';
 $design  = $form['values']['design'] ?? 'STANDARD';
 $error   = $form['errors']['belopp'] ?? null;
 ?>
-<form class="card form" method="post" action="<?= page_path('presentkort') ?>#bestall" id="bestall" novalidate>
+<form class="card form" method="post" action="<?= page_path('presentkort') ?>#bestall" id="bestall" novalidate data-validate>
   <?= partial('partials/form_errors', ['form' => $form]) ?>
   <?= partial('partials/honeypot') ?>
   <div class="field<?= $error ? ' has-error' : '' ?>">
     <label class="ilab" for="f-belopp">Belopp <span class="req" aria-hidden="true">*</span></label>
-    <select class="inp" id="f-belopp" name="belopp" required<?= $error ? ' aria-invalid="true" aria-describedby="f-belopp-err"' : '' ?>>
+    <select class="inp" id="f-belopp" name="belopp" required data-msg-required="<?= esc(lang('Forms.pickAmount', ['min' => kr($swing->giftCardMin), 'max' => kr($swing->giftCardMax)])) ?>"<?= $error ? ' aria-invalid="true" aria-describedby="f-belopp-err"' : '' ?>>
       <option value="">Välj belopp</option>
       <?php for ($v = $swing->giftCardMin; $v <= $swing->giftCardMax; $v += $swing->giftCardStep): ?>
       <option value="<?= $v ?>"<?= (string) $v === $amount ? ' selected' : '' ?>><?= kr($v) ?></option>

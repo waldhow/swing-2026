@@ -8,6 +8,9 @@ $swing     = config('Swing');
 $group     = in_array($type, ['foretag', 'grupp', 'tavling'], true);
 $values    = $form['values'] ?? [];
 $errors    = $form['errors'] ?? [];
+// Samma regler som i Inquiries::rules(); data-pattern i stället för pattern så att webbläsaren inte tolkar uttrycket själv.
+$phoneAttrs = ' data-pattern="' . esc(\App\Controllers\Inquiries::PHONE_PATTERN) . '"';
+$maxPeople  = \App\Controllers\Inquiries::MAX_PARTICIPANTS;
 $packages  = ['after-work' => 'Swing After Work', 'tavling' => 'Tävling, t.ex. närmast hål eller längsta drive', 'hela-lokalen' => 'Hela lokalen för vårt sällskap', 'vet-ej' => 'Vet inte än – ge oss ett förslag'];
 
 if (! config('Inquiries')->enabled): ?>
@@ -15,7 +18,7 @@ if (! config('Inquiries')->enabled): ?>
   <p>Mejla oss på <a href="mailto:<?= esc($swing->email) ?>"><?= esc($swing->email) ?></a> eller ring <a href="tel:<?= esc($swing->phoneE164) ?>"><?= esc($swing->phone) ?></a>, så återkommer vi.</p>
 </div>
 <?php return; endif; ?>
-<form class="card form" method="post" action="<?= page_path($slug) ?>#formular" id="formular" novalidate>
+<form class="card form" method="post" action="<?= page_path($slug) ?>#formular" id="formular" novalidate data-validate>
   <?= partial('partials/form_errors', ['form' => $form]) ?>
   <?= partial('partials/honeypot') ?>
   <div class="frow">
@@ -23,18 +26,18 @@ if (! config('Inquiries')->enabled): ?>
     <?php if ($group): ?>
     <?= partial('partials/field', ['name' => 'organisation', 'label' => $type === 'foretag' ? 'Företag' : 'Förening, klubb eller sällskap', 'autocomplete' => 'organization', 'form' => $form]) ?>
     <?php else: ?>
-    <?= partial('partials/field', ['name' => 'phone', 'label' => 'Telefon', 'type' => 'tel', 'autocomplete' => 'tel', 'form' => $form]) ?>
+    <?= partial('partials/field', ['name' => 'phone', 'label' => 'Telefon', 'type' => 'tel', 'autocomplete' => 'tel', 'form' => $form, 'attrs' => $phoneAttrs, 'messages' => ['pattern' => lang('Forms.phone')]]) ?>
     <?php endif; ?>
   </div>
   <div class="frow">
     <?= partial('partials/field', ['name' => 'email', 'label' => 'E-post', 'type' => 'email', 'required' => true, 'autocomplete' => 'email', 'form' => $form]) ?>
     <?php if ($group): ?>
-    <?= partial('partials/field', ['name' => 'phone', 'label' => 'Telefon', 'type' => 'tel', 'autocomplete' => 'tel', 'form' => $form]) ?>
+    <?= partial('partials/field', ['name' => 'phone', 'label' => 'Telefon', 'type' => 'tel', 'autocomplete' => 'tel', 'form' => $form, 'attrs' => $phoneAttrs, 'messages' => ['pattern' => lang('Forms.phone')]]) ?>
     <?php endif; ?>
   </div>
   <?php if ($group): ?>
   <div class="frow">
-    <?= partial('partials/field', ['name' => 'participants', 'label' => 'Ungefärligt antal personer', 'type' => 'number', 'attrs' => ' min="1" max="500" inputmode="numeric"', 'form' => $form]) ?>
+    <?= partial('partials/field', ['name' => 'participants', 'label' => 'Ungefärligt antal personer', 'type' => 'number', 'attrs' => ' min="1" max="' . $maxPeople . '" inputmode="numeric"', 'form' => $form, 'messages' => ['range' => lang('Forms.participants', ['max' => $maxPeople])]]) ?>
     <?= partial('partials/field', ['name' => 'preferred_date', 'label' => 'Önskad dag och tid', 'hint' => 'T.ex. "fredag 14 november, från 17"', 'form' => $form]) ?>
   </div>
   <?php if ($type === 'foretag'): ?>

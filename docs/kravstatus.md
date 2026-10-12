@@ -9,7 +9,7 @@ Gäller kodomgången 2026-10-11. Krav-ID enligt `krav/ai/data/requirements.json`
 - Offert- och kontaktformulär med databas och mejl. Beställning av spelpott och presentkort med Swish via swing-order, både mejlkanal och förberedd API-kanal.
 - Admin för tävlingar, kampanjer, förfrågningar och beställningar.
 - Teknisk SEO: unik metadata, kanoniska URL:er, JSON-LD, sitemap, robots, llms.txt och 301 från WordPress.
-- Tester: 118 PHPUnit-tester och 40 Playwright-tester. Bygg för Loopia.
+- Tester: 119 PHPUnit-tester och 43 Playwright-tester. Bygg för Loopia.
 
 **Inte byggt:** Stripe, eget bokningssystem, Golfguiden, Team Swing-profiler, engelska. Se `BLOCKERS.md`.
 

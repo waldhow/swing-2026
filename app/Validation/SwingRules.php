@@ -49,7 +49,7 @@ class SwingRules
         }
 
         if (strlen($digits) !== 10) {
-            $error = 'Ange personnummer som ÅÅÅÅMMDD-NNNN.';
+            $error = lang('Forms.pnrFormat');
 
             return false;
         }
@@ -61,7 +61,7 @@ class SwingRules
         }
 
         if ((10 - $sum % 10) % 10 !== (int) $digits[9]) {
-            $error = 'Personnumret verkar inte stämma — kontrollera siffrorna.';
+            $error = lang('Forms.pnrChecksum');
 
             return false;
         }

@@ -33,10 +33,10 @@ foreach (array_values($pots) as $i => $pot) {
 $tag = $interactive ? 'label' : 'div';
 ?>
 <?php if ($interactive): ?>
-<form class="pot-shop" method="post" action="<?= page_path($slug) ?>#bestall" id="bestall" novalidate>
+<form class="pot-shop" method="post" action="<?= page_path($slug) ?>#bestall" id="bestall" novalidate data-validate>
   <?= partial('partials/form_errors', ['form' => $form]) ?>
   <?= partial('partials/honeypot') ?>
-  <fieldset class="pot-fieldset" id="f-produkt"<?= $error ? ' aria-describedby="f-produkt-err"' : '' ?>>
+  <fieldset class="pot-fieldset" id="f-produkt" data-msg-required="<?= esc(lang('Forms.pickPot')) ?>"<?= $error ? ' aria-describedby="f-produkt-err"' : '' ?>>
     <legend class="sr-only"><?= esc($legend) ?></legend>
     <?php if ($error): ?><p class="ferr" id="f-produkt-err"><?= icon('info', 16) ?><?= esc($error) ?></p><?php endif; ?>
 <?php endif; ?>
@@ -69,7 +69,7 @@ $tag = $interactive ? 'label' : 'div';
       <h3 class="checkout-title">Dina uppgifter</h3>
       <?= partial('partials/order_buyer', ['form' => $form, 'emailHint' => $emailHint]) ?>
       <?php if (! empty($withPersonalNumber)): ?>
-      <?= partial('partials/field', ['name' => 'personnummer', 'label' => 'Personnummer', 'required' => true, 'autocomplete' => 'off', 'form' => $form, 'hint' => 'Behövs för friskvårdskvittot. ÅÅÅÅMMDD-NNNN.', 'attrs' => ' inputmode="numeric" maxlength="13"']) ?>
+      <?= partial('partials/field', ['name' => 'personnummer', 'label' => 'Personnummer', 'required' => true, 'autocomplete' => 'off', 'form' => $form, 'hint' => 'Behövs för friskvårdskvittot. ÅÅÅÅMMDD-NNNN.', 'attrs' => ' inputmode="numeric" maxlength="13" data-pnr', 'messages' => ['pnr-format' => lang('Forms.pnrFormat'), 'pnr-checksum' => lang('Forms.pnrChecksum')]]) ?>
       <?php endif; ?>
       <?= partial('partials/order_terms', ['form' => $form]) ?>
       <div class="btn-row"><button class="btn btn-primary" type="submit"><?= icon('wallet', 20) ?>Beställ – betala med Swish</button></div>

@@ -163,6 +163,43 @@ final class FormsTest extends CIUnitTestCase
         $this->assertStringContainsString('123 217 2559', $sent[1]['body']);
     }
 
+    /**
+     * Webbläsaren visar texterna i data-msg-* (site.js). De ska vara exakt
+     * samma som serverns felmeddelanden för samma fel.
+     */
+    public function testBrowserValidationMessagesMatchServer(): void
+    {
+        $cases = [
+            'kontakt' => [
+                ['name' => '', 'email' => 'inte-en-adress', 'phone' => 'abc', 'message' => ''],
+                ['id="f-name"' => 'required', 'id="f-email"' => 'email', 'id="f-phone"' => 'pattern', 'id="f-message"' => 'required'],
+            ],
+            'foretagsevent' => [
+                ['name' => 'Anna', 'email' => 'anna@exempel.se', 'participants' => '900'],
+                ['id="f-participants"' => 'range'],
+            ],
+            'friskvard' => [
+                ['produkt' => '', 'name' => '', 'email' => '', 'personnummer' => '19811218-9875'],
+                ['id="f-produkt"' => 'required', 'id="f-name"' => 'required', 'id="f-email"' => 'required', 'id="f-personnummer"' => 'pnr-checksum', 'id="f-villkor"' => 'required'],
+            ],
+            'presentkort' => [
+                ['belopp' => '', 'name' => 'Anna', 'email' => 'anna@exempel.se', 'villkor' => '1'],
+                ['id="f-belopp"' => 'required'],
+            ],
+        ];
+
+        foreach ($cases as $slug => [$post, $fields]) {
+            $page   = $this->body($this->get($slug . '/'));
+            $server = $this->body($this->post($slug, $post));
+
+            foreach ($fields as $element => $rule) {
+                $this->assertMatchesRegularExpression('#' . preg_quote($element, '#') . '[^>]*data-msg-' . $rule . '="([^"]+)"#', $page, "{$slug}: {$element} saknar data-msg-{$rule}");
+                preg_match('#' . preg_quote($element, '#') . '[^>]*data-msg-' . $rule . '="([^"]+)"#', $page, $m);
+                $this->assertStringContainsString('</svg>' . $m[1] . '</p>', $server, "{$slug}: webbläsarens text för {$element} ({$rule}) skiljer sig från serverns");
+            }
+        }
+    }
+
     public function testOrderFormsPromiseCodeByEmail(): void
     {
         $this->assertStringContainsString('Spelpotten levereras till den här adressen.', $this->body($this->get('spelpotter/')));

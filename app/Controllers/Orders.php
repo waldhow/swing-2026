@@ -37,7 +37,7 @@ class Orders extends BaseController
         $rules = [
             'name'    => ['label' => 'namn', 'rules' => 'required|max_length[120]'],
             'email'   => ['label' => 'e-post', 'rules' => 'required|valid_email|max_length[190]'],
-            'villkor' => ['label' => 'köpvillkoren', 'rules' => 'required', 'errors' => ['required' => 'Du behöver godkänna köpvillkoren.']],
+            'villkor' => ['label' => 'köpvillkoren', 'rules' => 'required', 'errors' => ['required' => lang('Forms.acceptTerms')]],
         ];
 
         $product = match ($slug) {
@@ -62,8 +62,8 @@ class Orders extends BaseController
 
         if ($product === null) {
             $errors[$slug === 'presentkort' ? 'belopp' : 'produkt'] = $slug === 'presentkort'
-                ? 'Välj ett belopp mellan 100 och 1 000 kr.'
-                : 'Välj vilken pott du vill beställa.';
+                ? lang('Forms.pickAmount', ['min' => kr(config('Swing')->giftCardMin), 'max' => kr(config('Swing')->giftCardMax)])
+                : lang('Forms.pickPot');
         }
 
         if ($errors !== []) {
