@@ -30,6 +30,7 @@ $direct = $orders->canSellWellnessDirect();
         'legend'             => 'Välj friskvårdspott',
         'withPersonalNumber' => true,
         'deliver'            => 'din kod och ditt kvitto',
+        'emailHint'          => 'Friskvårdspotten och kvittot levereras till den här adressen.',
     ]) ?>
     <?php if (! $direct): ?>
     <div style="margin-top:26px"><?= partial('partials/order_unavailable') ?></div>

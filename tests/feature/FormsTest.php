@@ -165,8 +165,8 @@ final class FormsTest extends CIUnitTestCase
 
     public function testOrderFormsPromiseCodeByEmail(): void
     {
-        $this->assertStringContainsString('Vi skickar din kod till den här adressen.', $this->body($this->get('spelpotter/')));
-        $this->assertStringContainsString('Vi skickar din kod och ditt kvitto till den här adressen.', $this->body($this->get('friskvard/')));
+        $this->assertStringContainsString('Spelpotten levereras till den här adressen.', $this->body($this->get('spelpotter/')));
+        $this->assertStringContainsString('Friskvårdspotten och kvittot levereras till den här adressen.', $this->body($this->get('friskvard/')));
 
         foreach (['spelpotter/', 'friskvard/', 'kopvillkor/'] as $path) {
             $this->assertStringNotContainsString('kopplas till', $this->body($this->get($path)), "{$path}: potten levereras som kod, inte via e-postkoppling i Sweetspot");

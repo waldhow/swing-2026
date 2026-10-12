@@ -5,7 +5,8 @@
  * skärmläsare och sidan utan JS fungerar.
  *   $pots, $campaignPots, $form, $interactive (false = bara visning, ingen kassa)
  *   $slug (sidan formuläret postar till, standard spelpotter), $legend,
- *   $withPersonalNumber (friskvård), $deliver (vad kunden får, för "Så går köpet till")
+ *   $withPersonalNumber (friskvård), $deliver (vad kunden får, för "Så går köpet till"),
+ *   $emailHint (texten under e-postfältet)
  */
 $form         ??= ['values' => [], 'errors' => []];
 $campaignPots ??= [];
@@ -13,6 +14,7 @@ $interactive  ??= true;
 $slug         ??= 'spelpotter';
 $legend       ??= 'Välj spelpott';
 $deliver      ??= 'din kod';
+$emailHint    ??= 'Spelpotten levereras till den här adressen.';
 $selected      = $form['values']['produkt'] ?? '';
 $error         = $form['errors']['produkt'] ?? null;
 $themes        = ['', ' burgundy', ' bottle'];
@@ -65,7 +67,7 @@ $tag = $interactive ? 'label' : 'div';
   <div class="pot-checkout">
     <div class="card form">
       <h3 class="checkout-title">Dina uppgifter</h3>
-      <?= partial('partials/order_buyer', ['form' => $form, 'emailHint' => 'Vi skickar ' . $deliver . ' till den här adressen.']) ?>
+      <?= partial('partials/order_buyer', ['form' => $form, 'emailHint' => $emailHint]) ?>
       <?php if (! empty($withPersonalNumber)): ?>
       <?= partial('partials/field', ['name' => 'personnummer', 'label' => 'Personnummer', 'required' => true, 'autocomplete' => 'off', 'form' => $form, 'hint' => 'Behövs för friskvårdskvittot. ÅÅÅÅMMDD-NNNN.', 'attrs' => ' inputmode="numeric" maxlength="13"']) ?>
       <?php endif; ?>
