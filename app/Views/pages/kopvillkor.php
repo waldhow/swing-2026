@@ -4,6 +4,7 @@
 $swing   = config('Swing');
 $booking = config('Booking');
 $orders  = config('Orders');
+$stripe  = config('Payments')->stripeEnabled();
 ?>
 <?= partial('partials/phero', ['eyebrow' => 'Villkor', 'h1' => 'Köpvillkor', 'lede' => 'Villkor för köp av spelpotter och digitala presentkort hos Swing Golf & Lounge.', 'trail' => $trail]) ?>
 
@@ -21,8 +22,13 @@ $orders  = config('Orders');
       <h2>3. Beställning och betalning</h2>
       <ul>
         <li>Alla priser anges i svenska kronor inklusive moms.</li>
+        <?php if ($stripe): ?>
+        <li>Du betalar direkt när du beställer, med <?= esc(config('Payments')->methodsText()) ?>. Betalningen hanteras av vår betalleverantör Stripe; vi får aldrig se dina kortuppgifter.</li>
+        <li>Köpet är klart när betalningen är godkänd. Du får ett ordernummer och en orderbekräftelse via e-post, och vi skickar din kod normalt inom 24 timmar.</li>
+        <?php else: ?>
         <li>När du har beställt får du ett ordernummer. Du betalar med Swish till <?= esc($orders->swishNumber) ?> och anger ordernumret i meddelandet.</li>
         <li>Beställningen hanteras när betalningen har kommit in. Vi skickar en bekräftelse med din kod via e-post, normalt inom 24 timmar.</li>
+        <?php endif; ?>
         <li>Kontrollera att e-postadressen du anger är rätt – det är dit vi skickar koden.</li>
       </ul>
 

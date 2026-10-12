@@ -42,6 +42,10 @@ final class ApiOrderGateway implements OrderGateway
             'giftCardName'   => $order['gift_card_name'] ?? null,
             'giftCardDesign' => $order['gift_card_design'] ?? null,
             'productName'    => $order['product_name'],
+            // Stripe-betald order: swing-order behöver inte vänta på Swish.
+            'paymentVerified'     => ($order['payment_status'] ?? '') === 'paid' ? true : null,
+            'paymentProvider'     => ($order['payment_provider'] ?? '') === 'stripe' ? 'STRIPE' : 'SWISH',
+            'stripePaymentIntent' => $order['stripe_payment_intent'] ?? null,
         ], static fn ($v): bool => $v !== null && $v !== '');
 
         try {

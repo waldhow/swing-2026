@@ -11,6 +11,8 @@ Beställningar av spelpotter, presentkort och friskvårdspotter tas emot på web
 5. Kunden ser en tacksida med Swish-instruktioner (nummer, belopp, ordernummer som meddelande) och får samma instruktioner via e-post.
 6. swing-order levererar koden när betalningen är verifierad.
 
+**Med Stripe** (`payments.provider = stripe`, se `docs/stripe.md`) betalar kunden direkt i Stripe Checkout. Steg 4 sker då först när betalningen är bekräftad, och ordern är redan betald när den når swing-order. Obetalda ordrar lämnas aldrig över.
+
 Misslyckas steg 4 sparas felet på ordern. Den syns i admin under **Beställningar** och kan skickas igen. Lokala kopior raderas efter `Orders::$retentionDays` (90) dagar, eftersom swing-order är huvudregistret.
 
 ## Kanal 1: mejl (`orders.channel = mail`, standard)
@@ -28,10 +30,14 @@ personnummer:19900101-1234   ← endast Friskvård
 name on giftcard:Pappa       ← endast Presentkort, om ifyllt
 
 referens:W-261011-AB12   ← information till personalen, ignoreras av parsern
+betalning:Stripe (betald 2026-10-12 14:05)   ← endast Stripe-betalda ordrar
+stripe:pi_3Q…                                ← endast Stripe-betalda ordrar
 produkt:Swing 1000
 spelvarde:1150
 kalla:swinggolf.se
 ```
+
+Parsern i swing-order (`parseStructuredBody`) hoppar över nycklar den inte känner till, så Stripe-raderna ändrar inget i tolkningen. De visar personalen att ordern redan är betald och att ingen Swish ska väntas in. Vill man att swing-order markerar sådana ordrar som betalda automatiskt behövs en ändring där, till exempel att läsa `betalning:`. Annars får personalen göra det manuellt. Det här är en förutsättning innan Stripe slås på.
 
 Reply-To sätts till kunden. Radbrytningar i kunddata tas bort så att inga extra fält kan injiceras (testas i `tests/unit/MailOrderGatewayTest.php`).
 
@@ -61,7 +67,10 @@ Content-Type: application/json
   "personalNumber": "19900101-1234",  // endast FRISKVARD
   "giftCardName": "Pappa",            // valfri
   "giftCardDesign": "FARSDAG",        // STANDARD | MORSDAG | FARSDAG | JUL
-  "productName": "Swing 1000"
+  "productName": "Swing 1000",
+  "paymentProvider": "STRIPE",        // STRIPE | SWISH
+  "paymentVerified": true,            // true = redan betald via Stripe, leverera direkt
+  "stripePaymentIntent": "pi_3Q…"     // endast STRIPE
 }
 ```
 

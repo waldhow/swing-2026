@@ -69,6 +69,21 @@ class Services extends BaseService
             static::orderGateway(),
             config('Orders'),
             config('Swing'),
+            config('Payments'),
+        );
+    }
+
+    /** Stripe-kassan: starta betalning, leverera betald order, markera utgången. */
+    public static function checkoutService(bool $getShared = true): \App\Libraries\Payments\CheckoutService
+    {
+        if ($getShared) {
+            return static::getSharedInstance('checkoutService');
+        }
+
+        return new \App\Libraries\Payments\CheckoutService(
+            model(\App\Models\OrderModel::class),
+            static::orderService(),
+            static::checkoutGateway(),
         );
     }
 
@@ -110,5 +125,15 @@ class Services extends BaseService
         }
 
         return new \App\Libraries\Faq(config('Swing'), config('Booking'), static::pricing());
+    }
+
+    /** Stripe Checkout (ersätts med en fejk i tester). */
+    public static function checkoutGateway(bool $getShared = true): \App\Libraries\Payments\CheckoutGateway
+    {
+        if ($getShared) {
+            return static::getSharedInstance('checkoutGateway');
+        }
+
+        return new \App\Libraries\Payments\StripeCheckoutGateway(config('Payments'), config('Swing'));
     }
 }

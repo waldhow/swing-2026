@@ -67,6 +67,11 @@ final class MailOrderGateway implements OrderGateway
 
         $lines[] = '';
         $lines[] = 'referens:' . $order['reference'];
+        if (($order['payment_provider'] ?? '') === 'stripe' && ($order['payment_status'] ?? '') === 'paid') {
+            // Information till personalen: betalningen är redan bekräftad via Stripe.
+            $lines[] = 'betalning:Stripe (betald ' . date('Y-m-d H:i', strtotime((string) $order['paid_at'])) . ')';
+            $lines[] = 'stripe:' . ($order['stripe_payment_intent'] ?? '');
+        }
         $lines[] = 'produkt:' . self::clean($order['product_name']);
         $lines[] = 'spelvarde:' . (int) $order['value_amount'];
         $lines[] = 'kalla:swinggolf.se';

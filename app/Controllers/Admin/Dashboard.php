@@ -22,7 +22,7 @@ class Dashboard extends BaseAdminController
             'title'          => 'Översikt',
             'newInquiries'   => $inquiries->where('status', 'new')->countAllResults(),
             'failedInquiry'  => $inquiries->where('mail_error IS NOT NULL', null, false)->where('status', 'new')->countAllResults(),
-            'failedOrders'   => $orders->groupStart()->where('forward_error IS NOT NULL', null, false)->orWhere('forwarded_at', null)->groupEnd()->countAllResults(),
+            'failedOrders'   => $orders->needsForward()->countAllResults(),
             'recentOrders'   => $orders->orderBy('created_at', 'DESC')->findAll(5),
             'recentInquiries' => $inquiries->orderBy('created_at', 'DESC')->findAll(5),
             'competitions'   => count(model(CompetitionModel::class)->current()),

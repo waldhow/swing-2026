@@ -9,9 +9,11 @@ Gäller kodomgången 2026-10-11. Krav-ID enligt `krav/ai/data/requirements.json`
 - Offert- och kontaktformulär med databas och mejl. Beställning av spelpott och presentkort med Swish via swing-order, både mejlkanal och förberedd API-kanal.
 - Admin för tävlingar, kampanjer, förfrågningar och beställningar.
 - Teknisk SEO: unik metadata, kanoniska URL:er, JSON-LD, sitemap, robots, llms.txt och 301 från WordPress.
-- Tester: 109 PHPUnit-tester och 15 Playwright-tester. Bygg för Loopia.
+- Tester: 137 PHPUnit-tester (varav 20 för Stripe-kassan) och 38 Playwright-tester. Bygg för Loopia.
 
-**Inte byggt:** Stripe, eget bokningssystem, Golfguiden, Team Swing-profiler, engelska. Se `BLOCKERS.md`.
+**Byggt men avstängt:** Stripe Checkout för spelpotter, presentkort och friskvård (`payments.provider = stripe`, se `docs/stripe.md`).
+
+**Inte byggt:** eget bokningssystem, Golfguiden, Team Swing-profiler, engelska. Se `BLOCKERS.md`.
 
 ## 2. Kravbevis
 
@@ -47,7 +49,7 @@ Gäller kodomgången 2026-10-11. Krav-ID enligt `krav/ai/data/requirements.json`
 | TECH-03 | DONE | Inga cookies på publika sidor (verifierat med curl). Sessionscookie bara i admin. Kartan är en extern länk. Integritetspolicyn beskriver detta. |
 | TECH-04 | DONE | Validering, honeypot, gräns per IP, databas, mejl och tacksida. `FormsTest`. |
 | TECH-05 | DONE | Admin med status, giltighet och avpublicering. Sidcachen töms vid sparande (`AdminTest`). |
-| TECH-06 | BLOCKED | Ingen Stripe och ingen ofullständig kassa. Köp går via det verifierade Swish-flödet. Stripe väntar på B02. |
+| TECH-06 | PARTIAL | Stripe Checkout är byggt men avstängt tills det är testat (`payments.provider = swish`, och fail closed utan nyckel och webhookhemlighet). Ingen publik knapp leder till en ofullständig kassa. Leverans via swing-order och orderbekräftelse till kund, Stripe-kvitto via Dashboard. Aktivering väntar på B02 och checklistan i `docs/stripe.md`. |
 | QA-01 | BLOCKED | Kräver att Swing godkänner texterna (B14). Inga utkastmarkeringar syns publikt. |
 | QA-02 | IN_PROGRESS | Testat lokalt och i produktionsbygget. Test i målmiljön (Loopia) efter uppladdning. |
 | AGENT-01 | DONE | Inventering av prototyp, gammal WordPress-sajt och swing-order redovisad före kod. |
@@ -64,7 +66,7 @@ Gäller kodomgången 2026-10-11. Krav-ID enligt `krav/ai/data/requirements.json`
 | TECH-12 | DONE | Separata pottlistor. Kampanjer och tävlingar har status och giltighet, inaktiva och utgångna visas inte (testat). |
 | TECH-13 | DONE | Intern länk- och ankarkontroll (`testAllInternalLinksAndAnchorsResolve`), externa länkar verifierade (`external-links.spec.js`). Unik title och OG per sida. Sitemap bara med indexerbara sidor. |
 | TECH-14 | DONE | Tävlingar visas bara när de är publicerade, utan datum står "Datum meddelas". Inga påhittade data. |
-| TECH-15 | NOT_STARTED | P1, Stripe är inte byggt. Gränssnittet `OrderGateway` och idempotensnyckeln finns förberedda. |
+| TECH-15 | DONE | Ordern skapas på servern före betalningen. Webhooksignaturen valideras, och sessionen hämtas och kontrolleras (belopp, valuta, `payment_status`). Leverans sker idempotent via en atomär `claimPaid`, så dubbla händelser ger inte dubbla värden. Återanvänd öppen session förhindrar dubbelbetalning. Testat i `StripeCheckoutTest`. |
 | QA-03 | DONE | Enhetstester (pris, config, orderformat) och e2e för start, pris, mobilmeny, boknings-CTA, FAQ och 404. |
 | QA-04 | DONE | Inga döda knappar eller platshållare (`PagesTest` FORBIDDEN), inga JS-fel i QA-körningen, inga brutna länkar. |
 | QA-05 | DONE | Blockerade beslut är separerade i `BLOCKERS.md`. Inga påståenden om datum, kollektivtrafik, alkoholtillstånd, partnerloggor eller Stripe. |
@@ -94,7 +96,7 @@ Se `README.md` ("Var ändrar jag vad?" och "Struktur"). De viktigaste besluten:
 
 - Bokningslänken till Sweetspot är verifierad (200).
 - Kontaktleveransen är testad med mock. Riktig SMTP verifieras på Loopia.
-- Stripe är inte live och inte byggt.
+- Stripe är byggt och testat med fejkad gateway och signerade webhooks, men inte aktiverat. Det behöver testas mot en Stripe-sandlåda innan det slås på.
 - Ingen driftsättning är gjord, det kräver ditt uttryckliga klartecken. Se `docs/drift-loopia.md`.
 
 ## 6. Blockers

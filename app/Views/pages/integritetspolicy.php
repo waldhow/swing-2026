@@ -21,12 +21,15 @@ $orders    = config('Orders');
 
       <h2>När du beställer spelpott eller presentkort</h2>
       <p>Vi behandlar namn, e-post, uppgifter om beställningen och, om du anger det, namnet som ska stå på presentkortet. Vid köp av friskvårdspott direkt hos oss behandlar vi även ditt personnummer för friskvårdskvittot. Uppgifterna behövs för att leverera beställningen och för att uppfylla bokföringslagen. Webbplatsens kopia av beställningen raderas efter <?= (int) $orders->retentionDays ?> dagar; underlag som krävs enligt bokföringslagen sparas i vårt ordersystem i den tid lagen kräver.</p>
+      <?php if (config('Payments')->stripeEnabled()): ?>
+      <p>Betalningen hanteras av vår betalleverantör Stripe. Stripe behandlar dina betaluppgifter, till exempel kortnummer, för att genomföra betalningen och förebygga bedrägerier, enligt sin egen integritetspolicy. Vi får bara veta att betalningen är genomförd, aldrig dina kortuppgifter.</p>
+      <?php endif; ?>
 
       <h2>Bokning, Epassi och andra tjänster</h2>
       <p>Bokning av speltid görs i <?= esc($booking->provider) ?>, och köp med friskvårdsbidrag görs i Epassi. Dessa tjänster ansvarar för behandlingen av dina uppgifter i sina system enligt sina egna integritetspolicyer. Detsamma gäller när du följer länkar till Google Maps, Facebook eller Instagram.</p>
 
       <h2>Vilka som får tillgång till uppgifterna</h2>
-      <p>Uppgifterna hanteras av oss på Swing. Leverantörer av webbhotell, e-post och vårt ordersystem behandlar uppgifter för vår räkning och får bara använda dem för att utföra tjänsten åt oss. Vi säljer aldrig dina uppgifter.</p>
+      <p>Uppgifterna hanteras av oss på Swing. Leverantörer av webbhotell, e-post<?= config('Payments')->stripeEnabled() ? ', betalningar' : '' ?> och vårt ordersystem behandlar uppgifter för vår räkning och får bara använda dem för att utföra tjänsten åt oss. Vi säljer aldrig dina uppgifter.</p>
 
       <h2>Cookies</h2>
       <p>Webbplatsen använder inga cookies för statistik eller marknadsföring, och vi använder inga spårningsverktyg. Typsnitt och bilder hämtas från vår egen server. Kartan öppnas som en länk till Google Maps först när du väljer det.</p>

@@ -71,8 +71,8 @@ $tag = $interactive ? 'label' : 'div';
       <?= partial('partials/field', ['name' => 'personnummer', 'label' => 'Personnummer', 'required' => true, 'autocomplete' => 'off', 'form' => $form, 'hint' => 'Behövs för friskvårdskvittot. ÅÅÅÅMMDD-NNNN.', 'attrs' => ' inputmode="numeric" maxlength="13"']) ?>
       <?php endif; ?>
       <?= partial('partials/order_terms', ['form' => $form]) ?>
-      <div class="btn-row"><button class="btn btn-primary" type="submit"><?= icon('wallet', 20) ?>Beställ – betala med Swish</button></div>
-      <p class="fhint">Efter beställningen visar vi hur du betalar. Vi använder dina uppgifter för att leverera beställningen, se <a href="<?= page_path('integritetspolicy') ?>">integritetspolicyn</a>.</p>
+      <div class="btn-row"><button class="btn btn-primary" type="submit"><?= icon('wallet', 20) ?><?= config('Payments')->stripeEnabled() ? 'Gå till betalning' : 'Beställ – betala med Swish' ?></button></div>
+      <p class="fhint"><?= config('Payments')->stripeEnabled() ? 'Du skickas vidare till Stripes säkra kassa.' : 'Efter beställningen visar vi hur du betalar.' ?> Vi använder dina uppgifter för att leverera beställningen, se <a href="<?= page_path('integritetspolicy') ?>">integritetspolicyn</a>.</p>
     </div>
     <div class="card">
       <h3 class="checkout-title">Så går köpet till</h3>

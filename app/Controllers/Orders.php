@@ -2,15 +2,16 @@
 
 namespace App\Controllers;
 
+use App\Libraries\Payments\PaymentException;
 use App\Models\CampaignModel;
 use App\Models\OrderModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
 use CodeIgniter\HTTP\RedirectResponse;
 
 /**
- * Beställning av spelpotter, presentkort och (när B04 är beslutat)
- * friskvårdspotter. Betalning sker med Swish; swing-order levererar koden när
- * betalningen är verifierad. Beloppen valideras alltid mot Config\Swing eller
+ * Beställning av spelpotter, presentkort och friskvårdspotter. Betalning med
+ * Swish (swing-order verifierar) eller Stripe Checkout (Config\Payments);
+ * swing-order levererar koden när betalningen är klar. Beloppen valideras alltid mot Config\Swing eller
  * en aktiv kampanj — aldrig mot värden från formuläret.
  */
 class Orders extends BaseController
@@ -83,10 +84,36 @@ class Orders extends BaseController
             'gift_card_design' => $slug === 'presentkort' && $config->supportsGiftCardDesign() ? $values['design'] : null,
         ]);
 
+        if ($order['payment_provider'] === 'stripe') {
+            return $this->toCheckout($order);
+        }
+
         return redirect()->to(page_path('tack/bestallning/' . $order['public_token']), 303);
     }
 
-    /** Tacksidan med Swish-instruktioner. Nås bara med orderns hemliga token. */
+    /** Nytt betalförsök för en Stripe-order som inte är betald (t.ex. efter avbrutet köp). */
+    public function retry(string $token): RedirectResponse
+    {
+        $order = model(OrderModel::class)->findByToken($token);
+
+        if ($order === null || $order['payment_provider'] !== 'stripe' || $order['payment_status'] === 'paid'
+            || ! config('Payments')->stripeEnabled() || strtotime($order['created_at']) < strtotime('-1 day')) {
+            return redirect()->to(page_path('tack/bestallning/' . $token), 303);
+        }
+
+        return $this->toCheckout($order);
+    }
+
+    private function toCheckout(array $order): RedirectResponse
+    {
+        try {
+            return redirect()->to(service('checkoutService')->start($order), 303);
+        } catch (PaymentException) {
+            return redirect()->to(page_path('tack/bestallning/' . $order['public_token']) . '?fel=1', 303);
+        }
+    }
+
+    /** Tacksidan: Swish-instruktioner eller Stripe-betalningens läge. Nås bara med orderns hemliga token. */
     public function thanks(string $token): string
     {
         $order = model(OrderModel::class)->findByToken($token);
@@ -97,9 +124,25 @@ class Orders extends BaseController
 
         $this->response->setHeader('Cache-Control', 'no-store');
 
+        // Tillbaka från Stripe: bekräfta betalningen direkt (webhooken kan vara försenad).
+        $sessionId = (string) $this->request->getGet('session_id');
+        if ($order['payment_provider'] === 'stripe' && $order['payment_status'] !== 'paid' && preg_match('/^cs_[A-Za-z0-9_]+$/', $sessionId)) {
+            try {
+                $fulfilled = service('checkoutService')->fulfill($sessionId);
+                if ($fulfilled !== null && $fulfilled['reference'] === $order['reference']) {
+                    $order = $fulfilled;
+                }
+            } catch (PaymentException) {
+                // Webhooken levererar ändå — sidan visar "behandlas".
+            }
+        }
+
         return view('pages/tack_bestallning', [
             'order'     => $order,
-            'meta'      => ['title' => 'Tack för din beställning | Swing Golf & Lounge', 'description' => 'Så betalar du din beställning med Swish.', 'canonical' => null, 'robots' => 'noindex'],
+            'returned'  => $sessionId !== '',
+            'cancelled' => $this->request->getGet('avbruten') === '1',
+            'failed'    => $this->request->getGet('fel') === '1',
+            'meta'      => ['title' => 'Tack för din beställning | Swing Golf & Lounge', 'description' => 'Din beställning hos Swing Golf & Lounge.', 'canonical' => null, 'robots' => 'noindex'],
             'navActive' => '',
             'trail'     => [],
             'jsonLd'    => [],

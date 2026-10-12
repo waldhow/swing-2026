@@ -4,6 +4,8 @@ use App\Models\OrderModel;
 $o    = $order;
 $when = static fn (?string $v): string => $v ? date('Y-m-d H:i', strtotime($v)) : '—';
 $designs = config('Swing')->giftCardDesigns;
+$stripe  = $o['payment_provider'] === 'stripe';
+$dash    = 'https://dashboard.stripe.com/' . (config('Payments')->isTestMode() ? 'test/' : '') . 'payments/';
 ?>
 <?= $this->extend('admin/layout') ?>
 <?= $this->section('content') ?>
@@ -29,6 +31,17 @@ $designs = config('Swing')->giftCardDesigns;
       <?php if (! empty($o['gift_card_name'])): ?><dt>Namn på presentkortet</dt><dd><?= esc($o['gift_card_name']) ?></dd><?php endif; ?>
       <?php if (! empty($o['gift_card_design'])): ?><dt>Design</dt><dd><?= esc($designs[$o['gift_card_design']] ?? $o['gift_card_design']) ?></dd><?php endif; ?>
     </dl>
+    <h2>Betalning</h2>
+    <dl class="adm-dl">
+      <dt>Sätt</dt><dd><?= $stripe ? 'Stripe (betalas i kassan)' : 'Swish (kontrolleras i swing-order)' ?></dd>
+      <?php if ($stripe): ?>
+      <dt>Status</dt><dd><?= esc(OrderModel::PAYMENT_STATUSES[$o['payment_status']] ?? $o['payment_status']) ?></dd>
+      <dt>Betald</dt><dd><?= esc($when($o['paid_at'])) ?></dd>
+      <dt>Kassaförsök</dt><dd><?= (int) $o['checkout_attempts'] ?></dd>
+      <?php if (! empty($o['stripe_payment_intent'])): ?><dt>Stripe-betalning</dt><dd><a href="<?= esc($dash . rawurlencode($o['stripe_payment_intent'])) ?>" target="_blank" rel="noopener"><?= esc($o['stripe_payment_intent']) ?></a></dd><?php endif; ?>
+      <?php if (! empty($o['stripe_session_id'])): ?><dt>Checkout-session</dt><dd class="adm-small"><?= esc($o['stripe_session_id']) ?></dd><?php endif; ?>
+      <?php endif; ?>
+    </dl>
   </section>
   <section class="adm-card">
     <h2>Köpare</h2>
@@ -45,7 +58,7 @@ $designs = config('Swing')->giftCardDesigns;
       <dt>Överlämnad</dt><dd><?= esc($when($o['forwarded_at'])) ?></dd>
       <dt>Försök</dt><dd><?= (int) $o['forward_attempts'] ?></dd>
     </dl>
-    <?php if (! empty($o['forward_error']) || empty($o['forwarded_at'])): ?>
+    <?php if ((! empty($o['forward_error']) || empty($o['forwarded_at'])) && ! OrderModel::awaitsPayment($o)): ?>
     <form method="post" action="<?= site_url('admin/bestallningar/' . $o['id'] . '/skicka-igen/') ?>">
       <?= csrf_field() ?>
       <button type="submit" class="adm-btn adm-btn-primary">Skicka till swing-order igen</button>

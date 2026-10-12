@@ -19,7 +19,7 @@ class Orders extends BaseAdminController
         $filter = (string) $this->request->getGet('visa');
 
         if ($filter === 'fel') {
-            $model->groupStart()->where('forward_error IS NOT NULL', null, false)->orWhere('forwarded_at', null)->groupEnd();
+            $model->needsForward();
         }
 
         return $this->render('orders/index', [
@@ -44,6 +44,10 @@ class Orders extends BaseAdminController
     public function resend(int $id): RedirectResponse
     {
         $order = $this->find($id);
+
+        if (OrderModel::awaitsPayment($order)) {
+            return $this->back("bestallningar/{$id}", "Order {$order['reference']} är inte betald och lämnas inte över.", 'error');
+        }
 
         try {
             $ok = service('orderService')->resend($id);

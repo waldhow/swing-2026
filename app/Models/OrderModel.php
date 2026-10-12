@@ -20,8 +20,43 @@ class OrderModel extends Model
         'reference', 'public_token', 'order_type', 'product_name', 'campaign_id', 'pay_amount',
         'value_amount', 'buyer_name', 'buyer_email', 'personal_number_enc', 'gift_card_name',
         'gift_card_design', 'channel', 'forwarded_at', 'forward_attempts', 'forward_error',
-        'customer_mailed_at',
+        'customer_mailed_at', 'payment_provider', 'payment_status', 'paid_at', 'stripe_session_id',
+        'stripe_payment_intent', 'checkout_attempts',
     ];
+
+    public const PAYMENT_STATUSES = ['pending' => 'Väntar på betalning', 'paid' => 'Betald', 'failed' => 'Misslyckad', 'expired' => 'Utgången'];
+
+    /** Ordrar som borde ha lämnats till swing-order men inte har det. Obetalda Stripe-ordrar räknas inte. */
+    public function needsForward(): static
+    {
+        return $this->groupStart()->where('forward_error IS NOT NULL', null, false)->orWhere('forwarded_at', null)->groupEnd()
+            ->groupStart()->where('payment_provider', 'swish')->orWhere('payment_status', 'paid')->groupEnd();
+    }
+
+    /** Stripe-order som inte är betald — får aldrig lämnas över. */
+    public static function awaitsPayment(array $order): bool
+    {
+        return ($order['payment_provider'] ?? 'swish') === 'stripe' && ($order['payment_status'] ?? '') !== 'paid';
+    }
+
+    /**
+     * Markerar ordern som betald — atomärt, så att bara ett anrop "vinner" även
+     * om webhook och tacksida körs samtidigt. Returnerar true för vinnaren.
+     */
+    public function claimPaid(int $id, ?string $paymentIntent): bool
+    {
+        $this->builder()
+            ->where('id', $id)
+            ->where('payment_status !=', 'paid')
+            ->update([
+                'payment_status'        => 'paid',
+                'paid_at'               => date('Y-m-d H:i:s'),
+                'stripe_payment_intent' => $paymentIntent,
+                'updated_at'            => date('Y-m-d H:i:s'),
+            ]);
+
+        return $this->db->affectedRows() === 1;
+    }
 
     /**
      * Skapar en order med unik referens (W-ÅÅMMDD-XXXX) och hemlig token för tacksidan.

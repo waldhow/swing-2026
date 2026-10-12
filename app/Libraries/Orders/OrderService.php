@@ -4,14 +4,19 @@ namespace App\Libraries\Orders;
 
 use App\Models\OrderModel;
 use Config\Orders;
+use Config\Payments;
 use Config\Swing;
 use RuntimeException;
 use Throwable;
 
 /**
  * Lägger beställningar: sparar lokalt, lämnar över till swing-order och
- * skickar Swish-instruktioner till kunden. Lokalt sparad order går aldrig
- * förlorad — misslyckas överlämningen kan admin skicka igen.
+ * mejlar kunden. Lokalt sparad order går aldrig förlorad — misslyckas
+ * överlämningen kan admin skicka igen.
+ *
+ * Manuell Swish: ordern lämnas över direkt och kunden får Swish-instruktioner.
+ * Stripe: ordern väntar på betalning och lämnas över först när CheckoutService
+ * har bekräftat betalningen (fulfillPaid).
  */
 final class OrderService
 {
@@ -20,6 +25,7 @@ final class OrderService
         private readonly OrderGateway $gateway,
         private readonly Orders $config,
         private readonly Swing $swing,
+        private readonly Payments $payments,
     ) {
     }
 
@@ -41,13 +47,30 @@ final class OrderService
             $data['personal_number_enc'] = $this->encrypt($personalNumber);
         }
 
-        $data['channel'] = $this->gateway->name();
-        $order           = $this->orders->createOrder($data);
+        $data['channel']          = $this->gateway->name();
+        $data['payment_provider'] = $this->payments->stripeEnabled() ? 'stripe' : 'swish';
+        $data['payment_status']   = 'pending';
+        $order                    = $this->orders->createOrder($data);
+
+        if ($order['payment_provider'] === 'stripe') {
+            // Lämnas över först när betalningen är bekräftad.
+            return $order;
+        }
 
         $this->forward($order, $personalNumber);
         $this->sendCustomerReceipt($order);
 
         return $this->orders->find($order['id']);
+    }
+
+    /**
+     * Betald Stripe-order: lämna över till swing-order och bekräfta för kunden.
+     * Anropas bara av den som vann OrderModel::claimPaid(), alltså en gång per order.
+     */
+    public function fulfillPaid(array $order): void
+    {
+        $this->forward($order);
+        $this->sendCustomerReceipt($this->orders->find($order['id']));
     }
 
     /**
@@ -87,6 +110,9 @@ final class OrderService
         $order = $this->orders->find($id);
         if ($order === null) {
             throw new RuntimeException('Ordern finns inte.');
+        }
+        if (OrderModel::awaitsPayment($order)) {
+            throw new RuntimeException('Ordern är inte betald.');
         }
 
         return $this->forward($order);

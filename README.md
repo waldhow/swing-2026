@@ -39,17 +39,17 @@ Alla fakta läses från konfigurationen, så samma uppgift visas likadant på va
 ## Struktur
 
 ```
-app/Config/           Swing, Booking, Pages, Orders, Images, Redirects, Seo, Inquiries, Admin
-app/Controllers/      Pages, Competitions, Inquiries, Orders, Seo + Admin/*
+app/Config/           Swing, Booking, Pages, Orders, Payments, Images, Redirects, Seo, Inquiries, Admin
+app/Controllers/      Pages, Competitions, Inquiries, Orders, StripeWebhook, Seo + Admin/*
 app/Filters/          CanonicalUrl (301 + avslutande snedstreck), AdminAuth
-app/Libraries/        Pricing, Faq, StructuredData, PageRenderer, InquiryService, Orders/*
+app/Libraries/        Pricing, Faq, StructuredData, PageRenderer, InquiryService, Orders/*, Payments/* (Stripe Checkout)
 app/Models/           Competition, Campaign, Inquiry, Order, AdminUser
 app/Views/layouts/    main.php (SEO-huvud, navigering, sidfot)
 app/Views/partials/   återanvändbara komponenter (hero, pristabell, FAQ, formulär …)
 app/Views/pages/      en vy per sida
 public/assets/        site.css (prototypens tema, orört), swing.css (tillägg), site.js, bilder
 bin/build-loopia.sh   bygger uppladdningspaket för Loopia
-docs/                 drift, swing-order-kontraktet, bilder, kravstatus
+docs/                 drift, swing-order-kontraktet, Stripe, bilder, kravstatus
 krav/                 kravspecifikationerna
 ```
 
@@ -58,7 +58,7 @@ Delvyer renderas med `partial()` i stället för `view()`, så att variabler int
 ## Tester och kvalitet
 
 ```bash
-composer test    # PHPUnit: prisregler, låsta fakta, orderformat, alla sidors SEO, formulär, admin
+composer test    # PHPUnit: prisregler, låsta fakta, orderformat, alla sidors SEO, formulär, admin, Stripe-kassa
 composer lint
 ```
 
@@ -73,6 +73,10 @@ CHECK_EXTERNAL=1 BASE_URL=… npx playwright test               # även externa 
 ```
 
 Kravstatus och testbevis finns i `docs/kravstatus.md`.
+
+## Betalning
+
+Standard är manuell Swish via swing-order. Stripe Checkout finns byggt men är avstängt tills `payments.provider = stripe` och nycklarna är satta. Se [`docs/stripe.md`](docs/stripe.md) för test i sandlåda och checklistan inför lansering.
 
 ## Driftsättning
 

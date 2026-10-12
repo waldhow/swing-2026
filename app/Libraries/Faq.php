@@ -47,7 +47,7 @@ final class Faq
                 ['id' => 'spelpott', 'q' => 'Vad är en spelpott?', 'a' => 'Förbetalt spelvärde som du använder när du bokar. Våra ordinarie potter ger extra spelvärde. ' . $link('spelpotter', 'Se spelpotter') . '.'],
                 ['id' => 'presentkort', 'q' => 'Har ni presentkort?', 'a' => esc("Ja, digitala presentkort som löses in via {$b->provider}.") . ' ' . $link('presentkort', 'Läs om presentkort') . '.'],
                 ['id' => 'epassi', 'q' => 'Tar ni Epassi?', 'a' => 'Ja, vi erbjuder friskvårdsalternativ via Epassi. ' . $link('friskvard', 'Friskvård och Epassi') . '.'],
-                ['id' => 'friskvard-direkt', 'q' => 'Kan jag köpa friskvård direkt hos er?', 'a' => 'Ja, du kan köpa en friskvårdspott direkt hos oss och betala med Swish. Ange ditt personnummer i beställningen, så får du kvittot som underlag för friskvårdsbidraget. ' . $link('friskvard', 'Köp friskvårdspott') . '.'],
+                ['id' => 'friskvard-direkt', 'q' => 'Kan jag köpa friskvård direkt hos er?', 'a' => esc('Ja, du kan köpa en friskvårdspott direkt hos oss och betala med ' . config('Payments')->methodsText() . '.') . ' Ange ditt personnummer i beställningen, så får du kvittot som underlag för friskvårdsbidraget. ' . $link('friskvard', 'Köp friskvårdspott') . '.'],
             ],
             'Spel och utrustning' => [
                 ['id' => 'hur-manga', 'q' => 'Hur många kan spela i en simulator?', 'a' => esc("Vi rekommenderar {$s->recommendedPlayers} personer, men det finns ingen fast maxgräns för själva bokningen. Tänk på att alla ska få plats och kunna spela säkert.")],

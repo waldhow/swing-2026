@@ -22,6 +22,8 @@ foreach (['spelpotter', 'presentkort', 'friskvard'] as $slug) {
 $routes->get('tavlingar/(:segment)', 'Competitions::show/$1');
 $routes->get('tack/forfragan', 'Inquiries::thanks');
 $routes->get('tack/bestallning/(:segment)', 'Orders::thanks/$1');
+$routes->post('tack/bestallning/(:segment)/betala', 'Orders::retry/$1');
+$routes->post('stripe/webhook', 'StripeWebhook::receive');
 
 $routes->get('sitemap.xml', 'Seo::sitemap');
 $routes->get('robots.txt', 'Seo::robots');
