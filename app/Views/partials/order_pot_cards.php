@@ -15,7 +15,6 @@ $legend       ??= 'Välj spelpott';
 $deliver      ??= 'din kod';
 $selected      = $form['values']['produkt'] ?? '';
 $error         = $form['errors']['produkt'] ?? null;
-$booking       = config('Booking');
 $themes        = ['', ' burgundy', ' bottle'];
 
 $cards = [];
@@ -66,7 +65,7 @@ $tag = $interactive ? 'label' : 'div';
   <div class="pot-checkout">
     <div class="card form">
       <h3 class="checkout-title">Dina uppgifter</h3>
-      <?= partial('partials/order_buyer', ['form' => $form, 'emailHint' => "Ange e-postadressen du använder i {$booking->provider} – potten kopplas till den."]) ?>
+      <?= partial('partials/order_buyer', ['form' => $form, 'emailHint' => 'Vi skickar ' . $deliver . ' till den här adressen.']) ?>
       <?php if (! empty($withPersonalNumber)): ?>
       <?= partial('partials/field', ['name' => 'personnummer', 'label' => 'Personnummer', 'required' => true, 'autocomplete' => 'off', 'form' => $form, 'hint' => 'Behövs för friskvårdskvittot. ÅÅÅÅMMDD-NNNN.', 'attrs' => ' inputmode="numeric" maxlength="13"']) ?>
       <?php endif; ?>

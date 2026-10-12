@@ -45,6 +45,8 @@
     <php>
         <server name="app.baseURL" value="http://example.com/"/>
         <server name="CODEIGNITER_SCREAM_DEPRECATIONS" value="0"/>
+        <!-- Testerna styr betalningen själva; en lokal .env med Stripe påslaget får inte läcka in. -->
+        <env name="payments.provider" value="swish" force="true"/>
         <!-- Directory containing phpunit.xml -->
         <const name="HOMEPATH" value="./"/>
         <!-- Directory containing the Paths config file -->

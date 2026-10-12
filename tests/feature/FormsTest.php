@@ -163,6 +163,16 @@ final class FormsTest extends CIUnitTestCase
         $this->assertStringContainsString('123 217 2559', $sent[1]['body']);
     }
 
+    public function testOrderFormsPromiseCodeByEmail(): void
+    {
+        $this->assertStringContainsString('Vi skickar din kod till den här adressen.', $this->body($this->get('spelpotter/')));
+        $this->assertStringContainsString('Vi skickar din kod och ditt kvitto till den här adressen.', $this->body($this->get('friskvard/')));
+
+        foreach (['spelpotter/', 'friskvard/', 'kopvillkor/'] as $path) {
+            $this->assertStringNotContainsString('kopplas till', $this->body($this->get($path)), "{$path}: potten levereras som kod, inte via e-postkoppling i Sweetspot");
+        }
+    }
+
     public function testTamperedPotIsRejected(): void
     {
         $result = $this->post('spelpotter', ['produkt' => 'pott-999', 'name' => 'Anna', 'email' => 'anna@exempel.se', 'villkor' => '1']);
