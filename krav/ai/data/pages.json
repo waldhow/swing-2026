@@ -1,0 +1,234 @@
+{
+  "pages": [
+    {
+      "id": "start",
+      "url": "/",
+      "name": "Startsida",
+      "priority": "P0",
+      "readiness": "Utkast för godkännande",
+      "intent": "Inomhusgolf Karlskrona / varumärke",
+      "h1": "Golfen tar inte paus för vädret",
+      "title": "Inomhusgolf i Karlskrona | Swing Golf & Lounge",
+      "description": "Spela inomhusgolf med TrackMan iO hos Swing i Nättraby. Fyra simulatorer, skön lounge och öppet 06–00 alla dagar. Boka din golftid.",
+      "cta": "Boka tid / Köp spelpott"
+    },
+    {
+      "id": "inomhusgolf",
+      "url": "/inomhusgolf/",
+      "name": "Inomhusgolf",
+      "priority": "P0",
+      "readiness": "Utkast för godkännande",
+      "intent": "inomhusgolf Karlskrona, inomhusgolf Blekinge",
+      "h1": "Inomhusgolf i Karlskrona – spela året runt",
+      "title": "Inomhusgolf Karlskrona | Spela året runt hos Swing",
+      "description": "Spela inomhusgolf året runt i Karlskrona. Fyra TrackMan iO-simulatorer, ombonad lounge och öppet 06–00 varje dag i Nättraby.",
+      "cta": "Boka simulator"
+    },
+    {
+      "id": "priser",
+      "url": "/priser/",
+      "name": "Priser",
+      "priority": "P0",
+      "readiness": "Bekräftade priser, utkaststext",
+      "intent": "golfsimulator pris Karlskrona",
+      "h1": "Priser för golfsimulatorer",
+      "title": "Priser för golfsimulator i Karlskrona | Swing",
+      "description": "Se priser för inomhusgolf hos Swing Golf & Lounge. Från 150 kr per simulator och timme. Du betalar för simulatorn, inte per person.",
+      "cta": "Boka tid / Se spelpotter"
+    },
+    {
+      "id": "boka",
+      "url": "/boka/",
+      "name": "Boka golftid",
+      "priority": "P0",
+      "readiness": "Klar för Sweetspot-flöde; integrationslänk behövs",
+      "intent": "boka golfsimulator Karlskrona",
+      "h1": "Boka golfsimulator hos Swing",
+      "title": "Boka golfsimulator i Karlskrona | Swing",
+      "description": "Boka inomhusgolf hos Swing Golf & Lounge i Nättraby. Välj bland fyra TrackMan iO-simulatorer och spela alla dagar 06–00.",
+      "cta": "Öppna Sweetspot-bokningen"
+    },
+    {
+      "id": "simulatorer",
+      "url": "/trackman-io/",
+      "name": "TrackMan iO & simulatorer",
+      "priority": "P0",
+      "readiness": "Utkast; teknisk faktakoll krävs",
+      "intent": "TrackMan iO, golfsimulator Karlskrona",
+      "h1": "Fyra golfsimulatorer med TrackMan iO",
+      "title": "TrackMan iO & golfsimulatorer | Swing Karlskrona",
+      "description": "Spela och träna i fyra simulatorer med TrackMan iO hos Swing Golf & Lounge i Nättraby. Läs om teknik, spel och våra simulatorbås.",
+      "cta": "Boka en TrackMan-simulator"
+    },
+    {
+      "id": "foretag",
+      "url": "/foretagsevent/",
+      "name": "Företagsevent",
+      "priority": "P0",
+      "readiness": "After Work förankrad idé; övriga paket förslag",
+      "intent": "företagsevent Karlskrona, kickoff golf",
+      "h1": "Företagsevent i Karlskrona – golf och gemenskap",
+      "title": "Företagsevent & After Work Karlskrona | Swing",
+      "description": "Boka företagsevent med golf hos Swing i Karlskrona. Fyra TrackMan-simulatorer, lounge, catering och skräddarsydda upplägg på offert.",
+      "cta": "Begär offert"
+    },
+    {
+      "id": "grupp",
+      "url": "/gruppbokning/",
+      "name": "Gruppbokning",
+      "priority": "P1",
+      "readiness": "Nytt kompletterande utkast",
+      "intent": "gruppbokning golf Karlskrona, golf med vänner",
+      "h1": "Gruppbokning – spela golf tillsammans",
+      "title": "Gruppbokning & golf för sällskap | Swing",
+      "description": "Boka inomhusgolf för kompisgäng, golfklubb, skola eller förening hos Swing i Nättraby. Fyra simulatorer och lounge för gemenskap.",
+      "cta": "Fråga om gruppbokning"
+    },
+    {
+      "id": "spelpotter",
+      "url": "/spelpotter/",
+      "name": "Spelpotter",
+      "priority": "P0",
+      "readiness": "Belopp bekräftade; kassa beroende av integration",
+      "intent": "spelpott golf, inomhusgolf erbjudande",
+      "h1": "Spelpotter – mer golf för pengarna",
+      "title": "Spelpotter för inomhusgolf | Swing Golf & Lounge",
+      "description": "Köp spelpott hos Swing Golf & Lounge och få extra spelvärde. Swing 1000, 2000 och 3000. Gäller ett år och används via Sweetspot.",
+      "cta": "Köp spelpott"
+    },
+    {
+      "id": "friskvard",
+      "url": "/friskvard/",
+      "name": "Friskvård & Epassi",
+      "priority": "P0",
+      "readiness": "Belopp bekräftade; Epassi-/skatteregler måste kontrolleras",
+      "intent": "Epassi golf Karlskrona, golf friskvård",
+      "h1": "Använd friskvårdsbidraget till golf",
+      "title": "Friskvård & Epassi – inomhusgolf | Swing",
+      "description": "Använd ditt friskvårdsbidrag till inomhusgolf hos Swing i Karlskrona. Se Epassi-alternativ och information om hur du bokar.",
+      "cta": "Öppna Swing hos Epassi"
+    },
+    {
+      "id": "presentkort",
+      "url": "/presentkort/",
+      "name": "Presentkort",
+      "priority": "P0",
+      "readiness": "Utkast; Stripe planerat, liveköpflöde ej fastställt",
+      "intent": "presentkort golf Karlskrona",
+      "h1": "Ge bort golfglädje – presentkort på Swing",
+      "title": "Presentkort på golf i Karlskrona | Swing",
+      "description": "Ge bort inomhusgolf med ett digitalt presentkort från Swing Golf & Lounge. Välj 100–1 000 kr och lös in det via Sweetspot.",
+      "cta": "Köp presentkort"
+    },
+    {
+      "id": "tavlingar",
+      "url": "/tavlingar/",
+      "name": "Tävlingar & aktiviteter",
+      "priority": "P0",
+      "readiness": "Grundtext klar; aktuell tävlingsdata behövs",
+      "intent": "golftävlingar Karlskrona, simulatorgolf tävling",
+      "h1": "Golftävlingar och aktiviteter hos Swing",
+      "title": "Golftävlingar & aktiviteter i Karlskrona | Swing",
+      "description": "Delta i TrackMan-tävlingar och golfaktiviteter hos Swing i Nättraby. Öppna tävlingar, privata utmaningar, ligor och tourer.",
+      "cta": "Se aktuella tävlingar / Fråga om egen tävling"
+    },
+    {
+      "id": "team",
+      "url": "/team-swing/",
+      "name": "Team Swing",
+      "priority": "P1",
+      "readiness": "Grundtext klar; medlemmar ännu inte presenterade",
+      "intent": "Team Swing golf",
+      "h1": "Team Swing – för golfare som vågar satsa",
+      "title": "Team Swing | Swing Golf & Lounge",
+      "description": "Team Swing stöttar golfare som satsar på sin utveckling. Upptäck vårt engagemang för golfen och lär känna teamet när det presenteras.",
+      "cta": "Se Team Swing"
+    },
+    {
+      "id": "om",
+      "url": "/om-oss/",
+      "name": "Om oss",
+      "priority": "P0",
+      "readiness": "Utkast; startår och namnform kräver kontroll",
+      "intent": "Swing Golf & Lounge Nättraby",
+      "h1": "En passion för golf. En kärlek till klubbkänslan.",
+      "title": "Om Swing Golf & Lounge | Inomhusgolf Karlskrona",
+      "description": "Lär känna Swing Golf & Lounge i Nättraby. Inspiration från skotska golfklubbar, ombonad lounge och fyra moderna TrackMan iO-simulatorer.",
+      "cta": "Boka tid / Kontakta oss"
+    },
+    {
+      "id": "kontakt",
+      "url": "/kontakt/",
+      "name": "Kontakt & hitta hit",
+      "priority": "P0",
+      "readiness": "Grundfakta bekräftade",
+      "intent": "Swing Golf & Lounge adress kontakt",
+      "h1": "Kontakta Swing Golf & Lounge",
+      "title": "Kontakt & hitta hit | Swing Golf & Lounge",
+      "description": "Hitta till Swing Golf & Lounge på Idrottsvägen 2B i Nättraby. Kontakt: info@swinggolf.se, 0455-32 34 01. Öppet alla dagar 06–00.",
+      "cta": "Ring / E-posta / Hitta hit"
+    },
+    {
+      "id": "faq",
+      "url": "/vanliga-fragor/",
+      "name": "Vanliga frågor",
+      "priority": "P0",
+      "readiness": "Utkast; tillgänglighetsfrågor att komplettera",
+      "intent": "frågor golfsimulator, boka inomhusgolf",
+      "h1": "Vanliga frågor om Swing Golf & Lounge",
+      "title": "Vanliga frågor om inomhusgolf | Swing",
+      "description": "Svar om bokning, priser, klädsel, entrékod, TrackMan, Epassi, presentkort och företag hos Swing Golf & Lounge i Karlskrona.",
+      "cta": "Boka tid / Kontakta oss"
+    },
+    {
+      "id": "infor",
+      "url": "/infor-besoket/",
+      "name": "Inför ditt besök",
+      "priority": "P0",
+      "readiness": "Stöds av regelbladet; förenklat språk",
+      "intent": "regler golfsimulator, inträde, TrackMan app",
+      "h1": "Inför ditt besök hos Swing",
+      "title": "Inför besöket – regler & dörrkod | Swing",
+      "description": "Allt inför ditt besök hos Swing: rena klubbor och skor, bokning, dörrkod, simulatorstart och vad du gör när du lämnar.",
+      "cta": "Boka simulator / Ring vid problem"
+    }
+  ],
+  "planned_guides": [
+    {
+      "title": "Vad är en golfsimulator?",
+      "url": "/golfguiden/vad-ar-en-golfsimulator/",
+      "brief": "Vad den gör, hur bokningen fungerar, förberedelser och nybörjarfrågor.",
+      "status": "Planerad – artikel ej färdigskriven"
+    },
+    {
+      "title": "TrackMan iO – så fungerar det",
+      "url": "/golfguiden/trackman-io/",
+      "brief": "Funktioner som finns i just Swings installation, träningsdata och skillnaden mot utomhusspel.",
+      "status": "Planerad – artikel ej färdigskriven"
+    },
+    {
+      "title": "Träna golf på vintern",
+      "url": "/golfguiden/trana-golf-pa-vintern/",
+      "brief": "Praktisk vinterträning, mål för passet, hur man följer utvecklingen.",
+      "status": "Planerad – artikel ej färdigskriven"
+    },
+    {
+      "title": "Hur lång tid tar en golfrunda i simulator?",
+      "url": "/golfguiden/hur-lang-tid-tar-en-golfrunda/",
+      "brief": "Faktorer: antal spelare, spelform, erfarenhet; inga påhittade exakta tider.",
+      "status": "Planerad – artikel ej färdigskriven"
+    },
+    {
+      "title": "Golf som företagsaktivitet",
+      "url": "/golfguiden/golf-som-foretagsaktivitet/",
+      "brief": "Fördelar, planering, antal deltagare, möjliga upplägg.",
+      "status": "Planerad – artikel ej färdigskriven"
+    },
+    {
+      "title": "Första gången på inomhusgolf",
+      "url": "/golfguiden/forsta-gangen-inomhusgolf/",
+      "brief": "Ta med dig, boka, koden, säkerhet och steg-för-steg.",
+      "status": "Planerad – artikel ej färdigskriven"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+# Swing Golf & Lounge — Apache-konfiguration för Loopia (och andra Apache-värdar).
+# Avslutande snedstreck och omdirigeringar från gamla WordPress-adresser sköts
+# i PHP (App\Filters\CanonicalUrl) så att samma regler gäller lokalt.
+
+Options -Indexes
+ServerSignature Off
+AddDefaultCharset UTF-8
+
+<IfModule mod_rewrite.c>
+	Options +FollowSymlinks
+	RewriteEngine On
+
+	# HTTPS och domän utan www (swinggolf.se). Gäller bara riktiga värdnamn,
+	# inte localhost, så att lokal Apache fungerar utan certifikat.
+	RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:\d+)?$ [NC]
+	RewriteCond %{HTTPS} !=on
+	RewriteCond %{HTTP:X-Forwarded-Proto} !=https
+	RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]
+	RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+	RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+	RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L]
+
+	# Dolda filer (.env, .git m.m.) ska aldrig serveras.
+	RewriteRule (^|/)\.(?!well-known/) - [F,L]
+
+	# Allt som inte är en befintlig fil går till CodeIgniter.
+	RewriteCond %{REQUEST_FILENAME} !-f
+	RewriteCond %{REQUEST_FILENAME} !-d
+	RewriteRule ^([\s\S]*)$ index.php/$1 [L,NC,QSA]
+
+	RewriteCond %{HTTP:Authorization} .
+	RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+</IfModule>
+
+<IfModule !mod_rewrite.c>
+	ErrorDocument 404 index.php
+</IfModule>
+
+# Säkerhetsrubriker (CodeIgniters SecureHeaders-filter sätter även några av dem).
+<IfModule mod_headers.c>
+	Header always unset X-Powered-By
+	Header unset X-Powered-By
+	Header always set X-Content-Type-Options "nosniff"
+	Header always set Referrer-Policy "strict-origin-when-cross-origin"
+	Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+	Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on'"
+</IfModule>
+
+# Komprimering av textresurser.
+<IfModule mod_deflate.c>
+	AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/javascript image/svg+xml application/ld+json
+</IfModule>
+
+# Långtidscache för statiska filer. Byt filnamn eller lägg till ?v= vid ändring.
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresByType text/css "access plus 7 days"
+	ExpiresByType application/javascript "access plus 7 days"
+	ExpiresByType image/webp "access plus 30 days"
+	ExpiresByType image/jpeg "access plus 30 days"
+	ExpiresByType image/png "access plus 30 days"
+	ExpiresByType image/svg+xml "access plus 30 days"
+	ExpiresByType font/woff2 "access plus 1 year"
+</IfModule>
+
+<IfModule mod_mime.c>
+	AddType font/woff2 .woff2
+	AddType image/webp .webp
+</IfModule>

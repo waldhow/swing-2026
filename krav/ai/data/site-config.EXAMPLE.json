@@ -1,0 +1,122 @@
+{
+  "$schema_note": "Exempeldata, inte ett tekniskt bindande JSON-schema. Anpassa till befintligt ramverk. Inga secrets i klienten.",
+  "locale": "sv-SE",
+  "brand": "Swing Golf & Lounge",
+  "site": {
+    "productionDomain": "swinggolf.se",
+    "primaryMarket": "Nättraby / Karlskrona / Blekinge",
+    "openingHours": "06:00-00:00 daily",
+    "address": "Idrottsvägen 2B, Nättraby",
+    "phone": "0455-32 34 01",
+    "email": "info@swinggolf.se"
+  },
+  "booking": {
+    "activeProvider": "sweetspot",
+    "status": "ACTIVE_2026",
+    "verifiedBookingUrl": null,
+    "nextProvider": "INTERNAL_PLANNED_NOT_LIVE",
+    "entryCodeInfo": "4 digits, end with #; valid 20 min before/after booking start",
+    "freeCancellationUntilHours": 3
+  },
+  "commerce": {
+    "giftCardCheckoutStatus": "NEEDS_VERIFIED_PRODUCTION_URL",
+    "potCheckoutStatus": "NEEDS_VERIFIED_PRODUCTION_URL",
+    "stripePlanned": true,
+    "stripeLive": false
+  },
+  "pricing": {
+    "currency": "SEK",
+    "unit": "SIMULATOR_PER_HOUR",
+    "rules": [
+      {
+        "days": "all",
+        "from": "06:00",
+        "to": "08:00",
+        "amount": 150
+      },
+      {
+        "days": "mon-fri",
+        "from": "08:00",
+        "to": "15:00",
+        "amount": 250
+      },
+      {
+        "days": "mon-fri",
+        "from": "15:00",
+        "to": "00:00",
+        "amount": 280
+      },
+      {
+        "days": "sat-sun",
+        "from": "08:00",
+        "to": "00:00",
+        "amount": 280
+      }
+    ]
+  },
+  "creditPots": {
+    "normal": [
+      {
+        "pay": 1000,
+        "credit": 1150
+      },
+      {
+        "pay": 2000,
+        "credit": 2400
+      },
+      {
+        "pay": 3000,
+        "credit": 3750
+      }
+    ],
+    "epassi": [
+      {
+        "pay": 500,
+        "credit": 500
+      },
+      {
+        "pay": 1000,
+        "credit": 1000
+      },
+      {
+        "pay": 2000,
+        "credit": 2150
+      },
+      {
+        "pay": 2500,
+        "credit": 2200
+      },
+      {
+        "pay": 3000,
+        "credit": 3350
+      }
+    ],
+    "validMonths": 12,
+    "normalTransferable": true,
+    "epassiPersonal": true
+  },
+  "capacity": {
+    "simulators": 4,
+    "recommendedPlayersPerSimulator": "3-4",
+    "eventGolfers": "16-20",
+    "eventMaximumGuests": 25
+  },
+  "features": {
+    "eventsCatalog": "ONLY_VERIFIED_EVENTS",
+    "barAlcoholService": false,
+    "teamMemberProfiles": "WAIT_FOR_APPROVAL",
+    "englishLocale": false,
+    "newBookingSystem": false
+  },
+  "verificationRequired": [
+    "Start year",
+    "TrackMan switch year",
+    "live Sweetspot link",
+    "live present card checkout",
+    "live play credit checkout",
+    "Epassi payment rules and bonus",
+    "exact official partner names",
+    "approved production imagery",
+    "accessibility information"
+  ]
+}

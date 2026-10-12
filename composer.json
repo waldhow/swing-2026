@@ -1,0 +1,40 @@
+{
+    "name": "swing/swing-2026",
+    "description": "Swing Golf & Lounge — publik webbplats (CodeIgniter 4, MariaDB, Loopia)",
+    "license": "proprietary",
+    "type": "project",
+    "require": {
+        "php": "^8.2",
+        "codeigniter4/framework": "^4.7"
+    },
+    "require-dev": {
+        "fakerphp/faker": "^1.9",
+        "mikey179/vfsstream": "^1.6",
+        "phpunit/phpunit": "^10.5.16"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "Config\\": "app/Config/"
+        },
+        "exclude-from-classmap": [
+            "**/Database/Migrations/**"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\Support\\": "tests/_support"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "preferred-install": "dist",
+        "sort-packages": true
+    },
+    "scripts": {
+        "test": "phpunit --no-coverage",
+        "test:coverage": "phpunit",
+        "lint": "find app tests -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l > /dev/null && echo 'Lint OK'",
+        "build:loopia": "bin/build-loopia.sh"
+    }
+}

@@ -1,0 +1,413 @@
+<!doctype html><html lang="sv"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>AI-kravspecifikation — Swing Golf & Lounge</title><style>
+:root{--bg:#f7f5f0;--ink:#24352d;--soft:#637168;--line:#e1dfd6;--brass:#b38a57;--dark:#1e3027;--white:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth;scroll-padding-top:22px}body{font-family:ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);margin:0;font-size:15px;line-height:1.65}
+.top{background:#172720;color:#f5f1e8;padding:60px max(30px,calc((100vw - 1160px)/2)) 50px}.top small{color:#d3af7c;letter-spacing:.2em;text-transform:uppercase;font-weight:800}.top h1{font:400 clamp(36px,5vw,64px)/1.03 Georgia,serif;max-width:800px;margin:20px 0}.top p{max-width:840px;color:#d0d8cf;font-size:17px}.top .kpis{display:flex;gap:12px;flex-wrap:wrap;margin-top:26px}.top .kpis span{border:1px solid #5c6e61;border-radius:99px;padding:6px 13px;font-size:12px;color:#eee1d0}
+.layout{max-width:1480px;padding:40px 30px;margin:auto;display:grid;grid-template-columns:265px minmax(0,1fr);gap:42px}aside{position:sticky;top:20px;align-self:start;max-height:calc(100vh - 40px);overflow:auto;background:#21342b;border-radius:14px;padding:23px;color:white}aside strong{display:block;margin-bottom:15px;color:#e3bd89;letter-spacing:.13em;text-transform:uppercase;font-size:11px}aside a{display:block;padding:7px 4px;color:#d7dfd6;font-size:12px;text-decoration:none;border-bottom:1px solid #405248}aside a:hover{color:white}main{min-width:0;background:white;border:1px solid var(--line);border-radius:14px;padding:28px clamp(22px,4vw,54px);box-shadow:0 6px 27px #1b30270a;overflow-wrap:anywhere}main>h1:first-child{display:none}main h2{font:400 31px/1.2 Georgia,serif;margin:60px 0 14px;border-bottom:1px solid var(--line);padding-bottom:12px;scroll-margin-top:25px}main h3{font-size:19px;margin:26px 0 12px}main p,main li{max-width:900px}main strong{color:#253d2d}main hr{border:0;border-top:1px solid var(--line);margin:40px 0}main blockquote{border-left:4px solid var(--brass);padding:13px 20px;margin:18px 0;background:#f8f6ef}main blockquote p{margin:0}main code{font-size:12px;background:#f0f3ef;border-radius:4px;padding:3px 5px}main pre{overflow:auto}table{border-collapse:collapse;width:100%;font-size:13px;margin:20px 0}th,td{text-align:left;vertical-align:top;padding:11px;border-bottom:1px solid #e6e8e2}th{background:#eef1eb;color:#3f574a}tr:nth-child(even) td{background:#fbfcfa}td:first-child{font-weight:600}a{color:#38714e}.actions{display:flex;gap:8px;flex-wrap:wrap;margin:22px 0 0}.actions a,.actions button{padding:10px 15px;border-radius:8px;border:1px solid #a3b2a8;font-size:12px;font-weight:700;background:#d6ad78;color:#1d3026;text-decoration:none;cursor:pointer}.actions .light{background:transparent;color:#fff;border-color:#71877a}footer{padding:40px;text-align:center;color:#718277;font-size:12px}
+@media(max-width:940px){.layout{grid-template-columns:1fr;padding:18px;gap:18px}aside{position:static;max-height:none}aside nav{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 14px}main{padding:24px}.top{padding:46px 25px}}@media(max-width:560px){aside nav{grid-template-columns:1fr}.top{padding:35px 19px}.top h1{font-size:37px}main h2{font-size:27px}.layout{padding:9px}main{padding:15px}table{font-size:11px}th,td{padding:8px}}
+@media print{.top{color:#000;background:#fff;padding:10mm 0}.top p,.top .kpis span{color:#333}.top h1{font-size:35px}aside,.actions,footer{display:none!important}.layout{display:block;padding:0}main{border:0;box-shadow:none;padding:0}main h2{page-break-before:always}main h2:first-of-type{page-break-before:auto}table{font-size:9px}tr{break-inside:avoid}}
+</style></head><body><header class="top"><small>AI Implementation Brief / Version 2.0</small><h1>AI:n ska veta exakt vad den ska bygga.</h1><p>En konkret, testbar kravspecifikation för AI-kodagenten som ska vidareutveckla Swing Golf & Lounges befintliga webbplats – med tydliga faktakällor, funktionsgränser, acceptanskriterier och leveranskontrakt.</p><div class="kpis"><span>16 sidutkast</span><span>51 spårbara krav</span><span>14 öppna beslut</span><span>Sweetspot aktivt under 2026</span><span>Ingen tidplan</span></div><div class="actions"><a href="#s0">Läs AI-instruktionen ↓</a><button class="light" onclick="window.print()">Skriv ut som PDF</button><button class="light" id="copy">Kopiera agentens startinstruktion</button></div></header><div class="layout"><aside><strong>Innehåll</strong><nav><a href="#s0">0. Startinstruktion till AI-kodagenten</a><a href="#s1">1. Mål och produktgräns</a><a href="#s2">2. Source of truth och sanningsnivåer</a><a href="#s3">3. Sidstruktur, URL:er och innehåll</a><a href="#s4">4. Funktionell byggspecifikation</a><a href="#s5">5. Design och användbarhet</a><a href="#s6">6. SEO och AI-sök: tekniska acceptanskriterier</a><a href="#s7">7. Teknik, säkerhet och dataskydd</a><a href="#s8">8. Kravmatris och verifiering</a><a href="#s9">9. Arbetsordning för AI:n (utan tidplan)</a><a href="#s10">10. Leveranskontrakt – vad AI:n ska lämna tillbaka</a><a href="#s11">11. Öppna beslut – AI:n får inte gissa</a><a href="#s12">12. Filer som ingår i detta paket</a></nav></aside><main><h1>Swing Golf &amp; Lounge — AI Build Spec</h1>
+<p><strong>Version 2.0 · 11 oktober 2026 · Leveransform: styrande instruktioner för AI-kodagent.</strong></p>
+<blockquote>
+<p><strong>Uppdrag:</strong> Bygg/vidareutveckla Swing Golf &amp; Lounges publika webbplats utifrån den befintliga prototypen och den medföljande innehållshandoffen. Detta är en kravspecifikation för en <strong>AI som skriver kod</strong>, inte en allmän visionstext. Börja inte med att skriva om allt. Inspektera befintlig kod först. <strong>Ingen tidsplan ska skapas.</strong></p>
+</blockquote>
+<h2 id="s0">0. Startinstruktion till AI-kodagenten</h2>
+<p>Du är senior frontend-/fullstackutvecklare, UX-implementatör, teknisk SEO-specialist och QA-ansvarig för Swing Golf &amp; Lounge. Du har tillgång till webbplatsens källkodsrepo, detta dokument, befintlig designprototyp och tidigare innehållshandoff. Ditt ansvar är att implementera verifierbara webbplatssidor med hög kvalitet, inte att improvisera en ny produkt.</p>
+<p><strong>Innan du kodar:</strong></p>
+<ol>
+<li>Inspektera befintligt repo: ramverk, package scripts, routning, deploy, befintlig design, komponenter, innehåll, bildanvändning, API-integrationer och testuppsättning.</li>
+<li>Läs <code>AI_BUILD_SPEC.md</code>, <code>data/requirements.json</code>, <code>data/pages.json</code>, <code>data/content_drafts.json</code> och <code>references/Swing_Golf_Lounge_Handoff_Kravspecifikation.html</code>. Läs också regelbladet. Om något i underlaget motsäger ägarens senare bekräftade svar gäller ägarens senast bekräftade uppgift; oklarheter är <strong>blockers</strong>, inte en licens att gissa.</li>
+<li>Rapportera <em>nuläge, planerade ändringar, beroenden, blockerade beslut</em> i ett kort meddelande. Fortsätt därefter med den första säkra, fungerande implementationen.</li>
+<li>Implementera minsta sammanhängande leverans med P0-krav först; återanvänd komponenter och befintlig styling. Koda i små verifierbara steg, testa efter varje steg.</li>
+<li>Ge slutrapport med krav-ID, vilka filer som ändrades, kommandon/testresultat, skärmbilder om möjligt och kvarstående blockerade beslut. Rapportera aldrig ofullständiga funktioner som färdiga.</li>
+</ol>
+<p><strong>AI:n ska inte:</strong> hitta på priser/erbjudanden, anlita eller skapa leverantörstjänster, lansera en ny bokningsplattform av sig själv, konfigurera livebetalning utan nycklar och godkännande, eller publicera referensbilder som saknar bildgodkännande.</p>
+<hr />
+<h2 id="s1">1. Mål och produktgräns</h2>
+<p><strong>Huvudmål:</strong> Få fler att boka golftid. <strong>Sekundärt mål:</strong> Öka köp av spelpotter. Andra mål: förfrågningar om företagsevent, presentkort, friskvård och tydlig information inför besöket.</p>
+<p><strong>Positionering:</strong> Social golf, vänner och gemenskap; ett klassiskt skotskt klubbrum/pubkänsla med modern TrackMan iO-teknik. Varmt, kunnigt, välkomnande. Vi skriver <strong>”vi på Swing”</strong>. Undvik falska påståenden som ”bemannad bar”, ”öppen alkoholservering”, ”personlig instruktör alltid på plats” eller ”eget bokningssystem live”.</p>
+<p><strong>Ändra inte designriktningen:</strong> Utgångspunkt är prototypen <code>https://swing-public-staging.up.railway.app/</code> (referens, inte verifierad teknisk källa). Prioritera att återskapa dess känsla och återanvända kod där repo finns. Bilderna i paketet är endast referenser, <strong>inte godkända produktionsbilder</strong>. Bygg inga nya funktioner enbart för att de syns i prototypen.</p>
+<h3>Funktionella gränser</h3>
+<table>
+<thead>
+<tr>
+  <th>Område</th>
+  <th>NU / bekräftat</th>
+  <th>SENARE / ej aktivt</th>
+  <th>Krav på AI</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Bokning</td>
+  <td><strong>Sweetspot</strong> används under 2026</td>
+  <td>Eget bokningssystem planerat 2027</td>
+  <td>Gör bokningsprovider konfigurerbar. Hitta inte på intern boknings-API.</td>
+</tr>
+<tr>
+  <td>Simulering</td>
+  <td>Fyra <strong>TrackMan iO</strong></td>
+  <td>Gamla aG Locker är föråldrat</td>
+  <td>Använd TrackMan Golf och korrekta instruktioner.</td>
+</tr>
+<tr>
+  <td>Spelpotter</td>
+  <td>Finns och används via Sweetspot voucher</td>
+  <td>Stripe-kassa på egna sajten planerad</td>
+  <td>Äkta fungerande köp-/bokningslänkar eller tydligt ej aktivt.</td>
+</tr>
+<tr>
+  <td>Presentkort</td>
+  <td>Digitala och löses in via Sweetspot</td>
+  <td>Stripe-upplägg föreslaget</td>
+  <td>Säkerställ riktig köpväg; bygg ingen låtsascheckout.</td>
+</tr>
+<tr>
+  <td>Företagsevent</td>
+  <td>Offert och catering kan ordnas</td>
+  <td>Alkoholserveringstillstånd ej färdigt</td>
+  <td>Visa inte serveringstillstånd som beviljat.</td>
+</tr>
+<tr>
+  <td>Tävlingar</td>
+  <td>Öppna och privata tävlingar</td>
+  <td>CMS/event-API ännu obekräftat</td>
+  <td>Implementera endast verifierade, publicerade event.</td>
+</tr>
+<tr>
+  <td>Team Swing</td>
+  <td>Team finns, nytt team presenteras senare</td>
+  <td>Medlemsprofiler saknar godkänt material</td>
+  <td>Publicera inte påhittade spelare eller deras avtal.</td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="s2">2. Source of truth och sanningsnivåer</h2>
+<p>Källprioritet för verksamhetsuppgifter:</p>
+<ol>
+<li>Senaste uttryckliga, bekräftade besked från verksamhetsägaren i detta projekt.</li>
+<li><code>data/site-config.EXAMPLE.json</code> <strong>endast som initial strukturell sammanställning</strong> – kontrollera operativa länkar, särskilt <code>null</code>.</li>
+<li><code>references/Regler &amp; information - org.docx</code> för instruktioner; den gamla sidan om aG Locker är <strong>föråldrad</strong>.</li>
+<li><code>references/Swing_Golf_Lounge_Handoff_Kravspecifikation.html</code> och <code>data/content_drafts.json</code> för copy, URL-översikt och krav. Det är <strong>utkast</strong>, inte automatiskt godkänt innehåll.</li>
+<li>Designprototypen och referensbilderna för visuell riktning, <strong>inte</strong> för verksamhetsfakta.</li>
+</ol>
+<p>Markera oklarheter i <code>BLOCKERS.md</code> eller slutrapport. Använd följande status internt: <code>CONFIRMED</code>, <code>DRAFT_REQUIRES_APPROVAL</code>, <code>PLANNED_NOT_LIVE</code>, <code>UNKNOWN_BLOCKING</code>. På offentlig sajt syns enbart bekräftad information.</p>
+<h3>Låsta fakta att återanvända</h3>
+<ul>
+<li><strong>Företag:</strong> Swing Golf &amp; Lounge. <strong>Adress:</strong> Idrottsvägen 2B, Nättraby, Karlskrona, Blekinge. <strong>Telefon:</strong> 0455-32 34 01. <strong>Mejl:</strong> info@swinggolf.se. <strong>Öppet:</strong> alla dagar 06.00–00.00, normalt obemannat.</li>
+<li><strong>Anläggning:</strong> cirka 250 m². Fyra TrackMan iO-simulatorer; simulator 1 &amp; 3 slagdukar cirka 5,5 × 3 m, simulator 2 &amp; 4 cirka 4,5 × 3 m. Rekommenderat 3–4 spelare/simulator, <strong>ingen fast angiven maxgräns per simulator</strong>. Evenemang cirka 16–20 golfare och upp till 25 totalt i lokalen.</li>
+<li><strong>Miljö:</strong> mörk, mysig skotsk klubbhus-/pubkänsla, skinnsoffor och fåtöljer, loungemöbler, bardisk, kaffe, dryck och snacks, TV. Självservering. Mat kan beställas från Nättraby Vägkrog.</li>
+<li><strong>Tillträde:</strong> bokning ger fyrsiffrig dörrkod, anges med avslutande <code>#</code>. Koden fungerar 20 min före och 20 min efter bokningens <strong>start</strong> (inte slut). Kostnadsfri avbokning till 3 timmar före start. Bokande person måste närvara under hela hyrtiden.</li>
+<li><strong>Hygien/skydd:</strong> egna klubbor ska vara rena; rena inomhusskor; endast Swings bollar och peggar; undvik att luta bagar/klubbor mot tygväggar. Enstaka klubbor finns att låna; helt set kan ordnas vid förfrågan i förväg.</li>
+<li><strong>Golfpris:</strong> pris <strong>per simulator och timme, ej per person</strong>. Alla dagar 06–08 150 kr. Mån–fre 08–15 250 kr. Mån–fre 15–00 280 kr. Lör–sön 08–00 280 kr. Vid 4 personer blir det 37,50 / 62,50 / 70 kr var beroende på timpriset.</li>
+<li><strong>Vanliga spelpotter</strong> (1 års giltighet, kopplade till Sweetspotprofil via mejl, personliga men överlåtbara): betala 1 000→få 1 150; 2 000→2 400; 3 000→3 750 kr. I kassan välj <code>+ Använd voucher</code>.</li>
+<li><strong>Epassi/friskvård</strong> (personligt; separata produkter): betala 500→500, 1 000→1 000, 2 000→2 150, <strong>2 500→2 200</strong>, 3 000→3 350 kr. Dessa belopp är <strong>uttryckligen bekräftade av ägaren</strong>, inklusive det ovanliga 2 500→2 200. Ändra INTE tyst. Regler för Epassi-bonus och skattemässig friskvårdshantering behöver granskas innan köpvillkor publiceras.</li>
+<li><strong>Presentkort:</strong> endast digitalt, 100–1 000 kr i steg om 100 kr; tillfällen: Fars dag, Mors dag, födelsedag, generellt; giltiga ett år. Sweetspot &gt; Mer (…) &gt; Vouchers &gt; + &gt; skriv presentkortsnummer; i kassan <code>+ Använd voucher</code>.</li>
+<li><strong>Företag:</strong> offert efter förfrågan, möjlig personal vid event, catering ordnas. Ägaren gillade <strong>Swing After Work</strong> som pakettanke; de andra namnen Swing Challenge/Exclusive kräver godkännande. Varken offentligt pris eller garanterad alkoholförsäljning är klar.</li>
+<li><strong>Aktiviteter:</strong> öppna och stängda/privata tävlingar. Verksamheten har uppgett veckotävlingar, ligor, tourer, närmast hål och längsta drive, men <strong>inga datum</strong> får hittas på.</li>
+<li><strong>Partners uppgivna:</strong> Trummenäs GK, Nicklas Torp GK (namnform kräver kontroll), Carlskrona GK, Aspero Gymnasium, Nättraby Vägkrog. Publicera inte partnerlogotyper utan godkännande.</li>
+<li><strong>Historik:</strong> Mats och Pontus skapade Swing utifrån golfintresset. Startår uppgavs 2002 (möjligen skrivfel), byte från AboutGolf till TrackMan omkring 2023/2024; publicera inga år innan ägaren bekräftar.</li>
+</ul>
+<hr />
+<h2 id="s3">3. Sidstruktur, URL:er och innehåll</h2>
+<p><strong>Krav:</strong> separata indexerbara sidor för sökintentioner; startsidan ska inte ersätta alla undersidor. Återanvänd exakt grundstruktur i <code>data/pages.json</code> och utkast i <code>data/content_drafts.json</code>. Varje page har unik title, meta description, en synlig H1 och brödtext i serverrenderad/prerenderad HTML.</p>
+<table>
+<thead>
+<tr>
+  <th>Sida</th>
+  <th>URL</th>
+  <th>Vikt / viktigast</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Startsida</td>
+  <td><code>/</code></td>
+  <td>P0 · Boka tid / Köp spelpott</td>
+</tr>
+<tr>
+  <td>Inomhusgolf</td>
+  <td><code>/inomhusgolf/</code></td>
+  <td>P0 · Boka simulator</td>
+</tr>
+<tr>
+  <td>Priser</td>
+  <td><code>/priser/</code></td>
+  <td>P0 · Boka tid / Se spelpotter</td>
+</tr>
+<tr>
+  <td>Boka golftid</td>
+  <td><code>/boka/</code></td>
+  <td>P0 · Öppna Sweetspot-bokningen</td>
+</tr>
+<tr>
+  <td>TrackMan iO &amp; simulatorer</td>
+  <td><code>/trackman-io/</code></td>
+  <td>P0 · Boka en TrackMan-simulator</td>
+</tr>
+<tr>
+  <td>Företagsevent</td>
+  <td><code>/foretagsevent/</code></td>
+  <td>P0 · Begär offert</td>
+</tr>
+<tr>
+  <td>Gruppbokning</td>
+  <td><code>/gruppbokning/</code></td>
+  <td>P1 · Fråga om gruppbokning</td>
+</tr>
+<tr>
+  <td>Spelpotter</td>
+  <td><code>/spelpotter/</code></td>
+  <td>P0 · Köp spelpott</td>
+</tr>
+<tr>
+  <td>Friskvård &amp; Epassi</td>
+  <td><code>/friskvard/</code></td>
+  <td>P0 · Öppna Swing hos Epassi</td>
+</tr>
+<tr>
+  <td>Presentkort</td>
+  <td><code>/presentkort/</code></td>
+  <td>P0 · Köp presentkort</td>
+</tr>
+<tr>
+  <td>Tävlingar &amp; aktiviteter</td>
+  <td><code>/tavlingar/</code></td>
+  <td>P0 · Se aktuella tävlingar / Fråga om egen tävling</td>
+</tr>
+<tr>
+  <td>Team Swing</td>
+  <td><code>/team-swing/</code></td>
+  <td>P1 · Se Team Swing</td>
+</tr>
+<tr>
+  <td>Om oss</td>
+  <td><code>/om-oss/</code></td>
+  <td>P0 · Boka tid / Kontakta oss</td>
+</tr>
+<tr>
+  <td>Kontakt &amp; hitta hit</td>
+  <td><code>/kontakt/</code></td>
+  <td>P0 · Ring / E-posta / Hitta hit</td>
+</tr>
+<tr>
+  <td>Vanliga frågor</td>
+  <td><code>/vanliga-fragor/</code></td>
+  <td>P0 · Boka tid / Kontakta oss</td>
+</tr>
+<tr>
+  <td>Inför ditt besök</td>
+  <td><code>/infor-besoket/</code></td>
+  <td>P0 · Boka simulator / Ring vid problem</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Utöver ovan:</strong> Golfguiden planeras under <code>/golfguiden/</code>, men långa artiklar är inte färdigskrivna. Skapa bara faktagranskade, kompletta guider – inga tunnformat-mallar eller massgenererade ortssidor. Föreslagna guideämnen och URL:er finns i <code>data/pages.json</code>.</p>
+<p><strong>Navigation:</strong> Enkel och tydlig, med Boka tid synlig på mobil. Rekommenderad toppnavigation: Anläggningen, Priser, Spelpotter, Företag &amp; grupper, Tävlingar, Friskvård, Kontakt, <strong>Boka tid</strong>. Footer med Kontakt, Inför ditt besök, Vanliga frågor, villkor och integritetspolicy (lagtexter endast om verifierade). Presentkort och Team Swing ska vara lätta att hitta via relevanta sektioner/footer. Undvik för många toppnivålänkar på mobil.</p>
+<h3>Upplevelse – startsida</h3>
+<ol>
+<li>Hero med golf/lounge-känsla, geografisk kontext, stark tydlig H1.</li>
+<li><strong>Primär CTA:</strong> Boka golftid → verifierad Sweetspot-väg. <strong>Sekundär CTA:</strong> Köp spelpott → verifierad köpväg; om ej verifierad, visa saklig sida för spelpotter utan falsk checkout.</li>
+<li>Fyra simulatorer/TrackMan iO + öppettider.</li>
+<li>Miljö/loungen + social gemenskap.</li>
+<li>Prissnabbvy per simulator och timme, länk till full prislista.</li>
+<li>Tre vanliga spelpotter (aldrig Epassi inblandat).</li>
+<li>Företagsevent med offert-CTA.</li>
+<li>Verifierade tävlingar/aktivitet utan fiktiva datum.</li>
+<li>Praktisk FAQ och Nättraby-adress.</li>
+</ol>
+<h3>Återanvändbara UI-komponenter (så långt befintlig arkitektur tillåter)</h3>
+<p><code>SiteHeader</code>, <code>MobileNav</code>, <code>SiteFooter</code>, <code>BookingCTA</code>, <code>SectionHeading</code>, <code>Hero</code>, <code>SimulatorFeatures</code>, <code>PricingTable</code>, <code>CreditPotCard</code>, <code>GiftCardCard</code>, <code>EventCard</code>, <code>FAQAccordion</code>, <code>Breadcrumbs</code>, <code>ContactDetails</code>, <code>EventInquiryForm</code> (endast när backend är verifierad), <code>SEOHead</code>/motsvarande. Data ska vara separerad från komponenter. Behåll inte dessa namn om befintliga namngivningskonventioner skiljer sig.</p>
+<hr />
+<h2 id="s4">4. Funktionell byggspecifikation</h2>
+<h3>4.1 Bokning: Sweetspot nu, nytt senare</h3>
+<ul>
+<li>Alla CTA:er går via en central config/adapter, exempelvis <code>booking.openBooking()</code> eller en resolver av <code>bookingUrl</code>. AI:n måste <strong>be om eller verifiera exakt fungerande Sweetspot-URL</strong> innan aktiv bokningsknapp pekar externt.</li>
+<li>Beskriv nuvarande flöde: Sweetspot-app/bokning, betalning där, fyrsiffrig dörrkod och regler. Ingen inloggning på nya Swing-sajten behövs för informationssidorna.</li>
+<li>Gör bytespunkter för provider, instruktionscopy och länkar. <strong>Implementera inte eget bokningssystem</strong>, kalendrar, betalningar eller API-integration på spekulation.</li>
+<li>Ingen hårdkodad automatiskt framtida lansering. Ägare aktiverar framtida system efter verifiering.</li>
+</ul>
+<h3>4.2 Spelpotter, friskvård och presentkort</h3>
+<ul>
+<li>Priserna ligger i typad datastruktur. Visa två separata tabeller med ordinarie respektive Epassi-värden. Prisexempel måste tydligt ange personpris som exempel, inte biljettpris.</li>
+<li>Endast köpknapp om det finns produktionsverifierad URL/checkout och leveransflöde. Använd ej <code>#</code>, <code>javascript:void(0)</code>, test-Stripe eller mockad voucher som publik köp-CTA.</li>
+<li>Epassi-länk för information: <code>https://services.epassi.se/ui/merchant-search/site/183651</code> (måste fortfarande verifieras i browser). Ingen falsk integrerad Epassi checkout.</li>
+<li>Digitala presentkort med temaval och 100–1 000 kr i 100-kronorssteg <strong>om köpflödet är godkänt och aktivt</strong>. Annars presentera information och verifierad existerande köplänk.</li>
+<li>Framtida Stripe kräver serverbaserad order, webhookvalidering, idempotens, e-postleverans, personuppgiftsskydd, hantering av fel/retur och <strong>formellt API-/produktgodkännande</strong>. Detta ligger utanför den nuvarande P0-leveransen.</li>
+</ul>
+<h3>4.3 Företags- och gruppförfrågan</h3>
+<ul>
+<li>Tillåt offertförfrågan med kontaktuppgifter, föreslagen dag/tid, antal personer, paketintresse, önskemål om mat och meddelande. Lägg inte in fiktiva priser.</li>
+<li>Om mejl-/formbackend saknas får AI:n använda synlig verifierad e-postkontakt <code>info@swinggolf.se</code> i stället för dött formulär. För formulär: tillgänglig felvalidering, spam-skydd, bekräftelse på verklig leverans och rätt dataskydd.</li>
+<li>Swing After Work får lyftas som skräddarsytt offertupplägg; andra paketalternativ som förslag, inte fastställda produkter.</li>
+</ul>
+<h3>4.4 Tävlingar / Team Swing / kampanjer</h3>
+<ul>
+<li>Datamodell för tävling: titel, id/slug, <code>public|private</code>, beskrivning, status, datum (endast känt), registreringslänk (endast verifierad), resultatlänk, publiceringsflagga. Filtrera bort ej godkända, avbokade eller utgångna från ”aktuella”.</li>
+<li>Kan visa en generell tävlingslandningssida utan aktuella event; ingen falsk kalender.</li>
+<li>Kampanjer: titel, villkor, giltighetsperiod, publicerad/avpublicerad. Ingen ständigt aktiv ”Oktober-special” som om erbjudandet gäller året runt.</li>
+<li>Team Swing: generell sida tills spelarprofiler/bilder och godkännanden finns.</li>
+</ul>
+<h3>4.5 Kontakt, öppettider, hitta hit</h3>
+<ul>
+<li>Telefonlänk <code>tel:+46455323401</code> och e-postlänk <code>mailto:info@swinggolf.se</code> ska fungera.</li>
+<li>Visa korrekt lokal adress och öppettider. Visa inte specificerad busslinje/hållplats, barriärfrihet eller parkeringsantal utan verifiering.</li>
+<li>Karta kan vara extern kartlänk; undvik att tvinga in spårande kartinbäddning utan integritetshantering.</li>
+</ul>
+<hr />
+<h2 id="s5">5. Design och användbarhet</h2>
+<ul>
+<li><strong>Designkälla:</strong> befintlig kod + visuella förlagan. Klubbhus, skinn, trä, värme, mörkgrönt/kol och dämpade accentfärger. Använd original logotyp och produktionsgodkända bilder först när de finns. Referensbilder får <strong>inte publiceras per automatik</strong>.</li>
+<li>Mobil först; minst 320, 375, 768, 1024, 1440 px. Typografi och CTA tydliga; stabila kort och prissammanställningar; inga horisontella sid-scrolls.</li>
+<li>Tangentbord: navigering, nav-stängning med Esc, fokusindikatorer, tydliga formulärlabel, konsekvent rubrikhierarki, kontrast, alt-texter, respekt för <code>prefers-reduced-motion</code>.</li>
+<li>Inga jättelånga bildtunga sidor som döljer den egentliga köp-/bokningsvägen. Optimera bilder (responsive srcset, modern format, lazy load under första vy, hero prioriteras).</li>
+<li>Ingen märklig turistkopiering/keyword stuffing; naturlig lokal SEO och diskret länkstruktur.</li>
+</ul>
+<hr />
+<h2 id="s6">6. SEO och AI-sök: tekniska acceptanskriterier</h2>
+<ul>
+<li>Serverrenderat/prerenderat huvudinnehåll. Ingen viktig text endast efter klienthydrering.</li>
+<li>En H1/sida, unik <code>&lt;title&gt;</code>, meta description och canonical. Open Graph-bild/text där bildgodkännande finns. Svenska <code>lang=&quot;sv&quot;</code>.</li>
+<li><code>robots.txt</code> och <code>sitemap.xml</code> med faktiska indexerbara URL:er, inga preview-/draft-sidor. Gamla relevanta URL:er omdirigeras med 301 utifrån URL-inventering.</li>
+<li><code>LocalBusiness</code> / <code>SportsActivityLocation</code> enligt faktiskt innehåll; endast verifierade attribut (adress, telefon, openingHours). <code>BreadcrumbList</code> på undersidor, <code>Event</code> <strong>endast för verkliga publicerade event</strong>. Aldrig fejkrating, fejkrecensioner eller påhittade erbjudanden.</li>
+<li>Beskriv sakers betydelse direkt i HTML, ex. ”Vad kostar det?”, ”Hur får man kod?”, ”Hur använder man presentkort?”. FAQ-markup endast där det är lämpligt och följer gällande sökmotorriktlinjer; ingen garanti om rich results.</li>
+<li>Lokal användbarhet: Nättraby, Karlskrona och Blekinge när naturligt; inte artificiella likvärdiga sidor per ort.</li>
+<li>Mål på mobil i fält där mätning finns: LCP ≤ 2,5 s, INP ≤ 200 ms, CLS ≤ 0,1 vid p75. Redovisa faktiskt mätverktyg/miljö; fejka inga Lighthouse-poäng.</li>
+</ul>
+<hr />
+<h2 id="s7">7. Teknik, säkerhet och dataskydd</h2>
+<p><strong>Ramverk:</strong> utgå från befintligt repo. AI:n får inte obemärkt byta Vue/Nuxt/React/Next, deploymentsätt eller hosting. Om repo saknas eller tekniken är olämplig: presentera kort val av arkitektur med motivering och be om godkännande före irreversibla beslut.</p>
+<ul>
+<li>TypeScript om befintligt projekt stödjer det; central runtime-/schema-validering för offentlig config.</li>
+<li>Separera environment config och hemligheter. Skapa <code>.env.example</code>, aldrig verkliga nycklar i källkod eller rapport.</li>
+<li>Alla externa integrationer behandlas som beroenden som måste verifieras och kunna fallera snyggt.</li>
+<li>Inga klient-anrop med hemliga betaltoken. Stripe-checkout kräver server och webhook-verifiering.</li>
+<li>Skydda formulär mot injektion/spam och logga inte personuppgifter i klientkonsol i produktion. Samla bara nödvändiga uppgifter, sätt lagrings-/åtkomstkrav innan formulär driftsätts.</li>
+<li>Statistik/cookies och inbäddningar får inte aktiveras utan motsvarande integritetsgenomgång/samtyckeshantering där så krävs.</li>
+<li>Fel- och tomtillstånd ska vara användbara. Inga 500-sidor för en trasig extern katalog.</li>
+</ul>
+<hr />
+<h2 id="s8">8. Kravmatris och verifiering</h2>
+<p><strong>P0</strong> måste vara korrekt innan den berörda funktionen kan markeras färdig. <strong>P1</strong> är viktig utbyggnad som får stå kvar som ej implementerad, men inte utges som klar. <code>data/requirements.json</code> är maskinläsbart register med <strong>alla ursprungliga krav plus AI-specifika krav</strong> och individuella acceptanskriterier. AI:n ska använda ID:n vid commits, checklistor och leveransrapport.</p>
+<h3>P0: separat bevis på kvalitet</h3>
+<table>
+<thead>
+<tr>
+  <th>Kontroll</th>
+  <th>Godkänt när</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td>Build</td>
+  <td><code>build</code> fungerar utan compile-/typfel.</td>
+</tr>
+<tr>
+  <td>Startsida och 16 sidor</td>
+  <td>Alla överenskomna P0-sidor laddar direkt som URL, inte bara via SPA-navigation. P1-status redovisas.</td>
+</tr>
+<tr>
+  <td>Mobil</td>
+  <td>Meny, CTA, tabeller och formulär fungerar i 320/375/768 px.</td>
+</tr>
+<tr>
+  <td>Navigering</td>
+  <td>Internt länkade sidor fungerar, favicon/metadata korrekt där tillgångar finns.</td>
+</tr>
+<tr>
+  <td>Bokning</td>
+  <td>Aktiv CTA har verifierad rätt Sweetspot-URL och förklarar faktiskt flöde. Saknas URL: blockera aktiv CTA, redovisa hinder.</td>
+</tr>
+<tr>
+  <td>Pris</td>
+  <td>Dygnsintervall och helger/vardagar korrekta; pris <strong>per simulator</strong>; räkneexempel testade.</td>
+</tr>
+<tr>
+  <td>Spelpotter</td>
+  <td>Ordinarie/Epassi separerade; det ovanliga Epassi-beloppet ändras inte tyst.</td>
+</tr>
+<tr>
+  <td>Hjälp</td>
+  <td>Kod inklusive <code>#</code>, 20 min före/efter start, avbokning 3 h, rena klubbor och skor korrekt.</td>
+</tr>
+<tr>
+  <td>SEO</td>
+  <td>Sidunik metadata, SSR/prerender, canonical, indexability, sitemap, robots.</td>
+</tr>
+<tr>
+  <td>WCAG</td>
+  <td>Manuell tangentbordskontroll plus automatiserad a11y-kontroll utan allvarliga fel.</td>
+</tr>
+<tr>
+  <td>Trust</td>
+  <td>Inga ogrundade startår, licenser, recensioner, tekniska garantier, levande Stripe-länkar.</td>
+</tr>
+<tr>
+  <td>Säkra externa flöden</td>
+  <td>Bruten betal-/offertväg visas inte som fungerande.</td>
+</tr>
+</tbody>
+</table>
+<h3>Minimikrav på testautomatik</h3>
+<ul>
+<li>Enhetstest av tid/prisregler (dygnsgräns, vardag/helg), pris/person-exempel, spelpottslistor och config/feature flags.</li>
+<li>E2E för navigation till priser, information om kod, FAQ, offertkontakt, CTA mot rätt extern domain (utan att skicka riktig bokning), mobilmeny och 404.</li>
+<li>Länkgranskning och test av SEO metadata via HTML-rendering; kontrollera att inga falska placeholders <code>TODO</code>, <code>lorem</code>, <code>example.com</code>, <code>href=&quot;#&quot;</code> nås som publik CTA.</li>
+<li>Vid lansering: smoke test på produktionsdomän inklusive redirect och <code>/sitemap.xml</code>. Detta kräver deployåtkomst; rapportera om saknas.</li>
+<li>Visuell QA med skärmbilder på mobil och desktop. Jämför mot designprototypen och notera avsiktliga avvikelser.</li>
+</ul>
+<hr />
+<h2 id="s9">9. Arbetsordning för AI:n (utan tidplan)</h2>
+<p><strong>Steg A – Inventera:</strong> Läs repo, URL:er, befintligt innehåll och bildtillgångar. Lista blockers. Gör ingen destruktiv refaktorering.</p>
+<p><strong>Steg B – Grund:</strong> Förankra layout, design tokens, tillgänglig navigation, sidroutning, metadata, config och verifierad Sweetspot-CTA.</p>
+<p><strong>Steg C – Kärninnehåll:</strong> Startsida, Inomhusgolf, Priser, Boka, Simulatorer, Spelpotter, Företagsevent, Kontakt, Inför besöket, Vanliga frågor. Samma sanning på varje sida.</p>
+<p><strong>Steg D – Fler sidor:</strong> Gruppbokning, Friskvård, Presentkort, Tävlingar, Team Swing, Om oss, och guider först när artiklar är sakgranskade. Inga påhittade event eller medlemsprofiler.</p>
+<p><strong>Steg E – Integrationer (endast efter klartecken):</strong> Offertform, publicering av event, Stripe-försäljning, eget bokningssystem. Avgränsa och använd riktiga kontrakt, aldrig pseudolösningar som driftsätts.</p>
+<p><strong>Steg F – QA/handoff:</strong> Automatiska tester, mobil/desktopgranskning, SEO-audit, a11y, juridiskt relevanta blockers, driftanvisning och slutrapport.</p>
+<hr />
+<h2 id="s10">10. Leveranskontrakt – vad AI:n ska lämna tillbaka</h2>
+<p>Efter varje slutförd kodomgång lämnas:</p>
+<ol>
+<li><strong>Sammanfattning:</strong> vad som faktiskt byggts och vad som medvetet inte byggts.</li>
+<li><strong>Kravstatus:</strong> tabell <code>KRAV-ID | DONE/IN_PROGRESS/BLOCKED/NOT_STARTED | bevis/länk</code>.</li>
+<li><strong>Ändrade filer och designbeslut:</strong> komponenter, sidor, config, eventuella dependencies.</li>
+<li><strong>Testbevis:</strong> kommandon som körts, resultat, skärmbilder, mobil/a11y och SEO-kontroller.</li>
+<li><strong>Miljö och driftsättning:</strong> byggkommando, nödvändiga miljövariabler <strong>utan hemligheter</strong>, konfigurering av bokningslänk, deployspecifika begränsningar.</li>
+<li><strong>Beslutslogg:</strong> öppna frågor från <code>data/open_decisions.json</code>, påverkan och en enda rekommenderad nästa åtgärd per blocker.</li>
+</ol>
+<p><strong>Done-definition:</strong> Korrekt fakta + fungerande länk/integration + tillgänglig upplevelse + test + dokumenterad status. En sida med tomma knappar, placeholderfoton eller felaktig bokningsprovider är <strong>inte klar</strong>.</p>
+<hr />
+<h2 id="s11">11. Öppna beslut – AI:n får inte gissa</h2>
+<ul>
+<li><strong>B01 – Startår &amp; TrackMan-byte:</strong> Du angav 2002 som startår och 2023/2024 för TrackMan. Bekräfta exakt startår och år för teknikbytet. <strong>Konsekvens:</strong> Blockerar historikavsnittet på Om oss.</li>
+<li><strong>B02 – Köplänkar och betalstatus:</strong> Vilka URL:er är live för Sweetspot, spelpott och presentkort? När ska Stripe aktiveras? <strong>Konsekvens:</strong> Blockerar exakta köpknappar och kassinstruktioner.</li>
+<li><strong>B03 – Epassi 2500:</strong> Bekräftat: betala 2 500 kr → få 2 200 kr. Dubbelkontrollera av affärsskäl innan publicering. <strong>Konsekvens:</strong> Måste visas exakt eller rättas uttryckligen.</li>
+<li><strong>B04 – Friskvårdsregler:</strong> Bekräfta hantering av Epassi-bonus, personligt saldo, kvitto och giltighet mot gällande regler och Epassivillkor. <strong>Konsekvens:</strong> Blockerar exakta köpvillkor, inte grundinformationen.</li>
+<li><strong>B05 – Grupppaket:</strong> Swing After Work omtyckt som koncept. Godkänn eller avvisa Challenge/Exclusive och ange vad som faktiskt ingår. <strong>Konsekvens:</strong> Blockerar paketmarknadsföring utöver offertförfrågan.</li>
+<li><strong>B06 – Catering &amp; alkoholförsäljning:</strong> Vilka cateringtjänster kan beställas idag? Serveringstillstånd planeras men är inte klart. <strong>Konsekvens:</strong> Får inte lova tillståndspliktig servering innan den finns.</li>
+<li><strong>B07 – Fotomaterial &amp; grafisk profil:</strong> De uppladdade fotona är referens. Vilka bilder får användas skarpt? Fastställ logotyp, färger och typografi. <strong>Konsekvens:</strong> Blockerar slutligt bildval och visuellt godkännande.</li>
+<li><strong>B08 – Kollektivtrafik / tillgänglighet:</strong> Bekräfta bästa hållplats, gångavstånd och eventuella tillgänglighetsförhållanden i lokalen. <strong>Konsekvens:</strong> Får inte publicera osäkra påståenden om tillgänglighet.</li>
+<li><strong>B09 – Partners och namnformer:</strong> Kontrollera officiellt namn på Nicklastorp GK och vilka samarbeten som får användas med namn/logotyp. <strong>Konsekvens:</strong> Påverkar Om oss och eventuella loggor.</li>
+<li><strong>B10 – TrackMan-funktioner:</strong> Verifiera antal virtuella banor och exakt tillgängliga spellägen, träningsdata och appfunktioner. <strong>Konsekvens:</strong> Undvik absoluta påståenden om millimeterprecision eller 250+ banor tills kontrollerade.</li>
+<li><strong>B11 – Tävlingarnas innehåll:</strong> Vem publicerar öppna och privata tävlingar? Vilken info måste finnas? Vilket anmälningsflöde gäller? <strong>Konsekvens:</strong> Blockerar dynamiska eventlistan, inte grundtext.</li>
+<li><strong>B12 – Presentkort och villkor:</strong> Kontrollera eventuell överlåtelse, hantering av förlorad kod, outnyttjat saldo och köp-/återbetalningsvillkor. <strong>Konsekvens:</strong> Påverkar köpvillkor och FAQ.</li>
+<li><strong>B13 – Engelska:</strong> Prototypen har EN-alternativ. Ska engelska ingå vid leverans eller senare? <strong>Konsekvens:</strong> Avgör navigation, översättning och hreflang.</li>
+<li><strong>B14 – Content ownership:</strong> Vem godkänner texter, priser, kampanjer, eventinnehåll och bilder innan de publiceras? <strong>Konsekvens:</strong> Behövs för långsiktigt korrekt webbplats.</li>
+</ul>
+<p>Detta innebär inte att hela webbplatsen måste vänta: bygg de delar som baseras på bekräftad fakta, använd säkra fallback-vägar och rapportera bara de beslut som faktiskt blockerar aktuell funktion.</p>
+<hr />
+<h2 id="s12">12. Filer som ingår i detta paket</h2>
+<ul>
+<li><code>AI_BUILD_SPEC.md</code> – detta styrdokument för AI-kodagenten.</li>
+<li><code>START_HERE_AI_PROMPT.md</code> – färdig prompt att klistra in i Codex, Claude Code eller annan kodagent.</li>
+<li><code>data/requirements.json</code> – maskinläsbar kravmatris med ID och acceptanskriterier.</li>
+<li><code>data/pages.json</code> – sidöversikt och planerade guider.</li>
+<li><code>data/content_drafts.json</code> – publiceringsutkast, metadata och CTA för samtliga 16 sidor.</li>
+<li><code>data/open_decisions.json</code> – olösta frågor, ingen ska gissas bort.</li>
+<li><code>data/site-config.EXAMPLE.json</code> – datamodell och faktavärden för teknisk inspiration, inte en aktiv integrationsfil.</li>
+<li><code>references/Swing_Golf_Lounge_Handoff_Kravspecifikation.html</code> – tidigare, visuellt interaktivt helhetsunderlag.</li>
+<li><code>references/Regler &amp; information - org.docx</code> – historiskt regelblad, gammal aG Locker-information ska bort.</li>
+<li><code>references/images_REFERENCE_ONLY/*</code> – foton och ritningar som referens, inte godkända för publik publicering.</li>
+</ul>
+<p><strong>Viktigt:</strong> Detta paket ger krav och underlag, inte åtkomst till repo, driftsmiljö, Sweetspot-integrations-URL:er eller Stripe-hemligheter. AI:n ska hantera det som blockers, inte gissa eller påstå att integrationerna är klara.</p>
+</main></div><footer>Swing Golf & Lounge · AI Build Spec 2.0 · Krav, inte fungerande webbplatskod</footer><script>document.querySelector('#copy').addEventListener('click', async function(){const s=document.querySelector('main h2 + p'); const t="# KOPIERA DENNA PROMPT TILL AI-KODAGENTEN\n\nJag vill att du bygger vidare på vår publika webbplats för Swing Golf & Lounge. Läs **hela** den bifogade `AI_BUILD_SPEC.md` samt `data/requirements.json`, `data/pages.json`, `data/content_drafts.json`, `data/open_decisions.json` och `references/Swing_Golf_Lounge_Handoff_Kravspecifikation.html` innan du börjar.\n\nVIKTIGT: Befintlig prototyp finns på https://swing-public-staging.up.railway.app/. Den anger den visuella riktningen, men är inte källa för affärsfakta. Återanvänd befintligt repo, komponenter och design i största möjliga mån. Byt inte ramverk eller bygg om från grunden utan godkännande.\n\n**Börja med att:**\n1. Inventera befintligt repo, arkitektur, routning, komponenter, befintliga integrationer och kommandon.\n2. Sammanfatta nuläget och vilka blockerande uppgifter som saknas (exakt Sweetspot-länk, betal-/voucherintegration osv.).\n3. Föreslå en kort, prioriterad, tekniskt konkret implementationsordning *utan tidsplan*.\n4. Implementera P0-kraven iterativt, med fungerande sidor, bra mobil-UX, SSR/prerender, teknisk SEO och tillgänglighet.\n5. Använd 2026 års Sweetspot-lösning som **enda aktiva bokningssystem**. Designa för ett framtida providerskifte men bygg inte påhittat internt bokningssystem, falsk Stripe-betalning eller låtsasbokning.\n6. Testa det du bygger och lämna en kravstatusrapport med ID, filer, tester och blockerare.\n\n**Hårda regler:** Ingen påhittad fakta, ingen fejkcheckout, inga otestade köpknappar, inga aktiva tävlingar med uppdiktade datum, ingen alkoholservering som befintlig tjänst, inga referensbilder i produktion utan godkännande. Alla priser ska stämma med specifikationen och Epassi-listan får inte \"rättas\" på eget initiativ.\n\nFråga bara efter information som verkligen blockerar ett aktuellt utvecklingssteg. Fortsätt annars med säkra delar som kan testas nu. Rapportera skillnaden mellan klart och planerat. Ingen tidsplan behövs.\n"; try {await navigator.clipboard.writeText(t); this.textContent='Kopierat!';}catch(e){this.textContent='Öppna START_HERE_AI_PROMPT.md';}});</script></body></html>

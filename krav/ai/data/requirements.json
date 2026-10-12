@@ -1,0 +1,432 @@
+{
+  "document": "AI Build Requirements",
+  "version": "2.0",
+  "requirements": [
+    {
+      "id": "STR-01",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Beslutad",
+      "requirement": "Hemsidan ska kunna publiceras med Sweetspot som aktivt bokningssystem.",
+      "acceptance": "Alla knappar för bokning leder till rätt, verifierad Sweetspot-länk. Ingen text lovar en live Swing-app."
+    },
+    {
+      "id": "STR-02",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Beslutad",
+      "requirement": "Bokningsintegration ska kunna bytas till det planerade egna systemet utan omskrivning av allt innehåll.",
+      "acceptance": "Bokningslänk, flödesetiketter och instruktioner är centralt utbytbara; bokningsspecifika hjälpsidor kan uppdateras separat."
+    },
+    {
+      "id": "STR-03",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Beslutad",
+      "requirement": "Prototypens formgivningsriktning används som utgångspunkt, inte som källa för osäkrade sakpåståenden.",
+      "acceptance": "Dark clubhouse-känsla bibehålls; osäkra TrackMan-/app-/betalpåståenden tas bort."
+    },
+    {
+      "id": "UX-01",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Startsidan ska ha två primära affärsmål: boka tid och köpa spelpott.",
+      "acceptance": "Boka tid syns direkt utan scroll och i mobilnavigation; Köp spelpott syns tydligt som sekundär CTA."
+    },
+    {
+      "id": "UX-02",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Besökaren ska enkelt hitta priser, inför besöket, företag och kontakt.",
+      "acceptance": "Alla dessa sidor nås via huvudmeny eller en tydlig menylänk, högst två nivåer från startsidan."
+    },
+    {
+      "id": "UX-03",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Pris visas alltid per simulator/timme med explicita tidsintervall.",
+      "acceptance": "Inga otydliga personpriser; eventuella räkneexempel märks som exempel med fyra personer."
+    },
+    {
+      "id": "UX-04",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Boknings-/dörrkodsflödet ska beskrivas konsekvent.",
+      "acceptance": "Korrekt 4-siffrig kod, avslutas #, tillgång 20 min före/efter bokningens start."
+    },
+    {
+      "id": "UX-05",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Sajten ska vara mobilanpassad och fullt tangentbordsanvändbar.",
+      "acceptance": "Menyer, dialoger, formulär och eventkort fungerar med tangentbord och skärmläsare; mål WCAG 2.2 AA."
+    },
+    {
+      "id": "UX-06",
+      "priority": "P1",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Långsiktigt stöd för svenska och eventuell engelska utan automatiska dubbleringar.",
+      "acceptance": "Endast svenska publiceras tills engelskt innehåll är översatt och beslutat."
+    },
+    {
+      "id": "CONTENT-01",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Beslutad",
+      "requirement": "Positionering: social golf, klassiskt skotskt klubbhus, modern TrackMan iO.",
+      "acceptance": "Huvudbudskap och bildval visar både golf och lounge; inga generiska premiumfloskler."
+    },
+    {
+      "id": "CONTENT-02",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Beslutad",
+      "requirement": "Endast verifierade erbjudanden får presenteras som aktiva.",
+      "acceptance": "Swing After Work kan beskrivas som offertupplägg; Challenge/Exclusive endast efter godkännande."
+    },
+    {
+      "id": "CONTENT-03",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Beslutad",
+      "requirement": "Presentkort ska beskrivas som digitala, belopp 100–1 000 kr i steg om 100 kr och giltighet ett år.",
+      "acceptance": "Inlösen via Sweetspot är korrekt; betalningsmetod beskrivs efter verifierat liveflöde."
+    },
+    {
+      "id": "CONTENT-04",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Beslutad",
+      "requirement": "Ordinarie spelpotter och Epassi-varianten hålls isär.",
+      "acceptance": "Olika prissättning visas aldrig som en enda gemensam produktlista; ovanliga Epassi-värden märks för kontroll."
+    },
+    {
+      "id": "CONTENT-05",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Beslutad",
+      "requirement": "Ej beviljat serveringstillstånd får inte marknadsföras som befintlig tjänst.",
+      "acceptance": "Inga löften om alkoholservering. Catering kan beskrivas som möjligt efter överenskommelse."
+    },
+    {
+      "id": "CONTENT-06",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Publicera tydliga regler för rena klubbor, skor, boll/pegg, avbokning och ansvar.",
+      "acceptance": "Regelsida stämmer med aktuellt regelblad och länkas från bokningsbekräftelse/FAQ."
+    },
+    {
+      "id": "CONTENT-07",
+      "priority": "P1",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Tävlingssidan ska stödja öppna och privata tävlingar.",
+      "acceptance": "Varje tävling har titel, format, status, datum, villkor, anmälan och resultatlänk där sådant finns."
+    },
+    {
+      "id": "CONTENT-08",
+      "priority": "P1",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Team Swing-sidan ska presentera medlemmar först när material är godkänt.",
+      "acceptance": "Sakliga spelarprofiler med samtycke; inga individuella stödbelopp publiceras."
+    },
+    {
+      "id": "CONTENT-09",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Fotomaterial skiljs mellan referens och godkända produktionsbilder.",
+      "acceptance": "Bilderna i denna handoff används som designreferens, inte automatiskt som webbpublicerade bilder."
+    },
+    {
+      "id": "SEO-01",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Viktiga sidor ska ha egna indexerbara URL:er, inte enbart ankarsektioner på startsidan.",
+      "acceptance": "Separata serverrenderade eller prerenderade sidor för kärnämnen; kanoniska URL:er, sidtitlar och H1."
+    },
+    {
+      "id": "SEO-02",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Varje indexerbar sida ska ha unik titel, beskrivning och sökintention.",
+      "acceptance": "SEO-matrisen i handoff följs eller uppdateras vid innehållsgodkännande."
+    },
+    {
+      "id": "SEO-03",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Lokala fakta ska vara konsekventa på alla sidor.",
+      "acceptance": "Namn, adress, telefon, öppettider stämmer med kontakt och Google Business Profile."
+    },
+    {
+      "id": "SEO-04",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "AI-vänlig informationsstruktur utan AI-specifika tricks.",
+      "acceptance": "Centrala fakta anges i vanlig HTML-text, konkreta FAQ, tydliga rubriker och interna länkar; inget dolt innehåll."
+    },
+    {
+      "id": "SEO-05",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Strukturerad data ska spegla verkligt innehåll.",
+      "acceptance": "LocalBusiness/SportsActivityLocation efter kontroll, BreadcrumbList på undersidor, Event för riktiga event; inga falska ratingdata."
+    },
+    {
+      "id": "SEO-06",
+      "priority": "P1",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Skapa en Golfguide med verkligt hjälpsamma artiklar.",
+      "acceptance": "Artiklar skrivs sakligt, internlänkas och granskas av golfkunnig; inga tomma massgenererade lokalsidor."
+    },
+    {
+      "id": "SEO-07",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Bevara befintlig organisk trafik vid ny sajt.",
+      "acceptance": "Gamla relevanta URL:er får 301 till närmast motsvarande sida; inga 404 i huvudnavigationen."
+    },
+    {
+      "id": "TECH-01",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Webbplatsen ska leverera korrekt innehåll utan beroende av en aktiv klient-JS-app.",
+      "acceptance": "Sidans H1, huvudtext, länkar och metadata finns i initial HTML eller prerendering."
+    },
+    {
+      "id": "TECH-02",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Hög prestanda och optimerade bilder.",
+      "acceptance": "Målsättning Core Web Vitals: LCP ≤ 2,5 s, INP ≤ 200 ms, CLS ≤ 0,1 vid p75 där mätdata finns."
+    },
+    {
+      "id": "TECH-03",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Dokumenterat hanterade cookie- och integritetsfrågor.",
+      "acceptance": "Endast nödvändiga cookies utan samtycke där rättsligt tillåtet; övrig spårning enligt gällande regler."
+    },
+    {
+      "id": "TECH-04",
+      "priority": "P1",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Offert-/kontaktformulär ska leverera rätt information säkert.",
+      "acceptance": "Namn, kontaktuppgift, typ av grupp, antal och meddelande; felvalidering och leveransbekräftelse."
+    },
+    {
+      "id": "TECH-05",
+      "priority": "P1",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Sajten ska kunna uppdatera kampanjer och tävlingar utan kodändringar.",
+      "acceptance": "Redaktör kan ange publiceringsstatus, villkor, giltighet och avsluta erbjudande."
+    },
+    {
+      "id": "TECH-06",
+      "priority": "P1",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Betalning av spelpotter/presentkort designas för Stripe men aktiveras först när integration är testad.",
+      "acceptance": "Ingen publik köpknapp går till ofullständig kassa; lyckat köp levererar rätt voucher och kvitto."
+    },
+    {
+      "id": "QA-01",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "All faktatext ska godkännas av Swing före publicering.",
+      "acceptance": "Öppna beslutsfrågor stängda; inga interna kommentarer eller utkaststatusar exponeras publikt."
+    },
+    {
+      "id": "QA-02",
+      "priority": "P0",
+      "origin": "previous_handoff",
+      "decision_status": "Rekommenderad",
+      "requirement": "Testa mobil, tangentbord och kritiska användarresor före överlämning.",
+      "acceptance": "Bokning, kontakt, spelpott, presentkort, navigering och felmeddelanden fungerar i målmiljö."
+    },
+    {
+      "id": "AGENT-01",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "KOD",
+      "title": "Ingen kod utan inventering",
+      "requirement": "Inventera befintligt repo, ramverk, routning, miljövariabler, verktyg, tester och designimplementation innan ändringar.",
+      "acceptance": "Leverera kort nulägesrapport och plan med referens till relevanta befintliga filer."
+    },
+    {
+      "id": "AGENT-02",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "KOD",
+      "title": "Bevara existerande arbete",
+      "requirement": "Bygg vidare på prototypen och återanvänd befintliga komponenter/mönster; massriv inte projektet.",
+      "acceptance": "Diff motiverar ändringar, inga onödiga omskrivningar eller borttagna funktioner."
+    },
+    {
+      "id": "AGENT-03",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "KOD",
+      "title": "Status på fakta och funktioner",
+      "requirement": "Skilj mellan BEKRÄFTAT, FÖRSLAG, PLANERAT och EJ VERIFIERAT i implementation och överlämning.",
+      "acceptance": "Inga planer/förslag framställs som lanserade eller sanna, inga platshållare som ser produktionsklara ut."
+    },
+    {
+      "id": "AGENT-04",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "KOD",
+      "title": "Ingen påhittad backend",
+      "requirement": "Skapa inte falska boknings-, Stripe-, Epassi-, event- eller voucher-flöden och använd inte testbetalningar som riktig försäljning.",
+      "acceptance": "Knappar leder till verifierat fungerande flöde eller har tydlig avvaktande status."
+    },
+    {
+      "id": "AGENT-05",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "KOD",
+      "title": "Fail closed för publik säljfunktion",
+      "requirement": "Konfiguration avgör exakt vilka köp-/bokningsåtgärder som är aktiva. Saknad verifierad URL eller integrationshemlighet = ingen köpknapp.",
+      "acceptance": "Build/test kontrollerar att tomma URL:er och falska placeholders inte aktiveras."
+    },
+    {
+      "id": "AGENT-06",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "KOD",
+      "title": "Spårbar leverans",
+      "requirement": "Avsluta varje implementeringsomgång med ändrade filer, testresultat, skärmbilder och kvarstående blockers.",
+      "acceptance": "Rapport knyter implementerade krav-ID till verifierbara bevis."
+    },
+    {
+      "id": "TECH-07",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "KOD",
+      "title": "Central affärskonfiguration",
+      "requirement": "Aktuell bokningsprovider, URL:er, öppettider, kontakt, prislistor, potter och tillgängliga funktioner hålls i en typad konfiguration.",
+      "acceptance": "Konsumtion sker på flera sidor utan motstridiga kopior."
+    },
+    {
+      "id": "TECH-08",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "KOD",
+      "title": "Åtskild integrationsadapter",
+      "requirement": "Bokningskomponenten anropar provider-konfiguration/adapter i stället för hårdkodat Sweetspot-anrop överallt.",
+      "acceptance": "Byte till ny provider kräver central ändring och separat QA; ingen automatisk lansering 2027."
+    },
+    {
+      "id": "TECH-09",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "SÄKERHET",
+      "title": "Inga hemligheter i frontend",
+      "requirement": "Stripe-secrets, webhookhemligheter, API-nycklar med skrivbehörighet och autentiseringsuppgifter får aldrig finnas i klientbundel eller repo.",
+      "acceptance": "Statisk sökning och bygge bekräftar; .env.example endast med variabelnamn och säkra platshållare."
+    },
+    {
+      "id": "TECH-10",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "QA",
+      "title": "Tillgänglig navigering",
+      "requirement": "Responsiva menyer, dialoger, formulär och knappar fungerar med tangentbord, synlig fokus och rimliga aria-labels.",
+      "acceptance": "Navigering testad vid 320/375/768/1280 px, Tab/Enter/Escape; WCAG 2.2 AA som mål."
+    },
+    {
+      "id": "TECH-11",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "KOD",
+      "title": "Fungerande kontakt/offerthantering",
+      "requirement": "Formulär får inte se funktionella ut utan verifierad backend/leverans. Samtycke, validering och skydd mot spam beaktas.",
+      "acceptance": "End-to-end test från inskickat formulär till bekräftad mottagning, eller endast tydlig kontaktlänk."
+    },
+    {
+      "id": "TECH-12",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "KOD",
+      "title": "Data separation och status",
+      "requirement": "Priser/spelpotter har separata kategorier för ordinarie och Epassi; kampanjer och event har explicit publiceringsstatus.",
+      "acceptance": "Test visar ingen sammanblandning; inaktiva/utgångna event och kampanjer läcker inte."
+    },
+    {
+      "id": "TECH-13",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "SEO",
+      "title": "Säkra länkar och metadata",
+      "requirement": "Interna länkar finns, externa länkar verifieras, metadata och Open Graph varierar per sida.",
+      "acceptance": "Automatiskt routetest och lämplig länkkontroll, sitemap endast för indexerbara sidor."
+    },
+    {
+      "id": "TECH-14",
+      "priority": "P1",
+      "origin": "ai_addendum",
+      "area": "KOD",
+      "title": "Hantera event utan falsk live-data",
+      "requirement": "Skapa eventkort på grundval av verifierat innehåll; inga fabricerade datum, anmälningar, priser eller resultat.",
+      "acceptance": "Ingen aktiv tävling visas utan fullständig fakta."
+    },
+    {
+      "id": "TECH-15",
+      "priority": "P1",
+      "origin": "ai_addendum",
+      "area": "SÄKERHET",
+      "title": "Framtida köpflöde kräver server-side order",
+      "requirement": "Om Stripe byggs efter tillgång till avtal/API ska betalning verifieras server-side och voucher utges idempotent.",
+      "acceptance": "Webhook signatur valideras; dubbelexekvering ger inte dubbla värden; edge cases testade."
+    },
+    {
+      "id": "QA-03",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "QA",
+      "title": "Automatiserade kritiska flöden",
+      "requirement": "Minst enhetstest av beräkningar/config och E2E för home, pris, mobilmeny, boknings-CTA, FAQ och 404.",
+      "acceptance": "Grön testkörning dokumenterad med kommando och resultat."
+    },
+    {
+      "id": "QA-04",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "QA",
+      "title": "Inga tomma eller brutna upplevelser",
+      "requirement": "Inga dead buttons, dummy-URL:er, lorem ipsum, brutna bilder eller uppenbara JS-fel.",
+      "acceptance": "Byggtest, länkkontroll och manuell genomsyn."
+    },
+    {
+      "id": "QA-05",
+      "priority": "P0",
+      "origin": "ai_addendum",
+      "area": "QA",
+      "title": "Sakgranskningsgrind",
+      "requirement": "Blockerade beslut ska vara separata från levererade funktioner och framgå tydligt i slutrapporten.",
+      "acceptance": "Ej verifierade datum, kollektivtrafik, alkoholtillstånd, partnerloggor och Stripe live påstås inte."
+    }
+  ]
+}

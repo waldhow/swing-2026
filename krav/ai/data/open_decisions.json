@@ -1,0 +1,102 @@
+{
+  "decisions": [
+    {
+      "id": "B01",
+      "title": "Startår & TrackMan-byte",
+      "problem": "Du angav 2002 som startår och 2023/2024 för TrackMan. Bekräfta exakt startår och år för teknikbytet.",
+      "impact": "Blockerar historikavsnittet på Om oss.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B02",
+      "title": "Köplänkar och betalstatus",
+      "problem": "Vilka URL:er är live för Sweetspot, spelpott och presentkort? När ska Stripe aktiveras?",
+      "impact": "Blockerar exakta köpknappar och kassinstruktioner.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B03",
+      "title": "Epassi 2500",
+      "problem": "Bekräftat: betala 2 500 kr → få 2 200 kr. Dubbelkontrollera av affärsskäl innan publicering.",
+      "impact": "Måste visas exakt eller rättas uttryckligen.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B04",
+      "title": "Friskvårdsregler",
+      "problem": "Bekräfta hantering av Epassi-bonus, personligt saldo, kvitto och giltighet mot gällande regler och Epassivillkor.",
+      "impact": "Blockerar exakta köpvillkor, inte grundinformationen.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B05",
+      "title": "Grupppaket",
+      "problem": "Swing After Work omtyckt som koncept. Godkänn eller avvisa Challenge/Exclusive och ange vad som faktiskt ingår.",
+      "impact": "Blockerar paketmarknadsföring utöver offertförfrågan.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B06",
+      "title": "Catering & alkoholförsäljning",
+      "problem": "Vilka cateringtjänster kan beställas idag? Serveringstillstånd planeras men är inte klart.",
+      "impact": "Får inte lova tillståndspliktig servering innan den finns.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B07",
+      "title": "Fotomaterial & grafisk profil",
+      "problem": "De uppladdade fotona är referens. Vilka bilder får användas skarpt? Fastställ logotyp, färger och typografi.",
+      "impact": "Blockerar slutligt bildval och visuellt godkännande.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B08",
+      "title": "Kollektivtrafik / tillgänglighet",
+      "problem": "Bekräfta bästa hållplats, gångavstånd och eventuella tillgänglighetsförhållanden i lokalen.",
+      "impact": "Får inte publicera osäkra påståenden om tillgänglighet.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B09",
+      "title": "Partners och namnformer",
+      "problem": "Kontrollera officiellt namn på Nicklastorp GK och vilka samarbeten som får användas med namn/logotyp.",
+      "impact": "Påverkar Om oss och eventuella loggor.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B10",
+      "title": "TrackMan-funktioner",
+      "problem": "Verifiera antal virtuella banor och exakt tillgängliga spellägen, träningsdata och appfunktioner.",
+      "impact": "Undvik absoluta påståenden om millimeterprecision eller 250+ banor tills kontrollerade.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B11",
+      "title": "Tävlingarnas innehåll",
+      "problem": "Vem publicerar öppna och privata tävlingar? Vilken info måste finnas? Vilket anmälningsflöde gäller?",
+      "impact": "Blockerar dynamiska eventlistan, inte grundtext.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B12",
+      "title": "Presentkort och villkor",
+      "problem": "Kontrollera eventuell överlåtelse, hantering av förlorad kod, outnyttjat saldo och köp-/återbetalningsvillkor.",
+      "impact": "Påverkar köpvillkor och FAQ.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B13",
+      "title": "Engelska",
+      "problem": "Prototypen har EN-alternativ. Ska engelska ingå vid leverans eller senare?",
+      "impact": "Avgör navigation, översättning och hreflang.",
+      "status": "OPEN"
+    },
+    {
+      "id": "B14",
+      "title": "Content ownership",
+      "problem": "Vem godkänner texter, priser, kampanjer, eventinnehåll och bilder innan de publiceras?",
+      "impact": "Behövs för långsiktigt korrekt webbplats.",
+      "status": "OPEN"
+    }
+  ]
+}
