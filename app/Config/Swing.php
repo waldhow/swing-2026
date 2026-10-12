@@ -101,8 +101,8 @@ class Swing extends BaseConfig
     public int $priceExamplePlayers = 4;
 
     /**
-     * Ordinarie spelpotter. Gäller ett år, kopplas till Sweetspot-profilen via
-     * e-post, är personliga och kan inte överlåtas (ägarens besked 2026-10-11).
+     * Ordinarie spelpotter. Gäller ett år, levereras som kod via e-post, är
+     * personliga och kan inte överlåtas (ägarens besked 2026-10-11/12).
      * Hålls alltid isär från Epassi-potterna (CONTENT-04).
      */
     public array $creditPots = [

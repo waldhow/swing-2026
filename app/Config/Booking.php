@@ -74,8 +74,8 @@ class Booking extends BaseConfig
     /** Knappen i kassan där spelpott och presentkort används. */
     public string $voucherLabel = '+ Använd voucher';
 
-    /** Hur spelpotten kopplas till kundens konto. */
-    public string $creditLinkText = 'Spelpotten kopplas till din Sweetspot-profil via din e-postadress.';
+    /** Hur kunden får och lägger in spelpotten. */
+    public string $creditLinkText = 'Du får en kod via e-post. Lägg in den i Sweetspot under Mer (…) → Vouchers.';
 
     /** Var gästen hanterar och avbokar sin bokning. */
     public string $manageText = 'Hantera bokningen via Sweetspot.';
