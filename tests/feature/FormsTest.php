@@ -210,6 +210,18 @@ final class FormsTest extends CIUnitTestCase
         }
     }
 
+    public function testOrderReferenceIsShortAndUnique(): void
+    {
+        $this->post('spelpotter', ['produkt' => 'pott-1000', 'name' => 'Anna', 'email' => 'anna@exempel.se', 'villkor' => '1']);
+        $this->post('presentkort', ['belopp' => '300', 'name' => 'Erik', 'email' => 'erik@exempel.se', 'villkor' => '1']);
+
+        $orders = $this->db->table('orders')->orderBy('id')->get()->getResultArray();
+        $this->assertSame('W' . (1000 + (int) $orders[0]['id']), $orders[0]['reference'], 'kort referens att skriva i Swish');
+        $this->assertMatchesRegularExpression('/^W\d{4,}$/', $orders[1]['reference']);
+        $this->assertNotSame($orders[0]['reference'], $orders[1]['reference']);
+        $this->assertStringContainsString($orders[0]['reference'], $this->body($this->get('tack/bestallning/' . $orders[0]['public_token'] . '/')));
+    }
+
     public function testTamperedPotIsRejected(): void
     {
         $result = $this->post('spelpotter', ['produkt' => 'pott-999', 'name' => 'Anna', 'email' => 'anna@exempel.se', 'villkor' => '1']);

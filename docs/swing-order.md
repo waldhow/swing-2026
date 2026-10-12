@@ -6,7 +6,7 @@ Beställningar av spelpotter, presentkort och friskvårdspotter tas emot på web
 
 1. Kunden fyller i formuläret på `/spelpotter/`, `/presentkort/` eller `/friskvard/` (det sista bara när `orders.friskvardDirect = true`).
 2. Webbplatsen validerar mot `Config\Swing` eller en aktiv kampanj. Belopp från formuläret används aldrig.
-3. Ordern sparas i tabellen `orders` med referens `W-ÅÅMMDD-XXXX`.
+3. Ordern sparas i tabellen `orders` med en kort referens, `W1042`. Den bygger på radens id och återanvänds aldrig. W skiljer den från swing-orders egna `ORD-`nummer. Kunden skriver referensen i Swish-meddelandet. Äldre ordrar har formatet `W-ÅÅMMDD-XXXX`.
 4. Ordern skickas till swing-order via vald kanal (`orders.channel`).
 5. Kunden ser en tacksida med Swish-instruktioner (nummer, belopp, ordernummer som meddelande) och får samma instruktioner via e-post.
 6. swing-order levererar koden när betalningen är verifierad.
@@ -27,7 +27,7 @@ name:Anna Andersson
 personnummer:19900101-1234   ← endast Friskvård
 name on giftcard:Pappa       ← endast Presentkort, om ifyllt
 
-referens:W-261011-AB12   ← information till personalen, ignoreras av parsern
+referens:W1042           ← information till personalen, ignoreras av parsern
 produkt:Swing 1000
 spelvarde:1150
 kalla:swinggolf.se
@@ -47,11 +47,11 @@ Webbplatsen har en färdig klient (`app/Libraries/Orders/ApiOrderGateway.php`). 
 ```http
 POST /api/integrations/orders
 Authorization: Bearer <orders.apiToken>
-Idempotency-Key: W-261011-AB12
+Idempotency-Key: W1042
 Content-Type: application/json
 
 {
-  "externalRef": "W-261011-AB12",
+  "externalRef": "W1042",
   "source": "WEB",
   "type": "SPELPOTT",              // SPELPOTT | PRESENTKORT | FRISKVARD
   "amount": 1000,                  // betalt belopp

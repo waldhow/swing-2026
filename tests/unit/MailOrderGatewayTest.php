@@ -13,7 +13,7 @@ final class MailOrderGatewayTest extends CIUnitTestCase
     private function order(array $overrides = []): array
     {
         return $overrides + [
-            'reference'      => 'W-261011-AB12',
+            'reference'      => 'W1042',
             'order_type'     => 'SPELPOTT',
             'product_name'   => 'Swing 1000',
             'pay_amount'     => 1000,
@@ -29,7 +29,7 @@ final class MailOrderGatewayTest extends CIUnitTestCase
         $lines = explode("\n", MailOrderGateway::body($this->order()));
 
         $this->assertSame(['type:Spelpott', 'price:1000', 'email:anna@exempel.se', 'name:Anna Andersson'], array_slice($lines, 0, 4));
-        $this->assertContains('referens:W-261011-AB12', $lines);
+        $this->assertContains('referens:W1042', $lines);
     }
 
     public function testGiftCardIncludesNameOnCard(): void

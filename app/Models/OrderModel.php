@@ -24,24 +24,31 @@ class OrderModel extends Model
     ];
 
     /**
-     * Skapar en order med unik referens (W-ÅÅMMDD-XXXX) och hemlig token för tacksidan.
+     * Skapar en order med kort referens (W1001, W1002 …) och hemlig token för tacksidan.
+     *
+     * Referensen är det kunden skriver i Swish-meddelandet, så den ska vara kort
+     * och lätt att skriva. W skiljer den från swing-orders egna ORD-nummer. Den
+     * bygger på radens id, som aldrig återanvänds (inte heller efter gallring),
+     * så den krockar inte med äldre ordrar i swing-order.
      *
      * @return array<string, mixed> den sparade raden
      */
     public function createOrder(array $data): array
     {
-        for ($attempt = 0; $attempt < 5; $attempt++) {
-            $data['reference']    = 'W-' . date('ymd') . '-' . strtoupper(substr(bin2hex(random_bytes(3)), 0, 4));
-            $data['public_token'] = bin2hex(random_bytes(16));
+        $data['public_token'] = bin2hex(random_bytes(16));
+        $data['reference']    = 'tmp-' . substr($data['public_token'], 0, 16);
 
-            if ($this->where('reference', $data['reference'])->countAllResults() === 0) {
-                $id = $this->insert($data, true);
+        $this->db->transStart();
+        $id = $this->insert($data, true);
+        $this->builder()->where('id', $id)->update(['reference' => self::reference((int) $id)]);
+        $this->db->transComplete();
 
-                return $this->find($id);
-            }
-        }
+        return $this->find($id);
+    }
 
-        throw new \RuntimeException('Kunde inte skapa en unik orderreferens.');
+    public static function reference(int $id): string
+    {
+        return 'W' . (1000 + $id);
     }
 
     public function findByToken(string $token): ?array
