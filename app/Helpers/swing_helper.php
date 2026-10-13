@@ -202,6 +202,16 @@ if (! function_exists('picture')) {
     }
 }
 
+if (! function_exists('picture_url')) {
+    /** Fullständig adress till bildens JPEG-version ur Config\Images (t.ex. för strukturerad data). */
+    function picture_url(string $key): ?string
+    {
+        $image = config('Images')->images[$key] ?? null;
+
+        return $image === null ? null : base_url($image['src']);
+    }
+}
+
 if (! function_exists('partial')) {
     /**
      * Renderar en delvy med en egen renderare så att variabler aldrig läcker

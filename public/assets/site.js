@@ -322,6 +322,125 @@
       else if (choice === null) showConsent(true);
     }
 
+    // TrackMan-guiden: nivåval, innehållsförteckning och Smash Factor-kalkylator.
+    // Allt innehåll finns i HTML:en – utan JS syns guiden som en vanlig sida.
+    var guide = document.getElementById("tm-guide");
+    if (guide) {
+      Array.prototype.forEach.call(guide.querySelectorAll("[data-js-only]"), function (el) { el.hidden = false; });
+
+      var levelNames = {};
+      Array.prototype.forEach.call(guide.querySelectorAll("[data-level-pick]"), function (b) { levelNames[b.dataset.levelPick] = b.textContent; });
+      var setLevel = function (level, save) {
+        if (!levelNames[level]) level = "all";
+        guide.dataset.level = level;
+        Array.prototype.forEach.call(guide.querySelectorAll("[data-level-pick]"), function (b) {
+          b.setAttribute("aria-pressed", b.dataset.levelPick === level ? "true" : "false");
+        });
+        Array.prototype.forEach.call(guide.querySelectorAll("[data-level-label]"), function (el) { el.textContent = levelNames[level]; });
+        if (save) { try { localStorage.setItem("swing-tm-level", level); } catch (err) { /* ingen lagring */ } }
+        onGuideScroll();
+      };
+      guide.addEventListener("click", function (e) {
+        var pick = e.target.closest("[data-level-pick]");
+        if (pick) setLevel(pick.dataset.levelPick, true);
+        if (e.target.closest("[data-level-reset]")) setLevel("all", true);
+      });
+
+      // Innehållsförteckningen öppnas som modal dialog (fokusfälla och Esc på köpet).
+      var toc = document.getElementById("tmg-toc");
+      var tocOpener = guide.querySelector("[data-toc-open]");
+      if (toc && typeof toc.showModal === "function") {
+        tocOpener.addEventListener("click", function () { toc.showModal(); });
+        toc.querySelector("[data-toc-close]").addEventListener("click", function () { toc.close(); });
+        toc.addEventListener("click", function (e) {
+          if (e.target.closest("[data-toc-link]")) toc.close();
+        });
+        toc.addEventListener("close", function () { tocOpener.focus({ preventScroll: true }); });
+      } else if (tocOpener) {
+        tocOpener.closest(".tmg-bar").hidden = true;
+      }
+
+      // Aktivt avsnitt i innehållsraden och förlopp genom guiden.
+      var sections = guide.querySelectorAll("[data-sec]");
+      var nowNum = guide.querySelector("[data-active-num]");
+      var nowTitle = guide.querySelector("[data-active-title]");
+      var progress = guide.querySelector("[data-progress]");
+      var tocLinks = guide.querySelectorAll("[data-toc-link]");
+      var ticking = false;
+      function onGuideScroll() {
+        if (ticking) return;
+        ticking = true;
+        requestAnimationFrame(function () {
+          ticking = false;
+          var active = null;
+          Array.prototype.forEach.call(sections, function (s) {
+            if (s.offsetParent !== null && s.getBoundingClientRect().top < 180) active = s;
+          });
+          active = active || sections[0];
+          var num = active.querySelector(".tmg-num");
+          var title = active.querySelector(".tmg-sec-title");
+          if (nowNum && num) nowNum.textContent = num.textContent;
+          if (nowTitle && title) nowTitle.textContent = title.textContent;
+          Array.prototype.forEach.call(tocLinks, function (a) {
+            if (a.getAttribute("href") === "#" + active.id) a.setAttribute("aria-current", "true");
+            else a.removeAttribute("aria-current");
+          });
+          var box = guide.getBoundingClientRect();
+          var span = guide.offsetHeight - window.innerHeight;
+          var share = span > 0 ? Math.min(1, Math.max(0, -box.top / span)) : 0;
+          if (progress) progress.style.width = (share * 100).toFixed(1) + "%";
+        });
+      }
+      window.addEventListener("scroll", onGuideScroll, { passive: true });
+
+      var savedLevel = "all";
+      try { savedLevel = localStorage.getItem("swing-tm-level") || "all"; } catch (err) { /* ingen lagring */ }
+      setLevel(savedLevel, false);
+
+      // Smash Factor = Ball Speed / Club Speed, med omdöme och skala.
+      Array.prototype.forEach.call(guide.querySelectorAll("[data-calc]"), function (calc) {
+        var clubs = JSON.parse(calc.dataset.clubs);
+        var zones = JSON.parse(calc.dataset.zones);
+        var cs = calc.querySelector("[data-cs]");
+        var bs = calc.querySelector("[data-bs]");
+        var pct = function (v) { return Math.max(0, Math.min(100, ((v - 1.10) / 0.5) * 100)).toFixed(2) + "%"; };
+        var fmt = function (v) { return v.toFixed(2).replace(".", ","); };
+        var verdict = function (club, r) {
+          if (club === "j6") return "Som jämförelse: Järn 6 på PGA Tour ligger på 1,39.";
+          if (club === "pw") return "Som jämförelse: omkring 1,25 är en generell referens för pitching wedge.";
+          return r < 1.35 ? "Ofta stor förbättringspotential" : r <= 1.42 ? "Träffen eller energiöverföringen kan förbättras" : r <= 1.46 ? "Bra nivå för många amatörer" : r <= 1.49 ? "Mycket effektiv bollträff" : "Nära typiskt maximalt effektiv nivå med driver";
+        };
+        var render = function () {
+          var club = calc.dataset.club;
+          var r = Math.round((Number(bs.value) / Number(cs.value)) * 100) / 100;
+          calc.querySelector("[data-cs-out]").textContent = cs.value + " mph";
+          calc.querySelector("[data-bs-out]").textContent = bs.value + " mph";
+          calc.querySelector("[data-cs-eq]").textContent = cs.value;
+          calc.querySelector("[data-bs-eq]").textContent = bs.value;
+          calc.querySelector("[data-value]").textContent = fmt(r);
+          calc.querySelector("[data-verdict]").textContent = verdict(club, r);
+          calc.querySelector("[data-mark]").style.left = pct(r);
+          calc.querySelector("[data-ref]").style.left = pct(clubs[club].ref);
+          calc.querySelector("[data-ref-label]").textContent = clubs[club].refLabel;
+          Array.prototype.forEach.call(calc.querySelectorAll(".tmg-zone"), function (z, i) {
+            z.classList.toggle("on", r >= zones[i][0] && r < zones[i][1]);
+          });
+        };
+        cs.addEventListener("input", render);
+        bs.addEventListener("input", render);
+        Array.prototype.forEach.call(calc.querySelectorAll("button[data-club]"), function (b) {
+          b.addEventListener("click", function () {
+            var key = b.dataset.club;
+            calc.dataset.club = key;
+            cs.value = clubs[key].cs;
+            bs.value = clubs[key].bs;
+            Array.prototype.forEach.call(calc.querySelectorAll("button[data-club]"), function (o) { o.setAttribute("aria-pressed", o === b ? "true" : "false"); });
+            render();
+          });
+        });
+      });
+    }
+
     // Händelser i Google Analytics – skickas bara när besökaren har godkänt
     // statistik (annars finns ingen gtag). Inga personuppgifter skickas.
     function track(name, params) {

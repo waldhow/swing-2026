@@ -111,4 +111,13 @@ class Services extends BaseService
 
         return new \App\Libraries\Faq(config('Swing'), config('Booking'), static::pricing());
     }
+
+    public static function trackmanGuide(bool $getShared = true): \App\Libraries\TrackmanGuide
+    {
+        if ($getShared) {
+            return static::getSharedInstance('trackmanGuide');
+        }
+
+        return new \App\Libraries\TrackmanGuide();
+    }
 }

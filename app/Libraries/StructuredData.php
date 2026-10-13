@@ -72,6 +72,25 @@ final class StructuredData
         return ['@context' => 'https://schema.org', '@type' => 'BreadcrumbList', 'itemListElement' => $items];
     }
 
+    /** Artikel/guide (t.ex. TrackMan-guiden), utgiven av Swing. */
+    public function article(string $title, string $description, string $url, ?string $image = null): array
+    {
+        $s = $this->swing;
+
+        return array_filter([
+            '@context'         => 'https://schema.org',
+            '@type'            => 'Article',
+            'headline'         => trim(explode('|', $title)[0]),
+            'description'      => $description,
+            'url'              => $url,
+            'mainEntityOfPage' => $url,
+            'inLanguage'       => 'sv-SE',
+            'image'            => $image,
+            'author'           => ['@type' => 'Organization', 'name' => $s->name, 'url' => page_url()],
+            'publisher'        => ['@type' => 'Organization', 'name' => $s->name, 'url' => page_url(), 'logo' => ['@type' => 'ImageObject', 'url' => base_url('assets/logo.svg')]],
+        ]);
+    }
+
     /**
      * @param list<array{q: string, a: string}> $items svaren får innehålla enkel HTML
      */

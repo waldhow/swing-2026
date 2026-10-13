@@ -100,7 +100,7 @@ test.describe('desktop 1280 px', () => {
 for (const width of [320, 375, 768, 1280]) {
   test(`ingen horisontell scroll vid ${width} px`, async ({ page }) => {
     await page.setViewportSize({ width, height: 900 });
-    for (const path of ['/', '/priser/', '/spelpotter/', '/presentkort/', '/foretagsevent/', '/kontakt/']) {
+    for (const path of ['/', '/priser/', '/spelpotter/', '/presentkort/', '/foretagsevent/', '/kontakt/', '/trackman-guide/']) {
       await page.goto(path);
       await hideDebug(page);
       const overflow = await page.evaluate(() => document.documentElement.scrollWidth - window.innerWidth);
@@ -430,6 +430,85 @@ test('klick på Boka, Köp spelpott och Begär offert mäts bara efter samtycke'
   expect(await events()).toContainEqual(['generate_lead', { formular: 'foretag' }]);
   await page.reload({ waitUntil: 'load' });
   expect((await events()).filter(([name]) => name === 'generate_lead')).toHaveLength(0);
+});
+
+test.describe('TrackMan-guiden', () => {
+  test('nivåvalet markerar råden, visar rätt nivåavsnitt och sparas', async ({ page }) => {
+    await page.goto('/trackman-guide/');
+    const guide = page.locator('#tm-guide');
+    await expect(guide).toHaveAttribute('data-level', 'all');
+    await expect(page.locator('#s26')).toBeVisible();
+
+    await page.locator('.tmg-level [data-level-pick="n"]').click();
+    await expect(guide).toHaveAttribute('data-level', 'n');
+    await expect(page.locator('.tmg-level [data-level-pick="n"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(page.locator('#s25')).toBeVisible();
+    await expect(page.locator('#s26')).toBeHidden();
+    await expect(page.locator('[data-level-label]')).toHaveText('Nybörjare');
+
+    await page.reload();
+    await expect(guide).toHaveAttribute('data-level', 'n');
+    await page.locator('[data-level-reset]').click();
+    await expect(guide).toHaveAttribute('data-level', 'all');
+    await expect(page.locator('#s26')).toBeVisible();
+  });
+
+  test('innehållet öppnas som dialog, leder till avsnittet och stängs med Escape', async ({ page }) => {
+    await page.goto('/trackman-guide/');
+    const opener = page.locator('[data-toc-open]');
+    const toc = page.locator('#tmg-toc');
+
+    await opener.click();
+    await expect(toc).toBeVisible();
+    await toc.locator('a[href="#s5"]').click();
+    await expect(toc).toBeHidden();
+    await expect(page).toHaveURL(/#s5$/);
+    await expect.poll(() => page.locator('[data-active-num]').textContent()).toBe('05');
+    const r = await page.evaluate(() => ({
+      bar: document.querySelector('.tmg-bar').getBoundingClientRect().bottom,
+      heading: document.querySelector('#s5-rubrik').getBoundingClientRect().top,
+    }));
+    expect(r.heading, 'rubriken ska synas under innehållsraden').toBeGreaterThan(r.bar);
+
+    await opener.click();
+    await expect(toc).toBeVisible();
+    await page.keyboard.press('Escape');
+    await expect(toc).toBeHidden();
+    await expect(opener).toBeFocused();
+  });
+
+  test('Smash Factor räknas om när klubba och hastigheter ändras', async ({ page }) => {
+    await page.goto('/trackman-guide/');
+    const calc = page.locator('[data-calc]');
+    await expect(calc.locator('[data-value]')).toHaveText('1,48');
+
+    await calc.locator('[data-bs]').fill('140');
+    await expect(calc.locator('[data-value]')).toHaveText('1,40');
+    await expect(calc.locator('[data-verdict]')).toHaveText('Träffen eller energiöverföringen kan förbättras');
+
+    await calc.locator('button[data-club="j6"]').click();
+    await expect(calc.locator('button[data-club="j6"]')).toHaveAttribute('aria-pressed', 'true');
+    await expect(calc.locator('[data-value]')).toHaveText('1,36');
+    await expect(calc.locator('[data-ref-label]')).toHaveText('Järn 6, PGA Tour 1,39');
+  });
+
+  test('startsidans puff leder till rätt siffra i guiden', async ({ page }) => {
+    await page.goto('/');
+    await page.locator('.tmg-teaser a[href="/trackman-guide/#s4"]').click();
+    await expect(page).toHaveURL(/\/trackman-guide\/#s4$/);
+    await expect(page.locator('#s4-rubrik')).toBeInViewport();
+  });
+});
+
+test.describe('TrackMan-guiden utan JavaScript', () => {
+  test.use({ javaScriptEnabled: false });
+
+  test('hela guiden syns och nivåvalet är dolt', async ({ page }) => {
+    await page.goto('/trackman-guide/');
+    await expect(page.locator('.tmg-level')).toBeHidden();
+    await expect(page.locator('.tmg-bar')).toBeHidden();
+    for (const id of ['#s25', '#s26', '#s27', '#s28']) await expect(page.locator(id)).toBeVisible();
+  });
 });
 
 test('okänd sida ger 404 med vägar vidare', async ({ page }) => {

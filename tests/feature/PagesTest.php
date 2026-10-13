@@ -356,6 +356,39 @@ final class PagesTest extends CIUnitTestCase
         $this->assertStringContainsString('Hur fungerar dörrkoden?', $html);
     }
 
+    public function testTrackmanGuideShowsWholeGuideWithArticleAndFaqMarkup(): void
+    {
+        $html = $this->fetch('trackman-guide');
+
+        $this->assertSame(33, substr_count($html, 'class="tmg-sec"'));
+        $this->assertSame(1, substr_count($html, '<h1'));
+        $this->assertStringContainsString('"@type":"Article"', $html);
+        $this->assertStringContainsString('"FAQPage"', $html);
+        $this->assertStringContainsString('Vad är en bra Smash Factor med driver?', html_entity_decode($html));
+        $this->assertMatchesRegularExpression('#<nav class="crumbs"[\s\S]*TrackMan iO &amp; simulatorer[\s\S]*TrackMan-guide#', $html);
+
+        // Nivåval, innehållsrad och kalkylatorns knappar kräver JS – dolda utan.
+        $this->assertMatchesRegularExpression('#class="tmg-level"[^>]*data-js-only hidden#', $html);
+        $this->assertMatchesRegularExpression('#class="tmg-bar" data-js-only hidden#', $html);
+        $this->assertStringContainsString('<span class="tmg-calc-value" data-value>1,48</span>', $html);
+
+        // Alla interna ankare i guiden leder till ett avsnitt som finns.
+        preg_match_all('#href="\#(s\d+|[a-z-]+)"#', $html, $anchors);
+        foreach (array_unique($anchors[1]) as $id) {
+            $this->assertStringContainsString('id="' . $id . '"', $html, "ankaret #{$id} saknas");
+        }
+    }
+
+    public function testHomeAndTrackmanPageLeadToTheGuide(): void
+    {
+        $home = $this->fetch('');
+        $this->assertStringContainsString('<h2 id="guide">Förstå dina TrackMan-siffror</h2>', $home);
+        preg_match_all('#href="/trackman-guide/\#s\d+"#', $home, $metrics);
+        $this->assertCount(8, $metrics[0], 'startsidan visar de åtta siffrorna');
+
+        $this->assertStringContainsString('href="/trackman-guide/"', $this->fetch('trackman-io'));
+    }
+
     public function testTrailingSlashRedirect(): void
     {
         $result = $this->get('priser');

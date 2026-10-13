@@ -24,6 +24,8 @@
       <h2>Teknik för dig som vill utvecklas</h2>
       <p>TrackMan iO ger information om dina golfslag och hjälper dig att analysera ditt spel. Det passar dig som vill förstå dina slag bättre och fortsätta utvecklas även under vintern.</p>
       <p>Logga in med TrackMan Golf-appen om du vill spara dina slag på ditt eget konto, eller spela som gäst.</p>
+      <p>Vad betyder Ball Speed, Smash Factor och Club Path – och vad är ett bra värde för just dig? I vår guide går vi igenom siffrorna, jämför olika nivåer och ger dig träningspass att göra hos oss.</p>
+      <div class="btn-row"><a class="btn btn-ghost" href="<?= page_path('trackman-guide') ?>">Läs TrackMan-guiden<?= icon('arrowR', 20) ?></a></div>
 
       <h2>Spela golf tillsammans</h2>
       <p>Simulatorgolf behöver inte handla om siffror. Samla kompisarna, välj en virtuell golfupplevelse och spela tillsammans. Vi rekommenderar <?= esc($swing->recommendedPlayers) ?> personer per simulator.</p>

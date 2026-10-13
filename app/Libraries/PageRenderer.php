@@ -45,6 +45,10 @@ final class PageRenderer
         if (($page['schema'] ?? '') === 'faq') {
             $jsonLd[] = $schema->faq(service('faq')->all());
         }
+        if (($page['schema'] ?? '') === 'guide') {
+            $jsonLd[] = $schema->article($this->pages->fill($page['title']), $this->pages->fill($page['description']), page_url($slug), picture_url('simulator'));
+            $jsonLd[] = $schema->faq(service('trackmanGuide')->faq());
+        }
         if (! empty($data['currentCompetitions'])) {
             array_push($jsonLd, ...$schema->events($data['currentCompetitions']));
         }
@@ -93,6 +97,7 @@ final class PageRenderer
                 'homeCampaigns'       => $this->safe(static fn () => model(CampaignModel::class)->forHome()),
                 'currentCompetitions' => $this->safe(static fn () => array_slice(model(CompetitionModel::class)->current(), 0, 3)),
                 'faqItems'            => service('faq')->pick(['hur-bokar-jag', 'per-person', 'dorrkod', 'klubbor', 'var-ligger-swing']),
+                'guideMetrics'        => service('trackmanGuide')->keyMetrics(),
             ],
             'spelpotter'     => [
                 'campaignPots' => $this->safe(static fn () => model(CampaignModel::class)->activePots()),
@@ -104,6 +109,7 @@ final class PageRenderer
             'vanliga-fragor' => ['faqGroups' => service('faq')->grouped()],
             'boka'           => ['faqItems' => service('faq')->pick(['dorrkod', 'avboka', 'skor', 'egna-bollar'])],
             'priser'         => ['faqItems' => service('faq')->pick(['per-person', 'hur-manga', 'spelpott', 'avboka'])],
+            'trackman-guide' => ['guide' => service('trackmanGuide')],
             default          => [],
         };
     }

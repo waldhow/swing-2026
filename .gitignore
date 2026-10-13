@@ -144,3 +144,6 @@ output/
 
 # SSH-uppgifter till Loopia – lokalt, aldrig i git eller på servern
 .loopia
+
+# Designunderlag och skisser (lokalt, inte i repot)
+/tmp/

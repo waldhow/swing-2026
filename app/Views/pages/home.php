@@ -76,6 +76,27 @@ $images  = config('Images');
   </div>
 </section>
 
+<?php if (! empty($guideMetrics)): ?>
+<section class="sec tmg-teaser" aria-labelledby="guide">
+  <div class="wrap tmg-teaser-in">
+    <div class="tmg-teaser-text">
+      <p class="eyebrow">Guide · TrackMan iO</p>
+      <h2 id="guide">Förstå dina TrackMan-siffror</h2>
+      <p class="lede">Vad betyder Ball Speed, Smash Factor och Club Path – och vad är ett bra värde för just dig? Vår guide går igenom siffrorna, jämför olika nivåer och ger dig träningspass att göra hos oss.</p>
+      <div class="btn-row"><a class="btn btn-primary" href="<?= page_path('trackman-guide') ?>">Läs guiden<?= icon('arrowR', 20) ?></a></div>
+    </div>
+    <div class="tmg-teaser-side">
+      <p class="tmg-teaser-label">De åtta siffrorna att börja med</p>
+      <ul class="tmg-teaser-list" role="list">
+        <?php foreach ($guideMetrics as $metric): ?>
+        <li><a href="<?= page_path('trackman-guide') ?>#s<?= (int) $metric['ref'] ?>"><span class="tmg-teaser-name"><?= esc($metric['name']) ?></span><span class="tmg-teaser-what"><?= esc($metric['what']) ?></span></a></li>
+        <?php endforeach; ?>
+      </ul>
+    </div>
+  </div>
+</section>
+<?php endif; ?>
+
 <section class="sec" aria-labelledby="loungen">
   <div class="wrap split rev">
     <div class="prose">

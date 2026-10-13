@@ -1,0 +1,2087 @@
+{
+ "levels": [
+  [
+   "all",
+   "Alla nivåer"
+  ],
+  [
+   "n",
+   "Nybörjare"
+  ],
+  [
+   "m",
+   "Medelgolfare"
+  ],
+  [
+   "l",
+   "Låghandicapare"
+  ],
+  [
+   "e",
+   "Elitspelare"
+  ]
+ ],
+ "focus": {
+  "n": [
+   3,
+   5,
+   17,
+   23,
+   24
+  ],
+  "m": [
+   4,
+   5,
+   7,
+   8,
+   14,
+   15,
+   19,
+   20
+  ],
+  "l": [
+   2,
+   3,
+   5,
+   7,
+   8,
+   9,
+   11,
+   15,
+   23,
+   24
+  ],
+  "e": [
+   2,
+   3,
+   4,
+   5,
+   9,
+   10,
+   11,
+   13,
+   14,
+   17,
+   19,
+   21,
+   22,
+   23,
+   24
+  ]
+ },
+ "parts": [
+  {
+   "id": "intro",
+   "tocLabel": "Start",
+   "sections": [
+    {
+     "n": 1,
+     "title": "Börja här – de åtta siffrorna du bör känna till",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Om du är ny på TrackMan behöver du inte analysera allt. Börja med dessa åtta värden."
+      },
+      {
+       "k": "cards",
+       "cards": [
+        [
+         "Carry",
+         "Hur långt bollen flyger",
+         "En jämn och pålitlig längd",
+         5
+        ],
+        [
+         "Ball Speed",
+         "Bollens hastighet direkt efter träffen",
+         "Effektiv bollträff och lagom fart",
+         3
+        ],
+        [
+         "Smash Factor",
+         "Hur effektivt klubbans hastighet överförs till bollen",
+         "Hög och jämn effektivitet för aktuell klubba",
+         4
+        ],
+        [
+         "Launch Angle",
+         "Hur högt bollen startar",
+         "En lämplig utgångsvinkel",
+         7
+        ],
+        [
+         "Spin Rate",
+         "Hur snabbt bollen roterar",
+         "Tillräcklig spinn för önskad bollflykt",
+         8
+        ],
+        [
+         "Club Path",
+         "Klubbans riktning genom träffen",
+         "En stabil väg som passar ditt slag",
+         13
+        ],
+        [
+         "Face to Path",
+         "Klubbbladets vinkel i förhållande till klubbans väg",
+         "Kontroll över bollens skruv",
+         15
+        ],
+        [
+         "Attack Angle",
+         "Om klubban rör sig uppåt eller nedåt vid träffen",
+         "Rätt träff för driver respektive järn",
+         19
+        ]
+       ]
+      },
+      {
+       "k": "tip",
+       "t": "Träna inte på att få alla siffror perfekta samtidigt. Börja med att få ren bollträff och jämna längder. Gå sedan vidare till riktning och bollflykt.",
+       "lead": "Swings tips"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "d1",
+   "label": "Del 1",
+   "title": "Längd och hastighet",
+   "sections": [
+    {
+     "n": 2,
+     "title": "Club Speed – klubbhastighet",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Club Speed visar hur snabbt klubbhuvudet rör sig precis före bollträffen."
+      },
+      {
+       "k": "p",
+       "t": "Värdet visas vanligtvis i mph eller km/h, beroende på inställningarna."
+      },
+      {
+       "k": "p",
+       "t": "Ju högre klubbhastighet du har, desto större möjlighet finns att slå långt. Men hastigheten måste också kombineras med en bra bollträff."
+      },
+      {
+       "k": "p",
+       "t": "En golfare som svingar i 100 mph och träffar dåligt kan slå kortare än en golfare som svingar i 95 mph och träffar mitt i klubbbladet."
+      },
+      {
+       "k": "h",
+       "t": "Hur snabb är en bra driversving?"
+      },
+      {
+       "k": "p",
+       "t": "Tabellen visar genomsnitt från TrackMans amatördata, grupperade efter handicap."
+      },
+      {
+       "k": "t",
+       "head": [
+        "Herrspelare",
+        "Club Speed driver",
+        "Ungefär km/h"
+       ],
+       "rows": [
+        [
+         "Bogeygolfare",
+         "92 mph",
+         "148 km/h"
+        ],
+        [
+         "HCP cirka 14,5",
+         "94 mph",
+         "151 km/h"
+        ],
+        [
+         "HCP 10",
+         "95 mph",
+         "153 km/h"
+        ],
+        [
+         "HCP 5",
+         "101 mph",
+         "163 km/h"
+        ],
+        [
+         "Scratch eller bättre",
+         "110 mph",
+         "177 km/h"
+        ],
+        [
+         "PGA Tour",
+         "115 mph",
+         "185 km/h"
+        ]
+       ],
+       "num": [
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "k": "t",
+       "head": [
+        "Damspelare",
+        "Club Speed driver",
+        "Ungefär km/h"
+       ],
+       "rows": [
+        [
+         "HCP 15",
+         "79 mph",
+         "127 km/h"
+        ],
+        [
+         "HCP 10",
+         "83 mph",
+         "134 km/h"
+        ],
+        [
+         "HCP 5",
+         "87 mph",
+         "140 km/h"
+        ],
+        [
+         "Scratch eller bättre",
+         "90 mph",
+         "145 km/h"
+        ],
+        [
+         "LPGA Tour",
+         "96 mph",
+         "154 km/h"
+        ]
+       ],
+       "num": [
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Det här är statistik, inte minimikrav för att nå ett visst handicap. Det finns duktiga golfare som svingar betydligt långsammare och golfare med hög fart som ändå har svårt att få ner sin score."
+      },
+      {
+       "k": "s",
+       "t": "Vad är bra för dig?"
+      },
+      {
+       "k": "l",
+       "items": [
+        [
+         "Nybörjare:",
+         "Prioritera balans och ren bollträff."
+        ],
+        [
+         "Medelgolfare:",
+         "Försök höja hastigheten utan att tappa träffsäkerhet."
+        ],
+        [
+         "Låghandicapare:",
+         "Optimera bollhastighet och precision innan du enbart jagar mer klubbhastighet."
+        ],
+        [
+         "Juniorer och seniorer:",
+         "Jämför helst med din egen utveckling och spelare med liknande förutsättningar."
+        ]
+       ],
+       "ordered": false,
+       "lvls": [
+        "n",
+        "m",
+        "l",
+        null
+       ]
+      }
+     ]
+    },
+    {
+     "n": 3,
+     "title": "Ball Speed – bollhastighet",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Ball Speed visar hur snabbt bollen lämnar klubban efter träffen."
+      },
+      {
+       "k": "p",
+       "t": "Det är en av de viktigaste faktorerna för slaglängd."
+      },
+      {
+       "k": "p",
+       "t": "Du kan öka din Ball Speed på två huvudsakliga sätt:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "Svinga klubban snabbare.",
+        "Träffa bollen effektivare."
+       ],
+       "ordered": true
+      },
+      {
+       "k": "p",
+       "t": "Ofta finns det mer att vinna på att förbättra träffen än på att bara försöka svinga hårdare."
+      },
+      {
+       "k": "h",
+       "t": "Bollhastighet med driver – jämförelse"
+      },
+      {
+       "k": "t",
+       "head": [
+        "Nivå",
+        "Herrar",
+        "Damer"
+       ],
+       "rows": [
+        [
+         "HCP 15 ungefär",
+         "133 mph*",
+         "111 mph"
+        ],
+        [
+         "HCP 10",
+         "138 mph",
+         "119 mph"
+        ],
+        [
+         "HCP 5",
+         "147 mph",
+         "125 mph"
+        ],
+        [
+         "Scratch eller bättre",
+         "161 mph",
+         "131 mph"
+        ],
+        [
+         "Tourspelare",
+         "171 mph (PGA)",
+         "143 mph (LPGA)"
+        ]
+       ],
+       "num": [
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "k": "n",
+       "t": "*Herrvärdet 133 mph avser TrackMans grupp med genomsnittligt handicap 14,5, inte exakt HCP 15."
+      },
+      {
+       "k": "p",
+       "t": "Om du normalt har 135 mph i Ball Speed med drivern och plötsligt får 145 mph med samma klubbhastighet har du sannolikt förbättrat effektiviteten i träffen.",
+       "lead": "Exempel:"
+      },
+      {
+       "k": "p",
+       "t": "Ball Speed påverkas även av golfbollen, klubbans konstruktion och hur du träffar klubbbladet.",
+       "lead": "Bra att veta:"
+      }
+     ]
+    },
+    {
+     "n": 4,
+     "title": "Smash Factor – hur effektiv är bollträffen?",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Smash Factor är ett av de enklaste värdena att förstå och ett av de mest användbara."
+      },
+      {
+       "k": "p",
+       "t": "Formeln är:"
+      },
+      {
+       "k": "f",
+       "t": "Smash Factor = Ball Speed / Club Speed"
+      },
+      {
+       "k": "p",
+       "t": "Om du svingar drivern i 100 mph och får en bollhastighet på 148 mph blir Smash Factor 1,48."
+      },
+      {
+       "k": "calc"
+      },
+      {
+       "k": "h",
+       "t": "Riktvärden för driver"
+      },
+      {
+       "k": "t",
+       "head": [
+        "Smash Factor",
+        "Tolkning"
+       ],
+       "rows": [
+        [
+         "Under 1,35",
+         "Ofta stor förbättringspotential"
+        ],
+        [
+         "1,35–1,42",
+         "Träffen eller energiöverföringen kan förbättras"
+        ],
+        [
+         "1,43–1,46",
+         "Bra nivå för många amatörer"
+        ],
+        [
+         "1,47–1,49",
+         "Mycket effektiv bollträff"
+        ],
+        [
+         "Cirka 1,50",
+         "Nära typiskt maximalt effektiv nivå med driver"
+        ]
+       ],
+       "num": [
+        0,
+        0
+       ]
+      },
+      {
+       "k": "n",
+       "t": "Dessa intervall är förenklade träningsriktvärden, inte officiella handicapgränser."
+      },
+      {
+       "k": "p",
+       "t": "TrackMans redovisade genomsnitt ligger på 1,44 för herramatörer kring HCP 14,5 och 1,49 på PGA Tour."
+      },
+      {
+       "k": "h",
+       "t": "Viktigt: Smash Factor beror på klubban"
+      },
+      {
+       "k": "p",
+       "t": "En järnklubba har mer loft än en driver och får därför normalt lägre Smash Factor."
+      },
+      {
+       "k": "p",
+       "t": "Som jämförelse anger TrackMan:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "Driver på PGA Tour: 1,49",
+        "Järn 6 på PGA Tour: 1,39",
+        "Pitching wedge: omkring 1,25 som generell referens"
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Försök alltså inte uppnå 1,50 med en pitching wedge."
+      },
+      {
+       "k": "tip",
+       "t": "Slå tio drives och jämför Smash Factor. En serie jämna träffar omkring 1,46 är ofta mer användbar på golfbanan än en enstaka träff på 1,50 bland flera dåliga slag.",
+       "lead": "Swings tips"
+      }
+     ]
+    },
+    {
+     "n": 5,
+     "title": "Carry – hur långt bollen flyger",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Carry är avståndet bollen färdas i luften, innan den landar."
+      },
+      {
+       "k": "p",
+       "t": "Det är ofta en viktigare siffra än den totala slaglängden."
+      },
+      {
+       "k": "p",
+       "t": "Om du exempelvis behöver slå över ett vattenhinder som ligger 150 meter bort spelar det ingen roll att din boll kan rulla till 165 meter om den bara flyger 145 meter."
+      },
+      {
+       "k": "h",
+       "t": "Vad är en bra Carry?"
+      },
+      {
+       "k": "p",
+       "t": "Det finns ingen universell carrylängd för ett visst handicap. Den påverkas av klubbhastighet, loft, bollträff, bollflykt och utrustning."
+      },
+      {
+       "k": "p",
+       "t": "Som jämförelse ligger TrackMans redovisade tourgenomsnitt för driver på ungefär:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "PGA Tour: 258 meter",
+        "LPGA Tour: 204 meter"
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Det viktigaste för de flesta golfare är däremot att lära sig sin egen längd med varje klubba."
+      },
+      {
+       "k": "h",
+       "t": "Träning: Kartlägg din bag"
+      },
+      {
+       "k": "p",
+       "t": "Slå 8–10 representativa slag med varje klubba."
+      },
+      {
+       "k": "p",
+       "t": "Anteckna:"
+      },
+      {
+       "k": "t",
+       "head": [
+        "Klubba",
+        "Genomsnittlig Carry",
+        "Kortaste representativa slag",
+        "Längsta representativa slag"
+       ],
+       "rows": [
+        [
+         "Driver",
+         "Fyll i",
+         "Fyll i",
+         "Fyll i"
+        ],
+        [
+         "Hybrid",
+         "Fyll i",
+         "Fyll i",
+         "Fyll i"
+        ],
+        [
+         "Järn 6",
+         "Fyll i",
+         "Fyll i",
+         "Fyll i"
+        ],
+        [
+         "Järn 7",
+         "Fyll i",
+         "Fyll i",
+         "Fyll i"
+        ],
+        [
+         "Järn 8",
+         "Fyll i",
+         "Fyll i",
+         "Fyll i"
+        ],
+        [
+         "Järn 9",
+         "Fyll i",
+         "Fyll i",
+         "Fyll i"
+        ],
+        [
+         "PW",
+         "Fyll i",
+         "Fyll i",
+         "Fyll i"
+        ],
+        [
+         "Wedge 50°",
+         "Fyll i",
+         "Fyll i",
+         "Fyll i"
+        ],
+        [
+         "Wedge 56°",
+         "Fyll i",
+         "Fyll i",
+         "Fyll i"
+        ]
+       ],
+       "num": [
+        0,
+        0,
+        0,
+        0
+       ],
+       "lvls": null,
+       "minW": "520px"
+      },
+      {
+       "k": "p",
+       "t": "Räkna inte bara ditt allra bästa slag. Utgå från en representativ serie där du också tar hänsyn till dina vanliga missar."
+      }
+     ]
+    },
+    {
+     "n": 6,
+     "title": "Total – total slaglängd",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Total är den beräknade längden inklusive rull efter landning."
+      },
+      {
+       "k": "p",
+       "t": "Ett slag kan exempelvis ha:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "Carry: 210 meter",
+        "Total: 232 meter",
+        "Rull: 22 meter"
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Rullen påverkas bland annat av landningsvinkel, underlag och simulatorns inställningar."
+      },
+      {
+       "k": "tip",
+       "t": "Använd främst Carry för att välja klubba. Använd Total när du analyserar drives och andra slag där rullen är viktig.",
+       "lead": "Swings tips"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "d2",
+   "label": "Del 2",
+   "title": "Bollbana, utgångsvinkel och spinn",
+   "sections": [
+    {
+     "n": 7,
+     "title": "Launch Angle – bollens utgångsvinkel",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Launch Angle är vinkeln som bollen lämnar klubban i, mätt uppåt från horisontalplanet."
+      },
+      {
+       "k": "p",
+       "t": "En driver som lämnar klubbbladet med 13° Launch Angle startar alltså uppåt i 13 graders vinkel."
+      },
+      {
+       "k": "h",
+       "t": "Exempel på nivåer"
+      },
+      {
+       "k": "t",
+       "head": [
+        "Klubba",
+        "Referens"
+       ],
+       "rows": [
+        [
+         "Driver, PGA Tour",
+         "10,4°"
+        ],
+        [
+         "Driver, LPGA Tour",
+         "12,6°"
+        ],
+        [
+         "Järn 6, PGA Tour",
+         "14,0°"
+        ],
+        [
+         "Järn 6, LPGA Tour",
+         "16,7°"
+        ]
+       ],
+       "num": [
+        0,
+        1
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Det här är tourgenomsnitt, inte ideala mål för alla."
+      },
+      {
+       "k": "p",
+       "t": "För en amatör med måttlig driverhastighet kan en högre Launch Angle än på PGA Tour vara bättre."
+      },
+      {
+       "k": "h",
+       "t": "Ett praktiskt riktmärke"
+      },
+      {
+       "k": "p",
+       "t": "För många vanliga driversvingar kan det vara intressant att undersöka en Launch Angle kring 11–16°. Men rätt värde måste alltid bedömas tillsammans med bollhastighet, Attack Angle och Spin Rate."
+      },
+      {
+       "k": "tip",
+       "t": "Att försöka kopiera en tourspelares låga utgångsvinkel trots att man har betydligt lägre svinghastighet.",
+       "lead": "Vanligt misstag"
+      }
+     ]
+    },
+    {
+     "n": 8,
+     "title": "Spin Rate – bollens rotationshastighet",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Spin Rate mäter hur snabbt bollen roterar efter träffen."
+      },
+      {
+       "k": "p",
+       "t": "Enheten är rpm, rotations per minute – varv per minut."
+      },
+      {
+       "k": "p",
+       "t": "Spin påverkar bland annat bollens flykt, höjd, carry och hur den beter sig vid landningen."
+      },
+      {
+       "k": "h",
+       "t": "Referensvärden från TrackMan"
+      },
+      {
+       "k": "t",
+       "head": [
+        "Klubba",
+        "PGA Tour",
+        "LPGA Tour"
+       ],
+       "rows": [
+        [
+         "Driver",
+         "2 545 rpm",
+         "2 506 rpm"
+        ],
+        [
+         "Järn 6",
+         "6 204 rpm",
+         "5 904 rpm"
+        ]
+       ],
+       "num": [
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "k": "p",
+       "t": "För vanliga herramatörer visar TrackMans statistik följande genomsnitt med driver:"
+      },
+      {
+       "k": "t",
+       "head": [
+        "Handicapgrupp",
+        "Spin Rate"
+       ],
+       "rows": [
+        [
+         "Scratch eller bättre",
+         "2 896 rpm"
+        ],
+        [
+         "HCP 5",
+         "2 987 rpm"
+        ],
+        [
+         "HCP 10",
+         "3 192 rpm"
+        ],
+        [
+         "HCP cirka 14,5",
+         "3 275 rpm"
+        ]
+       ],
+       "num": [
+        0,
+        1
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Vad är bra spinn med driver?"
+      },
+      {
+       "k": "p",
+       "t": "Det beror helt på svinghastigheten och hur bollen startar."
+      },
+      {
+       "k": "p",
+       "t": "Som en första jämförelse kan många amatörer undersöka värden någonstans omkring 2 000–3 500 rpm, men detta är ett brett observationsområde, inte ett idealintervall."
+      },
+      {
+       "k": "l",
+       "items": [
+        "För hög spinn i förhållande till bollhastigheten kan ge en hög, kort bollflykt.",
+        "För låg spinn kan göra bollflykten instabil och minska carry.",
+        "Med järn och wedgar behöver du ofta betydligt mer spinn för att kunna kontrollera landningen."
+       ]
+      },
+      {
+       "k": "tip",
+       "t": "Jämför inte ett järnslags Spin Rate med en drivers. Och bedöm aldrig spinn utan att också titta på bollhastighet och Launch Angle.",
+       "lead": "Viktigast"
+      }
+     ]
+    },
+    {
+     "n": 9,
+     "title": "Spin Axis – åt vilket håll skruvar bollen?",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Spin Axis visar lutningen på bollens rotationsaxel."
+      },
+      {
+       "k": "p",
+       "t": "Det påverkar om bollen kurvar vänster eller höger."
+      },
+      {
+       "k": "t",
+       "head": [
+        "Spin Axis",
+        "Bollens förväntade kurva"
+       ],
+       "rows": [
+        [
+         "Negativt värde",
+         "Åt vänster"
+        ],
+        [
+         "0°",
+         "Ingen kurva från rotationsaxelns lutning"
+        ],
+        [
+         "Positivt värde",
+         "Åt höger"
+        ]
+       ],
+       "num": [
+        0,
+        0
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Hur mycket är bra?"
+      },
+      {
+       "k": "t",
+       "head": [
+        "Värde",
+        "Tolkning"
+       ],
+       "rows": [
+        [
+         "-2° till +2°",
+         "Normalt nästan rak bollflykt"
+        ],
+        [
+         "Cirka ±3–5°",
+         "Synlig men relativt måttlig kurva"
+        ],
+        [
+         "Cirka ±6–10°",
+         "Tydligare kurva"
+        ],
+        [
+         "Över ±10°",
+         "Stor kurva, särskilt på långa slag"
+        ]
+       ],
+       "num": [
+        0,
+        0
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Observera att en kontrollerad draw eller fade inte är ett dåligt slag."
+      },
+      {
+       "k": "p",
+       "t": "En boll som startar rätt, kurvar kontrollerat och landar nära målet är ett bra slag även om Spin Axis inte är 0°."
+      }
+     ]
+    },
+    {
+     "n": 10,
+     "title": "Apex Height – bollens högsta punkt",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Apex Height, som också kan visas som Height, är bollens maximala höjd under flykten."
+      },
+      {
+       "k": "p",
+       "t": "Den påverkas av bland annat:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "Bollhastighet",
+        "Launch Angle",
+        "Spin Rate"
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Många tror att en driver alltid ska nå en högre maximal höjd än en järnklubba. Så behöver det inte vara."
+      },
+      {
+       "k": "p",
+       "t": "En duktig golfare kan ha relativt liknande högsta bollhöjd med flera olika klubbor."
+      },
+      {
+       "k": "p",
+       "t": "Den höjd som ger önskad carry, kontroll och landningsvinkel med just din hastighet.",
+       "lead": "Vad är bra?"
+      }
+     ]
+    },
+    {
+     "n": 11,
+     "title": "Landing Angle – landningsvinkel",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Landing Angle visar hur brant bollen kommer ner mot marken."
+      },
+      {
+       "k": "p",
+       "t": "Det här är särskilt viktigt vid inspel mot green."
+      },
+      {
+       "k": "p",
+       "t": "En boll som landar brantare tenderar, allt annat lika, att stanna snabbare. En flackare landning ger ofta mer rull."
+      },
+      {
+       "k": "h",
+       "t": "Vad ska du titta efter?"
+      },
+      {
+       "k": "p",
+       "t": "Med järn och wedgar är det viktigt att bollen inte bara når fram till green utan också har en bollflykt som ger möjlighet att stanna där."
+      },
+      {
+       "k": "p",
+       "t": "Det finns inget enda landningsvinkelvärde som är optimalt för alla klubbor och spelare."
+      },
+      {
+       "k": "tip",
+       "t": "Har du bra längd med järn 7 men svårt att få bollen att stanna på green? Jämför Landing Angle, Apex Height och Spin Rate.",
+       "lead": "Swings tips"
+      }
+     ]
+    },
+    {
+     "n": 12,
+     "title": "Hang Time – tiden i luften",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Hang Time visar hur länge bollen befinner sig i luften."
+      },
+      {
+       "k": "p",
+       "t": "Värdet är särskilt intressant tillsammans med bollhöjd och landningsvinkel."
+      },
+      {
+       "k": "p",
+       "t": "Det är däremot sällan något du behöver försöka optimera isolerat."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "d3",
+   "label": "Del 3",
+   "title": "Riktning och träffsäkerhet",
+   "sections": [
+    {
+     "n": 13,
+     "title": "Club Path – klubbans väg genom bollen",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Club Path visar åt vilket håll klubbhuvudet rör sig i träffögonblicket, i förhållande till mållinjen."
+      },
+      {
+       "k": "l",
+       "items": [
+        [
+         "0°:",
+         "Klubban rör sig längs mållinjen."
+        ],
+        [
+         "Positivt värde:",
+         "Klubban rör sig åt höger om mållinjen."
+        ],
+        [
+         "Negativt värde:",
+         "Klubban rör sig åt vänster om mållinjen."
+        ]
+       ]
+      },
+      {
+       "k": "p",
+       "t": "För en högerspelare kallas en positiv Club Path ofta inifrån–ut och en negativ utifrån–in."
+      },
+      {
+       "k": "h",
+       "t": "Vad är ett bra Club Path?"
+      },
+      {
+       "k": "p",
+       "t": "Det beror på om du försöker slå rakt, draw eller fade."
+      },
+      {
+       "k": "p",
+       "t": "Som förenklade träningsmål vid försök att slå relativt raka slag:"
+      },
+      {
+       "k": "t",
+       "head": [
+        "Nivå",
+        "Praktiskt mål"
+       ],
+       "rows": [
+        [
+         "Nybörjare",
+         "Försök minska stora och varierande avvikelser"
+        ],
+        [
+         "Medelgolfare",
+         "En stabil väg inom cirka ±3–5° kan vara en bra början"
+        ],
+        [
+         "Låghandicapare",
+         "En kontrollerad, återkommande Club Path som passar önskad bollflykt"
+        ],
+        [
+         "Elitspelare",
+         "Mycket konsekvent Club Path i relation till vald startlinje och kurva"
+        ]
+       ],
+       "num": [
+        0,
+        0
+       ],
+       "lvls": [
+        "n",
+        "m",
+        "l",
+        "e"
+       ]
+      },
+      {
+       "k": "n",
+       "t": "Detta är träningsråd, inte officiella handicapnormer."
+      },
+      {
+       "k": "p",
+       "t": "En spelare som konsekvent slår en fin fade kan exempelvis ha negativ Club Path och ändå ha full kontroll."
+      }
+     ]
+    },
+    {
+     "n": 14,
+     "title": "Face Angle – vart pekar klubbbladet?",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Face Angle visar klubbbladets riktning mot mållinjen vid träffen."
+      },
+      {
+       "k": "p",
+       "t": "Det är en mycket viktig faktor för bollens startlinje."
+      },
+      {
+       "k": "l",
+       "items": [
+        "Positivt värde = klubbbladet pekar höger om målet.",
+        "Negativt värde = klubbbladet pekar vänster om målet.",
+        "0° = klubbbladet pekar mot målet."
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Om du slår järn 7 och bollen startar långt till höger bör du kontrollera Face Angle.",
+       "lead": "Exempel:"
+      },
+      {
+       "k": "p",
+       "t": "Men kom ihåg att klubbans väg och bollträffen också spelar roll."
+      }
+     ]
+    },
+    {
+     "n": 15,
+     "title": "Face to Path – nyckeln till draw och fade",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Face to Path är skillnaden mellan klubbbladets vinkel och klubbans väg genom träffen."
+      },
+      {
+       "k": "p",
+       "t": "Formeln är:"
+      },
+      {
+       "k": "f",
+       "t": "Face to Path = Face Angle − Club Path"
+      },
+      {
+       "k": "h",
+       "t": "Exempel"
+      },
+      {
+       "k": "p",
+       "t": "Du slår med:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "Club Path: +4°",
+        "Face Angle: +2°"
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Då blir Face to Path:"
+      },
+      {
+       "k": "f",
+       "t": "+2° − +4° = −2°"
+      },
+      {
+       "k": "p",
+       "t": "För en högerspelare betyder det att klubbbladet är stängt i förhållande till klubbans väg."
+      },
+      {
+       "k": "p",
+       "t": "Vid en centrerad träff kan detta skapa en draw."
+      },
+      {
+       "k": "h",
+       "t": "Vad är bra Face to Path?"
+      },
+      {
+       "k": "p",
+       "t": "För en högerspelare och en centrerad bollträff:"
+      },
+      {
+       "k": "t",
+       "head": [
+        "Face to Path",
+        "Vanlig tendens"
+       ],
+       "rows": [
+        [
+         "Negativt",
+         "Draw/hook"
+        ],
+        [
+         "Nära 0°",
+         "Liten kurva"
+        ],
+        [
+         "Positivt",
+         "Fade/slice"
+        ]
+       ],
+       "num": [
+        0,
+        0
+       ]
+      },
+      {
+       "k": "p",
+       "t": "För vänsterspelare blir benämningarna draw/fade omvända."
+      },
+      {
+       "k": "p",
+       "t": "Som träningsmål kan ett värde inom ungefär ±1–2° ge en relativt liten kurva med många slag. Men lämpligt värde beror på klubbhastighet, klubbtyp och önskad bollflykt."
+      },
+      {
+       "k": "tip",
+       "t": "Om du vill förstå din slice är kombinationen Face Angle och Face to Path ofta mer användbar än att bara titta på Club Path.",
+       "lead": "Swings tips"
+      }
+     ]
+    },
+    {
+     "n": 16,
+     "title": "Launch Direction – vart startar bollen?",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Launch Direction visar bollens horisontella startriktning."
+      },
+      {
+       "k": "p",
+       "t": "Det skiljer sig från bollens slutliga position."
+      },
+      {
+       "k": "p",
+       "t": "En boll kan starta höger om flaggan och ändå landa vänster om den om den kurvar tillräckligt mycket."
+      },
+      {
+       "k": "l",
+       "items": [
+        "Minus = startar vänster.",
+        "Plus = startar höger.",
+        "Noll = startar längs mållinjen."
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Välj en tydlig startlinje och försök få flera slag i rad att starta i samma riktning.",
+       "lead": "Träningstips:"
+      },
+      {
+       "k": "p",
+       "t": "För en rak boll kan ett mål nära 0° vara rimligt, men vill du spela draw eller fade behöver du vanligtvis en annan startlinje."
+      }
+     ]
+    },
+    {
+     "n": 17,
+     "title": "Side och Side Total – hur långt från målet?",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "anger bollens sidledsavvikelse vid landningen.",
+       "lead": "Side"
+      },
+      {
+       "k": "p",
+       "t": "visar sidledsavvikelsen där bollen slutligen stannar.",
+       "lead": "Side Total"
+      },
+      {
+       "k": "p",
+       "t": "Det här är två mycket användbara värden för dig som vill bli bättre på att träffa fairways och greener."
+      },
+      {
+       "k": "h",
+       "t": "Swings träningsutmaning"
+      },
+      {
+       "k": "p",
+       "t": "Välj ett mål på 100 meter och slå tio slag."
+      },
+      {
+       "k": "t",
+       "head": [
+        "Nivå",
+        "Föreslagen utmaning"
+       ],
+       "rows": [
+        [
+         "Nybörjare",
+         "Få minst 5 av 10 slag inom 15 meter från mållinjen vid landning"
+        ],
+        [
+         "Medelgolfare",
+         "Få minst 6 av 10 inom 10 meter"
+        ],
+        [
+         "Låghandicapare",
+         "Få minst 7 av 10 inom 7 meter"
+        ],
+        [
+         "Elitspelare",
+         "Försök få minst 8 av 10 inom 5 meter"
+        ]
+       ],
+       "num": [
+        0,
+        0
+       ],
+       "lvls": [
+        "n",
+        "m",
+        "l",
+        "e"
+       ]
+      },
+      {
+       "k": "n",
+       "t": "Detta är exempel på träningsutmaningar från Swing, inte TrackMans officiella handicapstatistik."
+      },
+      {
+       "k": "p",
+       "t": "Använd samma klubba, mål och inställningar när du jämför dina resultat över tid."
+      }
+     ]
+    },
+    {
+     "n": 18,
+     "title": "Curve – hur mycket böjer sig bollbanan?",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Curve beskriver hur mycket bollen svänger i sidled under sin flykt."
+      },
+      {
+       "k": "p",
+       "t": "Det är inte samma sak som Side."
+      },
+      {
+       "k": "p",
+       "t": "Ett slag kan ha tydlig kurva och ändå landa nära målet, om det startade på rätt sida."
+      },
+      {
+       "k": "p",
+       "t": "Curve är användbart när du vill jämföra hur mycket dina draws och fades faktiskt skruvar."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "d4",
+   "label": "Del 4",
+   "title": "Hur klubban träffar bollen",
+   "sections": [
+    {
+     "n": 19,
+     "title": "Attack Angle – slår du uppåt eller nedåt?",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Attack Angle mäter klubbhuvudets vertikala rörelseriktning vid träffen."
+      },
+      {
+       "k": "l",
+       "items": [
+        [
+         "Positiv Attack Angle:",
+         "Klubban rör sig uppåt."
+        ],
+        [
+         "Negativ Attack Angle:",
+         "Klubban rör sig nedåt."
+        ]
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Driver"
+      },
+      {
+       "k": "p",
+       "t": "Om målet är att maximera längd är en positiv Attack Angle ofta fördelaktig, förutsatt att klubba, loft och bollträff fungerar tillsammans."
+      },
+      {
+       "k": "p",
+       "t": "Men det betyder inte att alla bra drives måste ha positiv Attack Angle."
+      },
+      {
+       "k": "p",
+       "t": "TrackMans tourgenomsnitt är:"
+      },
+      {
+       "k": "t",
+       "head": [
+        "Grupp",
+        "Attack Angle med driver"
+       ],
+       "rows": [
+        [
+         "PGA Tour",
+         "-0,9°"
+        ],
+        [
+         "LPGA Tour",
+         "+2,8°"
+        ]
+       ],
+       "num": [
+        0,
+        1
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Det visar hur olika sätt att leverera klubban kan fungera på hög nivå."
+      },
+      {
+       "k": "h",
+       "t": "Järnklubbor"
+      },
+      {
+       "k": "p",
+       "t": "Med järn vill man normalt träffa bollen medan klubban fortfarande är på väg nedåt."
+      },
+      {
+       "k": "p",
+       "t": "Som jämförelse:"
+      },
+      {
+       "k": "t",
+       "head": [
+        "Grupp",
+        "Attack Angle med järn 6"
+       ],
+       "rows": [
+        [
+         "PGA Tour",
+         "-3,7°"
+        ],
+        [
+         "LPGA Tour",
+         "-2,3°"
+        ]
+       ],
+       "num": [
+        0,
+        1
+       ]
+      },
+      {
+       "k": "tip",
+       "t": "Har du svårt att få rena järnträffar? Attack Angle och Low Point är ofta intressanta att kontrollera tillsammans.",
+       "lead": "Swings tips"
+      }
+     ]
+    },
+    {
+     "n": 20,
+     "title": "Low Point – var är svingens lägsta punkt?",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Low Point visar var klubbhuvudet når sin lägsta punkt i svingbågen i förhållande till bollen."
+      },
+      {
+       "k": "p",
+       "t": "TrackMan kan visa:"
+      },
+      {
+       "k": "l",
+       "items": [
+        [
+         "A (After):",
+         "Lägsta punkten ligger efter bollen i slagriktningen."
+        ],
+        [
+         "B (Before):",
+         "Lägsta punkten ligger före bollen i slagriktningen, alltså på spelarens sida."
+        ]
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Vad vill du se?"
+      },
+      {
+       "k": "p",
+       "t": "Ofta A. Klubban träffar bollen innan svingens lägsta punkt.",
+       "lead": "Med järn:"
+      },
+      {
+       "k": "p",
+       "t": "Ofta B om du träffar bollen när klubban är på väg uppåt.",
+       "lead": "Med driver på pegg:"
+      },
+      {
+       "k": "p",
+       "t": "Det viktiga är att Low Point är stabil och passar slaget."
+      }
+     ]
+    },
+    {
+     "n": 21,
+     "title": "Dynamic Loft – klubbans verkliga loft vid träffen",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Klubban har ett angivet loft när den tillverkas, men du levererar inte nödvändigtvis samma loft vid bollträffen."
+      },
+      {
+       "k": "p",
+       "t": "Dynamic Loft visar den vertikala vinkel klubbbladet faktiskt har vid träffen."
+      },
+      {
+       "k": "p",
+       "t": "Den påverkas bland annat av:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "Hur du håller händerna vid träffen.",
+        "Hur du släpper klubbhuvudet.",
+        "Attack Angle.",
+        "Var på klubbbladet bollen träffas."
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Exempel från TrackMan"
+      },
+      {
+       "k": "t",
+       "head": [
+        "Klubba",
+        "PGA Tour",
+        "LPGA Tour"
+       ],
+       "rows": [
+        [
+         "Driver",
+         "12,8°",
+         "15,5°"
+        ],
+        [
+         "Järn 6",
+         "20,2°",
+         "23,6°"
+        ]
+       ],
+       "num": [
+        0,
+        1,
+        1
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Ett Dynamic Loft som ger rätt bollflykt för den aktuella klubban och spelaren.",
+       "lead": "Vad är bra?"
+      },
+      {
+       "k": "p",
+       "t": "För lite Dynamic Loft kan ge låga slag med dålig stoppförmåga. För mycket kan ge alltför höga slag och kortare längd."
+      }
+     ]
+    },
+    {
+     "n": 22,
+     "title": "Spin Loft – hur effektivt komprimeras bollen?",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Spin Loft är den tredimensionella vinkelskillnaden mellan klubbhuvudets rörelseriktning och klubbbladets orientering."
+      },
+      {
+       "k": "p",
+       "t": "Förenklat ligger den ofta nära:"
+      },
+      {
+       "k": "f",
+       "t": "Dynamic Loft − Attack Angle"
+      },
+      {
+       "k": "p",
+       "t": "Spin Loft påverkar hur effektivt energi överförs till bollen och hur mycket spinn som skapas."
+      },
+      {
+       "k": "p",
+       "t": "Generellt är lägre Spin Loft en av faktorerna bakom effektiv bollhastighet med drivern."
+      },
+      {
+       "k": "p",
+       "t": "Men med järn och wedgar behöver du en annan balans för att få rätt höjd, spinn och kontroll."
+      },
+      {
+       "k": "p",
+       "t": "Det finns därför inget enda perfekt Spin Loft för hela bagen."
+      }
+     ]
+    },
+    {
+     "n": 23,
+     "title": "Impact Height – träffens höjd på klubbbladet",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Impact Height visar om du träffar ovanför eller nedanför klubbbladets centrum."
+      },
+      {
+       "k": "p",
+       "t": "Det är särskilt användbart med driver."
+      },
+      {
+       "k": "p",
+       "t": "Ett slag som träffar högt på driverbladet kan ge en annan kombination av Launch Angle och Spin Rate än ett slag som träffar lågt."
+      },
+      {
+       "k": "tip",
+       "t": "Om din spinn varierar mycket med drivern trots liknande svinghastighet, kontrollera Impact Height.",
+       "lead": "Swings tips"
+      }
+     ]
+    },
+    {
+     "n": 24,
+     "title": "Impact Offset – träff mot tå eller häl",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Impact Offset visar om bollen träffar närmare klubbans tå eller häl."
+      },
+      {
+       "k": "p",
+       "t": "Det är en av de mest underskattade siffrorna."
+      },
+      {
+       "k": "p",
+       "t": "Särskilt med driver kan träffpunkten påverka bollens kurva genom den så kallade gear-effekten."
+      },
+      {
+       "k": "p",
+       "t": "För en högerspelare kan:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "En träff mot tån bidra till draw-skruv.",
+        "En träff mot hälen bidra till fade-skruv."
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Därför kan en boll ibland skruva på ett annat sätt än vad Club Path och Face to Path först antyder."
+      },
+      {
+       "k": "p",
+       "t": "Försök skapa ett samlat och konsekvent träffmönster, inte enbart en perfekt träff då och då.",
+       "lead": "Målet:"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "d5",
+   "label": "Del 5",
+   "title": "Vilka siffror ska du fokusera på?",
+   "levelPart": true,
+   "sections": [
+    {
+     "n": 25,
+     "lvl": "n",
+     "title": "Nybörjare och höghandicapare",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Du behöver inte analysera hela TrackMan-skärmen."
+      },
+      {
+       "k": "p",
+       "t": "Börja med dessa värden:"
+      },
+      {
+       "k": "p",
+       "t": "– Hur långt slår du dina olika klubbor?",
+       "lead": "1. Carry"
+      },
+      {
+       "k": "p",
+       "t": "– Träffar du bollen effektivt?",
+       "lead": "2. Ball Speed"
+      },
+      {
+       "k": "p",
+       "t": "– Hur långt från mållinjen landar du?",
+       "lead": "3. Side"
+      },
+      {
+       "k": "p",
+       "t": "– Träffar du ungefär samma del av klubbbladet?",
+       "lead": "4. Impact Location"
+      },
+      {
+       "k": "h",
+       "t": "Ditt första mål"
+      },
+      {
+       "k": "p",
+       "t": "Slå tio slag med järn 7."
+      },
+      {
+       "k": "p",
+       "t": "Försök få minst sex slag med ungefär samma längd och samma allmänna bollflykt."
+      },
+      {
+       "k": "p",
+       "t": "När du lyckas blir nästa steg att försöka minska din spridning."
+      }
+     ]
+    },
+    {
+     "n": 26,
+     "lvl": "m",
+     "title": "Medelgolfare – ungefär HCP 10–25",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Nu börjar du få verklig nytta av mer detaljerad statistik."
+      },
+      {
+       "k": "p",
+       "t": "Prioritera:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "Carry och längdkontroll.",
+        "Face Angle och Face to Path.",
+        "Attack Angle och Low Point.",
+        "Smash Factor.",
+        "Spin Rate och Launch Angle."
+       ],
+       "ordered": true
+      },
+      {
+       "k": "h",
+       "t": "Ditt mål"
+      },
+      {
+       "k": "p",
+       "t": "Skapa en stabil standardbollflykt som du vet hur du ska sikta med."
+      },
+      {
+       "k": "p",
+       "t": "Det är mycket bättre att konsekvent slå en liten fade än att ibland slå draw, ibland slice och ibland helt rakt utan att veta varför."
+      }
+     ]
+    },
+    {
+     "n": 27,
+     "lvl": "l",
+     "title": "Låghandicapare – ungefär HCP 0–9",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "På den här nivån handlar det ofta mer om precision och upprepbarhet än att bara öka längden."
+      },
+      {
+       "k": "p",
+       "t": "Fokusera på:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "Jämn Carry med alla klubbor.",
+        "Liten längdspridning med wedgar.",
+        "Face to Path och Spin Axis.",
+        "Träffpunkt på klubbbladet.",
+        "Launch Angle, Spin Rate och Landing Angle.",
+        "Stabil klubbhastighet och bollhastighet."
+       ]
+      },
+      {
+       "k": "h",
+       "t": "Ditt mål"
+      },
+      {
+       "k": "p",
+       "t": "Använd TrackMan för att minska dina vanligaste missar och lära känna ditt normala slagmönster."
+      }
+     ]
+    },
+    {
+     "n": 28,
+     "lvl": "e",
+     "title": "Elitspelare och tävlingsgolfare",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "För dig är detaljerna extra intressanta."
+      },
+      {
+       "k": "p",
+       "t": "Du kan arbeta med kombinationer av:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "Club Speed och Ball Speed.",
+        "Dynamic Loft och Attack Angle.",
+        "Spin Loft och Smash Factor.",
+        "Face Angle och Club Path.",
+        "Impact Location och Spin Axis.",
+        "Carry, höjd och landningsvinkel.",
+        "Längd- och sidledsspridning över större slagserier."
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Här är det särskilt viktigt att inte optimera en enskild siffra på bekostnad av resultatet."
+      },
+      {
+       "k": "p",
+       "t": "Ett slag som har något lägre Smash Factor men konsekvent träffar fairway kan vara mer värdefullt än en längre drive med stor spridning."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "d6",
+   "label": "Del 6",
+   "title": "Tre träningspass du kan göra på Swing",
+   "sections": [
+    {
+     "id": "t1",
+     "num": "P1",
+     "title": "Träningspass 1 – Hitta dina riktiga längder",
+     "time": "Cirka 30 minuter",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Välj fem klubbor i din bag."
+      },
+      {
+       "k": "p",
+       "t": "Slå tio representativa slag med varje klubba."
+      },
+      {
+       "k": "p",
+       "t": "Anteckna Carry och hur mycket längderna varierar."
+      },
+      {
+       "k": "p",
+       "t": "Försök skapa en lista som du faktiskt kan använda ute på golfbanan."
+      },
+      {
+       "k": "s",
+       "t": "Målet är inte att slå längst möjligt. Målet är att veta hur långt du normalt slår."
+      }
+     ]
+    },
+    {
+     "id": "t2",
+     "num": "P2",
+     "title": "Träningspass 2 – Förstå din driver",
+     "time": "Cirka 20 minuter",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Slå 15 drives och följ dessa siffror:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "Club Speed",
+        "Ball Speed",
+        "Smash Factor",
+        "Launch Angle",
+        "Spin Rate",
+        "Carry",
+        "Side"
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Försök hitta kombinationen som ger bra längd utan att du tappar kontrollen."
+      },
+      {
+       "k": "p",
+       "t": "Jämför inte bara det längsta slaget. Titta på hela serien."
+      }
+     ]
+    },
+    {
+     "id": "t3",
+     "num": "P3",
+     "title": "Träningspass 3 – Kontrollera dina wedgar",
+     "time": "Cirka 20 minuter",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "Välj tre avstånd, exempelvis:"
+      },
+      {
+       "k": "l",
+       "items": [
+        "30 meter",
+        "50 meter",
+        "70 meter"
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Slå tio bollar mot varje mål."
+      },
+      {
+       "k": "p",
+       "t": "Fokusera på Carry och hur nära målet bollarna landar."
+      },
+      {
+       "k": "p",
+       "t": "Försök få fler och fler slag inom fem meter från önskat avstånd."
+      },
+      {
+       "k": "s",
+       "t": "Det här är ett av de mest användbara träningspassen för dig som vill sänka din score."
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "d7",
+   "label": "Del 7",
+   "title": "Vanliga frågor",
+   "sections": [
+    {
+     "id": "faq",
+     "num": "?",
+     "title": "Frågor och svar",
+     "blocks": [
+      {
+       "k": "qa",
+       "qa": [
+        [
+         "Vilken TrackMan-siffra är viktigast?",
+         "För många amatörer är Carry, Ball Speed och träffsäkerhet en bra början. Om du vill förstå varför bollen skruvar blir Face Angle, Face to Path och Club Path särskilt intressanta."
+        ],
+        [
+         "Vad är en bra Smash Factor med driver?",
+         "För många amatörer är 1,45 eller högre ett bra resultat. Omkring 1,48–1,50 visar ofta mycket effektiv energiöverföring med drivern."
+        ],
+        [
+         "Är högre Spin Rate alltid bättre?",
+         "Nej. Drivern och järnklubborna behöver olika mängd spinn. Rätt nivå beror även på bollhastighet, loft och önskad bollflykt."
+        ],
+        [
+         "Ska Club Path alltid vara 0°?",
+         "Nej. En draw eller fade kräver normalt en annan klubbväg och ett anpassat klubbblad."
+        ],
+        [
+         "Varför blir min driver kort trots hög Club Speed?",
+         "Det kan bero på låg Smash Factor, ogynnsam Launch Angle, för mycket eller för lite spinn eller att bollen träffar fel del av klubbbladet."
+        ],
+        [
+         "Varför går mina järnslag olika långt?",
+         "Det kan bero på varierande bollträff, Ball Speed, Dynamic Loft eller Attack Angle. Försök hitta ett jämnt slagmönster innan du ökar kraften."
+        ],
+        [
+         "Varför är min Carry kortare än min Total?",
+         "Carry visar hur långt bollen flyger. Total inkluderar även beräknad rull efter landning."
+        ],
+        [
+         "Är TrackMan iO lika användbar för träning som för spel?",
+         "Ja. TrackMan iO är utvecklad för inomhusgolf och ger data som du kan använda för både träning och virtuella golfrundor."
+        ],
+        [
+         "Visar TrackMan iO alla tänkbara TrackMan-värden?",
+         "Nej. Vilka värden som visas kan bero på utrustning, mjukvaruversion, licens och valt spelläge. TrackMan 4 har också vissa funktioner och parametrar som inte är desamma som på TrackMan iO."
+        ]
+       ]
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "id": "sum",
+   "label": "Sammanfattning",
+   "title": "Så använder du TrackMan på rätt sätt",
+   "sections": [
+    {
+     "id": "summary",
+     "num": "—",
+     "title": "Fler siffror betyder inte automatiskt bättre golf",
+     "blocks": [
+      {
+       "k": "p",
+       "t": "TrackMan kan ge dig mängder av information, men fler siffror betyder inte automatiskt bättre golf."
+      },
+      {
+       "k": "p",
+       "t": "Det viktiga är att förstå vad du vill förbättra."
+      },
+      {
+       "k": "goals",
+       "goals": [
+        [
+         "Vill du slå längre?",
+         "Titta på Club Speed, Ball Speed, Smash Factor, Launch Angle och Spin Rate."
+        ],
+        [
+         "Vill du slå rakare?",
+         "Titta på Face Angle, Club Path, Face to Path och Impact Location."
+        ],
+        [
+         "Vill du bli bättre med järnen?",
+         "Titta på Carry, Attack Angle, Low Point och Landing Angle."
+        ],
+        [
+         "Vill du bli bättre med wedgarna?",
+         "Träna på Carry, längdkontroll och konsekventa bollträffar."
+        ]
+       ]
+      },
+      {
+       "k": "p",
+       "t": "Och framför allt:"
+      },
+      {
+       "k": "quote",
+       "t": "Jämför dig inte bara med tourspelarna. Jämför dig med den golfare du var förra månaden."
+      },
+      {
+       "k": "p",
+       "t": "Välkommen att träna, spela och utveckla din golf hos Swing Golf & Lounge i Nättraby, Karlskrona."
+      }
+     ]
+    }
+   ]
+  }
+ ],
+ "clubs": {
+  "driver": {
+   "label": "Driver",
+   "ref": 1.49,
+   "refLabel": "PGA Tour 1,49",
+   "cs": 100,
+   "bs": 148
+  },
+  "j6": {
+   "label": "Järn 6",
+   "ref": 1.39,
+   "refLabel": "Järn 6, PGA Tour 1,39",
+   "cs": 85,
+   "bs": 116
+  },
+  "pw": {
+   "label": "PW",
+   "ref": 1.25,
+   "refLabel": "PW ≈ 1,25",
+   "cs": 75,
+   "bs": 93
+  }
+ },
+ "zones": [
+  [
+   1.1,
+   1.35
+  ],
+  [
+   1.35,
+   1.425
+  ],
+  [
+   1.425,
+   1.465
+  ],
+  [
+   1.465,
+   1.495
+  ],
+  [
+   1.495,
+   1.6
+  ]
+ ]
+}

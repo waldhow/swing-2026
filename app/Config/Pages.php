@@ -66,6 +66,15 @@ class Pages extends BaseConfig
             'nav'         => 'anlaggningen',
             'priority'    => '0.8',
         ],
+        'trackman-guide' => [
+            'view'        => 'trackman_guide',
+            'label'       => 'TrackMan-guide',
+            'title'       => 'Förstå dina TrackMan-siffror – guide | Swing Golf & Lounge',
+            'description' => 'Vad betyder Ball Speed, Smash Factor, Spin Rate och Club Path? Vår guide förklarar TrackMan-siffrorna, jämför nivåer och ger träningspass du kan göra hos oss.',
+            'nav'         => 'anlaggningen',
+            'priority'    => '0.7',
+            'schema'      => 'guide',
+        ],
         'foretagsevent' => [
             'view'        => 'foretagsevent',
             'label'       => 'Företagsevent',
@@ -187,7 +196,7 @@ class Pages extends BaseConfig
      * ska finnas här så att de nås inom två klick (UX-02).
      */
     public array $mainNav = [
-        ['label' => 'Anläggningen',      'slug' => 'inomhusgolf',   'children' => ['inomhusgolf', 'trackman-io', 'om-oss']],
+        ['label' => 'Anläggningen',      'slug' => 'inomhusgolf',   'children' => ['inomhusgolf', 'trackman-io', 'trackman-guide', 'om-oss']],
         ['label' => 'Priser',            'slug' => 'priser'],
         ['label' => 'Spelpotter',        'slug' => 'spelpotter'],
         ['label' => 'Presentkort',       'slug' => 'presentkort'],
@@ -201,6 +210,7 @@ class Pages extends BaseConfig
     public array $menuBlurbs = [
         'inomhusgolf'    => 'Spela, träna och umgås året runt',
         'trackman-io'    => 'Fyra simulatorer och våra slagdukar',
+        'trackman-guide' => 'Förstå dina TrackMan-siffror',
         'om-oss'         => 'Klubbhuskänslan och människorna bakom',
         'foretagsevent'  => 'Kickoff, After Work och kundevent',
         'gruppbokning'   => 'Kompisgäng, klubbar och föreningar',
@@ -214,7 +224,8 @@ class Pages extends BaseConfig
 
     /** Sidor som hör under en annan sida — ger brödsmulor som Start › Inomhusgolf › TrackMan iO. */
     public array $parents = [
-        'trackman-io'  => 'inomhusgolf',
+        'trackman-io'    => 'inomhusgolf',
+        'trackman-guide' => 'trackman-io',
         'gruppbokning' => 'foretagsevent',
         'team-swing'   => 'tavlingar',
     ];
@@ -222,7 +233,7 @@ class Pages extends BaseConfig
     /** Sidfotens länkkolumner (rubrik => sidor). */
     public array $footerNav = [
         'Boka & köp' => ['boka', 'priser', 'spelpotter', 'presentkort', 'friskvard'],
-        'Swing'      => ['inomhusgolf', 'trackman-io', 'om-oss', 'tavlingar', 'team-swing'],
+        'Swing'      => ['inomhusgolf', 'trackman-io', 'trackman-guide', 'om-oss', 'tavlingar', 'team-swing'],
         'Hjälp'      => ['infor-besoket', 'vanliga-fragor', 'foretagsevent', 'gruppbokning', 'kontakt'],
     ];
 
