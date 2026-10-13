@@ -33,7 +33,7 @@ $badges = [
     </ul>
     <div class="stores">
       <?php foreach ($card['links'] as $store => $url): $b = $badges[$store] ?? null; if ($b === null) { continue; } ?>
-      <a href="<?= esc($url) ?>" rel="noopener"><img src="<?= $b['src'] ?>" alt="<?= esc(sprintf($b['alt'], $card['name'])) ?>" width="<?= $b['w'] ?>" height="<?= $b['h'] ?>" loading="lazy" /></a>
+      <a href="<?= esc($url) ?>"<?= external_attrs($url) ?>><img src="<?= $b['src'] ?>" alt="<?= esc(sprintf($b['alt'], $card['name'])) ?>" width="<?= $b['w'] ?>" height="<?= $b['h'] ?>" loading="lazy" /><?= new_tab_hint($url) ?></a>
       <?php endforeach; ?>
     </div>
   </article>

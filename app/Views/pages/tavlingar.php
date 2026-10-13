@@ -25,7 +25,7 @@
     <?php else: ?>
     <div class="empty">
       <h3>Inga tävlingar är publicerade just nu</h3>
-      <p>Nya tävlingar läggs upp här när de är klara. Följ oss på <a href="<?= esc($swing->socials['instagram']) ?>" rel="noopener">Instagram</a> eller <a href="<?= esc($swing->socials['facebook']) ?>" rel="noopener">Facebook</a> så missar du inget – eller ordna en egen tävling med ditt sällskap.</p>
+      <p>Nya tävlingar läggs upp här när de är klara. Följ oss på <a href="<?= esc($swing->socials['instagram']) ?>"<?= external_attrs($swing->socials['instagram']) ?>>Instagram<?= new_tab_hint($swing->socials['instagram']) ?></a> eller <a href="<?= esc($swing->socials['facebook']) ?>"<?= external_attrs($swing->socials['facebook']) ?>>Facebook<?= new_tab_hint($swing->socials['facebook']) ?></a> så missar du inget – eller ordna en egen tävling med ditt sällskap.</p>
     </div>
     <?php endif; ?>
   </div>

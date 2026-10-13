@@ -4,6 +4,7 @@ namespace Config;
 
 use App\Filters\AdminAuth;
 use App\Filters\CanonicalUrl;
+use App\Filters\ExternalLinks;
 use CodeIgniter\Config\Filters as BaseFilters;
 use CodeIgniter\Filters\Cors;
 use CodeIgniter\Filters\CSRF;
@@ -38,6 +39,7 @@ class Filters extends BaseFilters
         'performance'   => PerformanceMetrics::class,
         'canonical'     => CanonicalUrl::class,
         'adminauth'     => AdminAuth::class,
+        'externallinks' => ExternalLinks::class,
     ];
 
     /**
@@ -80,6 +82,7 @@ class Filters extends BaseFilters
             'invalidchars',
         ],
         'after' => [
+            'externallinks', // alla externa länkar i ny flik
             'secureheaders',
         ],
     ];

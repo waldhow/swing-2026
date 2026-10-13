@@ -103,8 +103,8 @@ $current   = explode('/', trim(service('request')->getUri()->getPath(), '/'))[0]
         </address>
         <p class="small">Öppet <?= esc(mb_strtolower($swing->hoursText)) ?>. Lokalen är normalt obemannad.</p>
         <div class="socials">
-          <a href="<?= esc($swing->socials['facebook']) ?>" rel="noopener"><?= icon('fb', 20) ?><span class="sr-only">Swing på Facebook</span></a>
-          <a href="<?= esc($swing->socials['instagram']) ?>" rel="noopener"><?= icon('ig', 20) ?><span class="sr-only">Swing på Instagram</span></a>
+          <a href="<?= esc($swing->socials['facebook']) ?>"<?= external_attrs($swing->socials['facebook']) ?>><?= icon('fb', 20) ?><span class="sr-only">Swing på Facebook<?= opens_new_tab($swing->socials['facebook']) ? ' (öppnas i ny flik)' : '' ?></span></a>
+          <a href="<?= esc($swing->socials['instagram']) ?>"<?= external_attrs($swing->socials['instagram']) ?>><?= icon('ig', 20) ?><span class="sr-only">Swing på Instagram<?= opens_new_tab($swing->socials['instagram']) ? ' (öppnas i ny flik)' : '' ?></span></a>
         </div>
       </div>
       <?php foreach ($pagesCfg->footerNav as $heading => $slugs): ?>

@@ -12,7 +12,7 @@ $direct = $orders->canSellWellnessDirect();
     'image'   => 'simulator',
     'trail'   => $trail,
     'actions' => ($direct ? '<a class="btn btn-primary" href="#kop">' . icon('heart', 20) . 'Köp friskvårdspott</a>' : '')
-        . '<a class="btn ' . ($direct ? 'btn-ghost' : 'btn-primary') . '" href="' . esc($swing->epassiUrl) . '" rel="noopener">Öppna Swing hos Epassi' . icon('external', 18) . '</a>',
+        . '<a class="btn ' . ($direct ? 'btn-ghost' : 'btn-primary') . '" href="' . esc($swing->epassiUrl) . '"' . external_attrs($swing->epassiUrl) . '>Öppna Swing hos Epassi' . icon('external', 18) . new_tab_hint($swing->epassiUrl) . '</a>',
 ]) ?>
 
 <section class="sec" aria-labelledby="direkt">
@@ -43,12 +43,12 @@ $direct = $orders->canSellWellnessDirect();
     <div class="stack">
       <div class="prose">
         <h2 id="epassi">Köp via Epassi</h2>
-        <p>Öppna Epassi-appen eller <a href="<?= esc($swing->epassiUrl) ?>" rel="noopener">vår sida hos Epassi</a> och välj ett alternativ som passar dig. Följ sedan köpinstruktionerna i Epassi.</p>
+        <p>Öppna Epassi-appen eller <a href="<?= esc($swing->epassiUrl) ?>"<?= external_attrs($swing->epassiUrl) ?>>vår sida hos Epassi<?= new_tab_hint($swing->epassiUrl) ?></a> och välj ett alternativ som passar dig. Följ sedan köpinstruktionerna i Epassi.</p>
       </div>
       <?= partial('partials/pot_table', ['pots' => $swing->epassiPots, 'caption' => 'Epassi-alternativ', 'nameHeading' => 'Alternativ', 'showBonus' => false]) ?>
       <p class="note">Epassi-alternativen har egna belopp och skiljer sig från våra <a href="<?= page_path('spelpotter') ?>">ordinarie spelpotter</a>.</p>
       <div class="btn-row">
-        <a class="btn btn-ghost" href="<?= esc($swing->epassiUrl) ?>" rel="noopener">Se Epassi-alternativ<?= icon('external', 18) ?></a>
+        <a class="btn btn-ghost" href="<?= esc($swing->epassiUrl) ?>"<?= external_attrs($swing->epassiUrl) ?>>Se Epassi-alternativ<?= icon('external', 18) ?><?= new_tab_hint($swing->epassiUrl) ?></a>
       </div>
     </div>
     <div class="side">

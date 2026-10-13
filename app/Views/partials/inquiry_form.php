@@ -57,6 +57,6 @@ if (! config('Inquiries')->enabled): ?>
   </div>
   <?php endif; ?>
   <?= partial('partials/field', ['name' => 'message', 'label' => $group ? 'Berätta mer' : 'Meddelande', 'type' => 'textarea', 'required' => ! $group, 'form' => $form, 'hint' => $group ? 'Önskemål om tävling, mat, personal på plats eller annat.' : null]) ?>
-  <p class="fhint">Vi använder uppgifterna för att svara på din förfrågan och raderar dem efter <?= (int) config('Inquiries')->retentionMonths ?> månader. Läs mer i vår <a href="<?= page_path('integritetspolicy') ?>">integritetspolicy</a>.</p>
+  <p class="fhint">Vi använder uppgifterna för att svara på din förfrågan och raderar dem efter <?= (int) config('Inquiries')->retentionMonths ?> månader. Läs mer i vår <a href="<?= page_path('integritetspolicy') ?>" target="_blank" rel="noopener">integritetspolicy<span class="sr-only"> (öppnas i ny flik)</span></a>.</p>
   <div class="btn-row"><button class="btn btn-primary" type="submit"><?= icon('mail', 20) ?><?= esc($submitLabel ?? 'Skicka') ?></button></div>
 </form>

@@ -14,7 +14,7 @@ $badges  = [
   <?php if ($pitch !== false): ?><p class="app-pitch"><?= esc($pitch) ?></p><?php endif; ?>
   <div class="stores">
     <?php foreach ($booking->appLinks as $store => $url): $b = $badges[$store] ?? null; if ($b === null) { continue; } ?>
-    <a href="<?= esc($url) ?>" rel="noopener"><img src="<?= $b['src'] ?>" alt="<?= esc(sprintf($b['alt'], $booking->appName)) ?>" width="<?= $b['w'] ?>" height="<?= $b['h'] ?>" /></a>
+    <a href="<?= esc($url) ?>"<?= external_attrs($url) ?>><img src="<?= $b['src'] ?>" alt="<?= esc(sprintf($b['alt'], $booking->appName)) ?>" width="<?= $b['w'] ?>" height="<?= $b['h'] ?>" /><?= new_tab_hint($url) ?></a>
     <?php endforeach; ?>
   </div>
 </div>

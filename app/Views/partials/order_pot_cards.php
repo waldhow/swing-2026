@@ -73,7 +73,7 @@ $tag = $interactive ? 'label' : 'div';
       <?php endif; ?>
       <?= partial('partials/order_terms', ['form' => $form]) ?>
       <div class="btn-row"><button class="btn btn-primary" type="submit"><?= icon('wallet', 20) ?>Beställ – betala med Swish</button></div>
-      <p class="fhint">Efter beställningen visar vi hur du betalar. Vi använder dina uppgifter för att leverera beställningen, se <a href="<?= page_path('integritetspolicy') ?>">integritetspolicyn</a>.</p>
+      <p class="fhint">Efter beställningen visar vi hur du betalar. Vi använder dina uppgifter för att leverera beställningen, se <a href="<?= page_path('integritetspolicy') ?>" target="_blank" rel="noopener">integritetspolicyn<span class="sr-only"> (öppnas i ny flik)</span></a>.</p>
     </div>
     <div class="card">
       <h3 class="checkout-title">Så går köpet till</h3>

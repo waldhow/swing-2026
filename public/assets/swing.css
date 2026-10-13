@@ -234,19 +234,22 @@ a.facts-main:hover{color:var(--brass);text-decoration-color:var(--brass)}
 fieldset.field{padding:0}
 .req{color:var(--brass)}
 .opt{font-weight:500;color:var(--txt3)}
-.inp[aria-invalid="true"],.has-error .inp{border-color:#d9776f}
+/* Fel är röda: #ff6b61 klarar 4,5:1 mot både sidbakgrund och formulärkort. */
+.inp[aria-invalid="true"],.has-error .inp{border-color:#ff6b61;box-shadow:0 0 0 1px #ff6b61}
 select.inp{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='20' viewBox='0 0 24 24' fill='none' stroke='%23cf9f52' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:44px;cursor:pointer}
 select.inp option{background:var(--leather);color:var(--cream)}
-.ferr{display:flex;gap:7px;align-items:flex-start;margin-top:8px;font-size:14px;color:#f0a8a1;font-weight:600}
+.ferr,.card p.ferr{display:flex;gap:7px;align-items:flex-start;margin-top:8px;font-size:14px;color:#ff6b61;font-weight:600}
 .ferr svg{flex-shrink:0;margin-top:2px}
-.form-alert{padding:16px 18px;margin-bottom:22px;border-radius:var(--r-sm);border:1px solid rgba(217,119,111,.6);background:rgba(168,59,59,.18)}
-.form-alert:focus{outline:2px solid #f0a8a1;outline-offset:2px}
+.form-alert{padding:16px 18px;margin-bottom:22px;border-radius:var(--r-sm);border:1px solid #ff6b61;background:rgba(255,107,97,.12)}
+.form-alert:focus{outline:2px solid #ff6b61;outline-offset:2px}
 .form-alert p{display:flex;gap:9px;align-items:flex-start;margin:0;color:var(--cream);font-weight:600}
-.form-alert svg{flex-shrink:0;margin-top:3px;color:#f0a8a1}
+.form-alert svg{flex-shrink:0;margin-top:3px;color:#ff6b61}
 .choice-list{display:flex;flex-direction:column;gap:10px}
 .choice-row{flex-direction:row;flex-wrap:wrap}
 .choice{display:flex;gap:12px;align-items:flex-start;cursor:pointer;font-size:15.5px;color:var(--cream-2);line-height:1.45}
 .choice input{width:20px;height:20px;margin-top:1px;flex-shrink:0;accent-color:var(--brass);cursor:pointer}
+.choice input[aria-invalid="true"]{outline:2px solid #ff6b61;outline-offset:2px}
+.pot-card:has(.pot-radio[aria-invalid="true"]){border-color:#ff6b61}
 .choice a{color:var(--brass)}
 .flab{padding:0}
 .hp{position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden}

@@ -248,6 +248,7 @@ test('formulär valideras i webbläsaren utan omladdning', async ({ page }) => {
   await page.locator('#formular button[type="submit"]').click();
   await expect(page.locator('#f-name-err')).toContainText('Fyll i namn.');
   await expect(page.locator('#f-message-err')).toContainText('Fyll i meddelande.');
+  await expect(page.locator('#f-name-err'), 'feltexter är röda').toHaveCSS('color', 'rgb(255, 107, 97)');
   await expect(page.locator('#f-name')).toBeFocused();
   expect(posted).toBe(false);
 

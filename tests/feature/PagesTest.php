@@ -53,6 +53,26 @@ final class PagesTest extends CIUnitTestCase
     }
 
     /**
+     * Alla länkar till andra webbplatser öppnas i ny flik (ägarens önskemål).
+     * Undantag: data-same-tab (Swish-länken öppnar appen).
+     *
+     * @dataProvider provideSlugs
+     */
+    public function testExternalLinksOpenInNewTab(string $slug): void
+    {
+        $html = preg_replace('#<script\b.*?</script>#is', '', $this->fetch($slug));
+        preg_match_all('#<a\b[^>]*\bhref="(https?://[^"]+)"[^>]*>#i', $html, $links, PREG_SET_ORDER);
+
+        foreach ($links as [$tag, $href]) {
+            if (! is_external_url(html_entity_decode($href)) || str_contains($tag, 'data-same-tab')) {
+                continue;
+            }
+            $this->assertStringContainsString('target="_blank"', $tag, "{$slug}: {$href} öppnas inte i ny flik");
+            $this->assertMatchesRegularExpression('/rel="[^"]*noopener/', $tag, "{$slug}: {$href} saknar rel=noopener");
+        }
+    }
+
+    /**
      * @dataProvider provideSlugs
      */
     public function testPageHasSeoBasicsAndNoForbiddenContent(string $slug): void

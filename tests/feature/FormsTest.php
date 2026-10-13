@@ -145,7 +145,7 @@ final class FormsTest extends CIUnitTestCase
         $swish = 'https://app.swish.nu/1/p/sw/?sw=1232172559&amp;amt=1000.00&amp;msg=' . $order['reference'];
         $this->assertStringContainsString('href="' . $swish . '"', $html, 'Betala med Swish med allt ifyllt');
         $this->assertMatchesRegularExpression('#<div class="swish-qr-box"><svg role="img" aria-label="QR-kod för Swish#', $html);
-        $this->assertMatchesRegularExpression('#<a class="btn btn-swish" href="[^"]+"><img src="/assets/swish/swish-icon\.svg\?v=\d+" alt=""[^>]*>Betala med Swish</a>#', $html);
+        $this->assertMatchesRegularExpression('#<a class="btn btn-swish" href="[^"]+" data-same-tab><img src="/assets/swish/swish-icon\.svg\?v=\d+" alt=""[^>]*>Betala med Swish</a>#', $html);
         $this->assertStringContainsString('123 217 2559', $html);
         $this->assertStringContainsString("1\u{00A0}000\u{00A0}kr", $html);
         $this->assertStringContainsString($order['reference'], $html);
@@ -202,6 +202,15 @@ final class FormsTest extends CIUnitTestCase
                 preg_match('#' . preg_quote($element, '#') . '[^>]*data-msg-' . $rule . '="([^"]+)"#', $page, $m);
                 $this->assertStringContainsString('</svg>' . $m[1] . '</p>', $server, "{$slug}: webbläsarens text för {$element} ({$rule}) skiljer sig från serverns");
             }
+        }
+    }
+
+    public function testTermsOpenInNewTabOnOrderPages(): void
+    {
+        foreach (['spelpotter/', 'friskvard/', 'presentkort/'] as $path) {
+            $html = $this->body($this->get($path));
+            $this->assertStringContainsString('<a href="/kopvillkor/" target="_blank" rel="noopener">köpvillkoren<span class="sr-only"> (öppnas i ny flik)</span></a>', $html, "{$path}: köpvillkoren ska öppnas i ny flik så att formuläret ligger kvar");
+            $this->assertStringContainsString('<a href="/integritetspolicy/" target="_blank" rel="noopener">', $html, "{$path}: integritetspolicyn i ny flik");
         }
     }
 

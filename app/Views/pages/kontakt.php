@@ -18,7 +18,7 @@
     <div class="prose">
       <h2 class="mt-0">Hitta till oss</h2>
       <p><?= esc($swing->name) ?> ligger på <?= esc($swing->street) ?> i <?= esc($swing->locality) ?>, utanför <?= esc($swing->municipality) ?> i <?= esc($swing->region) ?>.</p>
-      <p><a href="<?= esc($swing->mapUrl) ?>" rel="noopener">Visa vägen i Google Maps</a></p>
+      <p><a href="<?= esc($swing->mapUrl) ?>"<?= external_attrs($swing->mapUrl) ?>>Visa vägen i Google Maps<?= new_tab_hint($swing->mapUrl) ?></a></p>
 
       <h2>Förfrågningar om företag och grupper</h2>
       <p>Kontakta oss med ungefärligt antal deltagare, önskat datum och eventuella önskemål om mat, tävling eller personal på plats. Vi återkommer med ett förslag. Du kan också använda formuläret för <a href="<?= page_path('foretagsevent') ?>#offert">företagsevent</a> eller <a href="<?= page_path('gruppbokning') ?>#fraga">gruppbokning</a>.</p>

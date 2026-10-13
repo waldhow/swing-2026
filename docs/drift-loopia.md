@@ -7,6 +7,12 @@ Loopias webbhotell kör Apache med PHP och MariaDB. Det finns ingen SSH och inge
 1. **PHP-version:** 8.2 eller senare för domänen, med `intl`, `mbstring` och `mysqli`, som brukar vara aktiverade som standard.
 2. **SSL:** aktivera Let's Encrypt för `swinggolf.se` och `www.swinggolf.se`. `.htaccess` skickar all trafik till `https://swinggolf.se`.
 3. **Databas:** skapa en MariaDB-databas och en användare. Notera värdnamnet, till exempel `mysqlXXX.loopia.se`.
+   - **Användarvärd:** *Unix/SSH hos Loopia*. Sajten körs på Loopias webbservrar och ansluter därifrån. Vill du själv använda phpMyAdmin, skapa en separat användare för det.
+   - **Rättigheter:** *Läs*, *Skriv*, *Radera*, *Skapa*, *Ändra* och *Indexera*.
+     - *Läs*, *Skriv* och *Radera* behövs för sajten och för gallringen av gamla förfrågningar och ordrar.
+     - *Skapa*, *Ändra* och *Indexera* behövs för migreringarna som `/admin/setup/` kör, både vid första installationen och vid uppdateringar. Stripe-grenen lägger till kolumner och ett index.
+     - Övriga rättigheter behövs inte. Det gäller *Ta bort*, *Referenser*, *Låsa tabell*, *Skapa temporär tabell*, vyer, lagrade procedurer och *Trigger*. Sessioner och cache ligger i `writable/`, inte i databasen.
+     - Vill du hårdna: ta bort *Skapa*, *Ändra* och *Indexera* efter installationen, och lägg tillbaka dem tillfälligt när en uppdatering innehåller nya migreringar.
 4. **E-post:** brevlådan `info@swinggolf.se`, som även används som SMTP-avsändare. Kontrollera vilken brevlåda swing-order synkar för ordrar (`NUXT_MAILBOX_USER` i swing-order). Den adressen anges som `orders.mailTo`.
 
 ## Bygg

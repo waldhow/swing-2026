@@ -22,9 +22,6 @@ class Booking extends BaseConfig
     /** Verifierad 2026-10-11: används skarpt på swinggolf.se och svarar 200. */
     public string $bookingUrl = 'https://book.sweetspot.io/clubs/swing-golf-lounge';
 
-    /** Bokningslänkar öppnas i ny flik så att besökaren har kvar sajten (ägarens önskemål). */
-    public bool $openInNewTab = true;
-
     /**
      * Providerns app (inte en egen Swing-app). Visas i appkortet på start,
      * boka och inför besöket. Länkar bekräftade av ägaren 2026-10-11.

@@ -110,42 +110,38 @@ if (! function_exists('booking_url')) {
     }
 }
 
-if (! function_exists('external_attrs')) {
-    /** target/rel för länkar som lämnar sajten. */
-    function external_attrs(string $url): string
+if (! function_exists('is_external_url')) {
+    /**
+     * Absolut http(s)-länk till en annan webbplats. Egen domän (baseURL och
+     * App::$allowedHostnames, med eller utan www) räknas inte som extern.
+     */
+    function is_external_url(string $url): bool
     {
-        if (opens_new_tab($url)) {
-            return ' target="_blank" rel="noopener"';
+        if (! preg_match('#^https?://#i', $url)) {
+            return false;
         }
 
-        $host = parse_url($url, PHP_URL_HOST);
-        $own  = parse_url(base_url(), PHP_URL_HOST);
+        $host = strtolower((string) parse_url($url, PHP_URL_HOST));
+        $own  = array_merge([parse_url(base_url(), PHP_URL_HOST)], config('App')->allowedHostnames);
+        $own  = array_map(static fn ($h): string => preg_replace('/^www\./', '', strtolower((string) $h)), $own);
 
-        return ($host !== null && $host !== $own) ? ' rel="noopener"' : '';
+        return $host !== '' && ! in_array(preg_replace('/^www\./', '', $host), $own, true);
+    }
+}
+
+if (! function_exists('external_attrs')) {
+    /** target/rel för länkar som lämnar sajten (ägarens önskemål: alltid ny flik). */
+    function external_attrs(string $url): string
+    {
+        return opens_new_tab($url) ? ' target="_blank" rel="noopener"' : '';
     }
 }
 
 if (! function_exists('opens_new_tab')) {
-    /** Länkar till bokningsprovidern (t.ex. book.sweetspot.io) öppnas i ny flik. */
+    /** Alla länkar till andra webbplatser öppnas i ny flik. Se även Filters\ExternalLinks. */
     function opens_new_tab(string $url): bool
     {
-        $booking = config('Booking');
-        $host    = parse_url($url, PHP_URL_HOST);
-        if ($host === null) {
-            return false;
-        }
-
-        if ($booking->openInNewTab && $booking->hasBookingUrl() && $host === parse_url($booking->bookingUrl, PHP_URL_HOST)) {
-            return true;
-        }
-
-        foreach (config('Swing')->partnerLinks as $partnerUrl) {
-            if ($host === parse_url($partnerUrl, PHP_URL_HOST)) {
-                return true;
-            }
-        }
-
-        return false;
+        return is_external_url($url);
     }
 }
 

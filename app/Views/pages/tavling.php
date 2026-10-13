@@ -13,7 +13,7 @@ $swing = config('Swing');
     'lede'    => $c['summary'] ?? '',
     'trail'   => $trail,
     'actions' => (! empty($c['registration_url']) && $state !== 'Avslutad')
-        ? '<a class="btn btn-primary" href="' . esc($c['registration_url']) . '" rel="noopener">' . icon('flag', 20) . 'Anmäl dig</a>'
+        ? '<a class="btn btn-primary" href="' . esc($c['registration_url']) . '"' . external_attrs($c['registration_url']) . '>' . icon('flag', 20) . 'Anmäl dig' . new_tab_hint($c['registration_url']) . '</a>'
         : '',
 ]) ?>
 
@@ -34,12 +34,12 @@ $swing = config('Swing');
       <?php if (! empty($c['terms']) || ! empty($c['terms_url'])): ?>
       <h2>Villkor och regler</h2>
       <?php if (! empty($c['terms'])): ?><p><?= nl2br(esc($c['terms'])) ?></p><?php endif; ?>
-      <?php if (! empty($c['terms_url'])): ?><p><a href="<?= esc($c['terms_url']) ?>" rel="noopener">Fullständiga villkor</a></p><?php endif; ?>
+      <?php if (! empty($c['terms_url'])): ?><p><a href="<?= esc($c['terms_url']) ?>"<?= external_attrs($c['terms_url']) ?>>Fullständiga villkor<?= new_tab_hint($c['terms_url']) ?></a></p><?php endif; ?>
       <?php endif; ?>
 
       <?php if (! empty($c['results_url'])): ?>
       <h2>Resultat</h2>
-      <p><a href="<?= esc($c['results_url']) ?>" rel="noopener">Se resultat</a></p>
+      <p><a href="<?= esc($c['results_url']) ?>"<?= external_attrs($c['results_url']) ?>>Se resultat<?= new_tab_hint($c['results_url']) ?></a></p>
       <?php endif; ?>
 
       <p><a href="<?= page_path('tavlingar') ?>">← Alla tävlingar</a></p>
