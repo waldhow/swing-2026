@@ -141,3 +141,6 @@ _modules/*
 tests/e2e/test-results/
 tests/e2e/playwright-report/
 output/
+
+# SSH-uppgifter till Loopia – lokalt, aldrig i git eller på servern
+.loopia
