@@ -52,6 +52,24 @@ final class PagesTest extends CIUnitTestCase
         return $result->response()->getBody();
     }
 
+    /** WCAG 2.5.3: pottkortens länknamn är den synliga texten (versaler bara via CSS). */
+    public function testHomePotCardsUseVisibleTextAsName(): void
+    {
+        $html = $this->fetch('');
+        preg_match_all('#<a class="offer[^"]*" href="/spelpotter/\#pott-\d+"[^>]*>#', $html, $links);
+        $this->assertCount(count(config('Swing')->creditPots), $links[0]);
+        foreach ($links[0] as $tag) {
+            $this->assertStringNotContainsString('aria-label', $tag);
+        }
+        $this->assertStringContainsString('<span class="name">Swing 1000</span>', $html);
+    }
+
+    /** Brödsmulans första länk är beskrivande (Lighthouse link-text). */
+    public function testBreadcrumbStartsWithDescriptiveLink(): void
+    {
+        $this->assertMatchesRegularExpression('#<nav class="crumbs"[^>]*>[\s\S]*?<a href="[^"]*">Startsida</a>#', $this->fetch('priser'));
+    }
+
     /** Integritetspolicyn: riktiga fakta från konfigurationen, rätt myndighet, tillgänglig översikt. */
     public function testPrivacyPolicyIsCompleteAndCorrect(): void
     {
@@ -176,7 +194,7 @@ final class PagesTest extends CIUnitTestCase
     public function testBreadcrumbsReflectHierarchy(): void
     {
         $html = $this->fetch('trackman-io');
-        $this->assertMatchesRegularExpression('#<nav class="crumbs"[\s\S]*Start[\s\S]*Inomhusgolf[\s\S]*TrackMan iO &amp; simulatorer#', $html);
+        $this->assertMatchesRegularExpression('#<nav class="crumbs"[\s\S]*>Startsida</a>[\s\S]*Inomhusgolf[\s\S]*TrackMan iO &amp; simulatorer#', $html);
         $this->assertStringContainsString('"position":2,"name":"Inomhusgolf"', $html);
     }
 

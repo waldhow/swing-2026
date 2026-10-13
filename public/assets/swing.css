@@ -457,3 +457,6 @@ html:not(.js) .nav-group:focus-within .nav-sub{display:block;visibility:visible;
 @keyframes btn-spin{to{transform:rotate(360deg)}}
 /* Reducerad rörelse: långsammare men fortfarande synlig, den visar att något pågår. */
 @media (prefers-reduced-motion:reduce){.btn-spinner{animation:btn-spin 1.6s linear infinite!important}}
+
+/* Pottnamn i versaler via CSS – texten i HTML är "Swing 1000", så skärmläsare och röststyrning får det riktiga namnet. */
+.offer .name{text-transform:uppercase}

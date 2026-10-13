@@ -131,9 +131,9 @@ $images  = config('Images');
     <?php endforeach; ?>
     <div class="pots">
       <?php foreach ($swing->creditPots as $i => $pot): ?>
-      <a class="offer<?= ['', ' burgundy', ' bottle'][$i % 3] ?>" href="<?= page_path('spelpotter') ?>#pott-<?= $pot['pay'] ?>" style="text-decoration:none;display:block" aria-label="Välj <?= esc($pot['name']) ?>: betala <?= kr($pot['pay']) ?>, få <?= kr($pot['value']) ?> i spelvärde">
+      <a class="offer<?= ['', ' burgundy', ' bottle'][$i % 3] ?>" href="<?= page_path('spelpotter') ?>#pott-<?= $pot['pay'] ?>" style="text-decoration:none;display:block">
         <span class="sheen"></span>
-        <span class="name"><?= esc(mb_strtoupper($pot['name'])) ?></span>
+        <span class="name"><?= esc($pot['name']) ?></span>
         <span class="get"><span class="amt"><?= kr($pot['value'], false) ?></span><span>kr i spelvärde</span></span>
         <span class="pay">
           <span><span class="l">Du betalar</span><span class="v" style="display:block"><?= kr($pot['pay']) ?></span></span>

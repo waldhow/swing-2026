@@ -46,7 +46,7 @@ $tag = $interactive ? 'label' : 'div';
         <?php if ($interactive): ?><input class="pot-radio" type="radio" name="produkt" value="<?= esc($card['key']) ?>" required<?= $selected === $card['key'] ? ' checked' : '' ?><?= $error ? ' aria-invalid="true"' : '' ?> /><?php endif; ?>
         <span class="sheen"></span>
         <?php if ($card['campaign']): ?><span class="ribbon">KAMPANJ</span><?php endif; ?>
-        <span class="name"><?= esc(mb_strtoupper($card['name'])) ?></span>
+        <span class="name"><?= esc($card['name']) ?></span>
         <span class="get"><span class="amt"><?= kr($card['value'], false) ?></span><span>kr i spelvärde</span></span>
         <span class="pay">
           <span><span class="l">Du betalar</span><span class="v"><?= kr($card['pay']) ?></span></span>

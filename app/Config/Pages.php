@@ -27,7 +27,7 @@ class Pages extends BaseConfig
     public array $pages = [
         '' => [
             'view'        => 'home',
-            'label'       => 'Start',
+            'label'       => 'Startsida',
             'title'       => 'Inomhusgolf i Karlskrona | Swing Golf & Lounge',
             'description' => 'Spela inomhusgolf med TrackMan iO hos Swing i Nättraby. Fyra simulatorer, skön lounge och öppet {hours} alla dagar. Boka din golftid.',
             'nav'         => 'start',

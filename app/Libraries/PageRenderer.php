@@ -69,7 +69,8 @@ final class PageRenderer
      */
     public function trail(string $slug, array $tail = []): array
     {
-        $trail = [['label' => 'Start', 'url' => page_url()]];
+        // "Startsida", inte "Start": Lighthouse räknar "Start" som icke-beskrivande länktext.
+        $trail = [['label' => 'Startsida', 'url' => page_url()]];
         if (isset($this->pages->parents[$slug])) {
             $parent  = $this->pages->parents[$slug];
             $trail[] = ['label' => $this->pages->label($parent), 'url' => page_url($parent)];
