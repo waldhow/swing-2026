@@ -41,16 +41,16 @@ AddDefaultCharset UTF-8
 <IfModule mod_headers.c>
 	Header always unset X-Powered-By
 	Header unset X-Powered-By
-	Header always set X-Content-Type-Options "nosniff"
-	Header always set Referrer-Policy "strict-origin-when-cross-origin"
-	Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
-	Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on'"
+	# "set" utan "always" ersätter samma rubrik från PHP i stället för att dubblera den.
+	Header set X-Content-Type-Options "nosniff"
+	Header set Referrer-Policy "strict-origin-when-cross-origin"
+	Header set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+	# Hos Loopia avslutar nginx TLS, så Apache ser HTTPS via X-Forwarded-Proto.
+	Header always set Strict-Transport-Security "max-age=31536000" "expr=%{HTTPS} == 'on' || req('X-Forwarded-Proto') == 'https'"
 </IfModule>
 
-# Komprimering av textresurser.
-<IfModule mod_deflate.c>
-	AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml application/xml application/javascript image/svg+xml application/ld+json
-</IfModule>
+# Komprimering sköts av Loopias nginx (brotli). AddOutputFilterByType ger
+# 500 på alla sidor hos Loopia och får därför inte finnas här.
 
 # Långtidscache för statiska filer. Byt filnamn eller lägg till ?v= vid ändring.
 <IfModule mod_expires.c>

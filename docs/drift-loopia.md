@@ -1,6 +1,33 @@
 # Driftsättning på Loopia
 
-Loopias webbhotell kör Apache med PHP och MariaDB. Det finns ingen SSH och ingen Composer på servern, så allt byggs lokalt och laddas upp med FTP/SFTP.
+Loopias webbhotell kör nginx framför Apache med PHP och MariaDB. Kontot har SSH (nyckelinloggning), rsync och Composer. Allt byggs lokalt (`composer build:loopia`) och driftsätts med `bin/deploy-loopia.sh` via SSH/rsync.
+
+**Miljöer**
+
+| Miljö | Adress | Mappar på servern | Env-fil lokalt |
+|---|---|---|---|
+| Test | https://beta.swinggolf.se | `~/beta.swinggolf.se/public_html`, `~/beta.swinggolf.se/swing-app` | `.env.production` (just nu riktad mot beta) |
+| Live | https://swinggolf.se | `~/swinggolf.se/public_html`, `~/swinggolf.se/swing-app` | samma fil med live-adressen |
+
+Env-filerna och `.loopia` ignoreras av git och följer aldrig med i bygget.
+
+> Kontot hos Loopia har ett 20-tal andra domäner. Skriptet skriver bara i `~/beta.swinggolf.se` eller `~/swinggolf.se`, och kräver `CONFIRM_PROD=yes` för live-sajten.
+
+**Driftsätt**
+
+```bash
+composer test && composer build:loopia
+LOOPIA_SSH=<användare>@ssh.loopia.se bin/deploy-loopia.sh beta.swinggolf.se
+# första gången, eller när env ändrats:
+LOOPIA_SSH=<användare>@ssh.loopia.se UPLOAD_ENV=.env.production bin/deploy-loopia.sh beta.swinggolf.se
+```
+
+Skriptet laddar upp `public_html/` och `swing-app/` (kod, `vendor/`), skapar `writable/` utan att skriva över loggar eller cache, laddar upp env-filen som `swing-app/.env` med `chmod 600` när `UPLOAD_ENV` är satt, och tömmer sidcachen. Migreringar: `ssh … 'cd ~/<domän>/swing-app && php spark migrate --all'` eller `/admin/setup/?token=…`.
+
+**Loopia-särskilt (verifierat på beta 2026-10-13)**
+- `AddOutputFilterByType` i `.htaccess` ger 500 på alla sidor. Komprimering (brotli) sköts av nginx.
+- Apache ser inte HTTPS själv (nginx avslutar TLS). Villkor på HTTPS i `.htaccess` måste även titta på `req('X-Forwarded-Proto')`.
+- Webben kör PHP 8.3, SSH-kommandoraden PHP 8.5.
 
 ## Förutsättningar i Loopia Kundzon
 

@@ -170,7 +170,7 @@ for (const width of [375, 1280]) {
     }
 
     test('första felaktiga fältet syns under menyn efter inskick', async ({ page }) => {
-      await page.goto('/kontakt/');
+      await page.goto('/kontakt/', { waitUntil: 'load' });
       await page.locator('#formular button[type="submit"]').click();
       await expect(page.locator('#f-name')).toBeFocused();
       await scrollSettled(page);
@@ -182,7 +182,7 @@ for (const width of [375, 1280]) {
     });
 
     test('pottfelet syns ovanför korten efter inskick', async ({ page }) => {
-      await page.goto('/spelpotter/');
+      await page.goto('/spelpotter/', { waitUntil: 'load' });
       await page.locator('#bestall button[type="submit"]').click();
       await expect(page.locator('.pot-radio').first()).toBeFocused();
       const err = page.locator('#f-produkt-err');

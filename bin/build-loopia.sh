@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
-# Bygger ett uppladdningspaket för Loopia (FTP/SFTP — ingen SSH eller Composer
-# på servern). Resultat i dist/loopia/:
+# Bygger ett uppladdningspaket för Loopia. Driftsätts med bin/deploy-loopia.sh
+# (SSH/rsync) eller laddas upp med SFTP. Resultat i dist/loopia/:
 #
 #   public_html/   → laddas upp till domänens webbrot (t.ex. /swinggolf.se/public_html/)
 #   swing-app/     → laddas upp BREDVID webbroten (t.ex. /swinggolf.se/swing-app/),
@@ -21,6 +21,11 @@ mkdir -p "$OUT/public_html" "$OUT/$APPDIR"
 echo "→ Kopierar app och Composer-filer"
 rsync -a --exclude '.DS_Store' "$ROOT/app" "$OUT/$APPDIR/"
 cp "$ROOT/composer.json" "$ROOT/composer.lock" "$ROOT/spark" "$OUT/$APPDIR/"
+# spark letar efter public/ – på servern heter webbroten public_html/ och ligger bredvid appmappen.
+perl -pi -e "s#__DIR__ \. DIRECTORY_SEPARATOR \. 'public' \. DIRECTORY_SEPARATOR#__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'public_html' . DIRECTORY_SEPARATOR#" "$OUT/$APPDIR/spark"
+perl -pi -e "s#require FCPATH \. '\.\./app/Config/Paths\.php';#require __DIR__ . '/app/Config/Paths.php';#" "$OUT/$APPDIR/spark"
+grep -q "'public_html'" "$OUT/$APPDIR/spark" && grep -q "require __DIR__ . '/app/Config/Paths.php';" "$OUT/$APPDIR/spark" \
+  || { echo "Kunde inte peka spark på public_html och appmappen" >&2; exit 1; }
 cp "$ROOT/.env.example" "$OUT/$APPDIR/.env.example"
 
 echo "→ Installerar produktionsberoenden (utan dev-paket)"

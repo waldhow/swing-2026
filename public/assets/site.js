@@ -96,9 +96,15 @@
     }
 
     // Fokus till ett felaktigt fält och visa det med sin etikett under menyn.
+    // Skickas formuläret innan sidan laddat klart kan typsnitt och bilder
+    // flytta innehållet efteråt – då skrollas fältet fram igen efter load.
     function showInvalid(el) {
+      var box = el.closest(".field, fieldset") || el;
       el.focus({ preventScroll: true });
-      (el.closest(".field, fieldset") || el).scrollIntoView({ block: "start" });
+      box.scrollIntoView({ block: "start" });
+      if (document.readyState !== "complete") {
+        window.addEventListener("load", function () { box.scrollIntoView({ block: "start" }); }, { once: true });
+      }
     }
 
     // Validering i webbläsaren: samma regler och texter som servern (data-msg-*
