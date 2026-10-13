@@ -38,6 +38,21 @@ final class MailOrderGatewayTest extends CIUnitTestCase
 
         $this->assertStringContainsString("type:Presentkort\nprice:500\n", $body);
         $this->assertStringContainsString("name on giftcard:Pappa\n", $body);
+        $this->assertStringContainsString("design:STANDARD\n", $body, 'utan val skickas Standard');
+    }
+
+    public function testGiftCardSendsChosenDesign(): void
+    {
+        $body = MailOrderGateway::body($this->order(['order_type' => 'PRESENTKORT', 'gift_card_design' => 'JUL']));
+        $this->assertStringContainsString("design:JUL\n", $body);
+
+        $body = MailOrderGateway::body($this->order(['order_type' => 'PRESENTKORT', 'gift_card_design' => "JUL\nprice:1"]));
+        $this->assertStringContainsString("design:STANDARD\n", $body, 'okänt värde blir Standard');
+    }
+
+    public function testOnlyGiftCardsHaveDesign(): void
+    {
+        $this->assertStringNotContainsString('design:', MailOrderGateway::body($this->order()));
     }
 
     public function testFriskvardIncludesPersonalNumber(): void

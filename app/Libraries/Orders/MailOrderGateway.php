@@ -44,9 +44,9 @@ final class MailOrderGateway implements OrderGateway
     }
 
     /**
-     * Mejlets brödtext. Fälten type/price/email/name tolkas av swing-order;
-     * övriga rader (referens, spelvärde, design) är information för personalen
-     * och ignoreras av parsern.
+     * Mejlets brödtext. Fälten type/price/email/name (och personnummer, name on
+     * giftcard, design) tolkas av swing-order; övriga rader (referens, spelvärde)
+     * är information för personalen och ignoreras av parsern.
      */
     public static function body(array $order): string
     {
@@ -63,6 +63,13 @@ final class MailOrderGateway implements OrderGateway
 
         if ($order['order_type'] === 'PRESENTKORT' && ! empty($order['gift_card_name'])) {
             $lines[] = 'name on giftcard:' . self::clean($order['gift_card_name']);
+        }
+
+        // swing-order behöver en design för att kunna skapa presentkortet.
+        // Utan val i formuläret blir det Standard.
+        if ($order['order_type'] === 'PRESENTKORT') {
+            $design  = strtoupper((string) ($order['gift_card_design'] ?? ''));
+            $lines[] = 'design:' . (array_key_exists($design, config('Swing')->giftCardDesigns) ? $design : 'STANDARD');
         }
 
         $lines[] = '';

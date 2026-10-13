@@ -1,0 +1,47 @@
+diff -ru a/server/lib/mailImportService.ts b/server/lib/mailImportService.ts
+--- a/server/lib/mailImportService.ts	2026-10-13 08:56:37
++++ b/server/lib/mailImportService.ts	2026-10-13 08:56:37
+@@ -93,6 +93,7 @@
+             sweetspotCode: reservedCode?.code ?? null,
+             personalNumber: parsedOrder.personalNumber,
+             giftCardName: parsedOrder.giftCardName,
++            giftCardDesign: parsedOrder.giftCardDesign,
+             paymentVerified: parsedOrder.type === 'EPASSI'
+           }
+         })
+diff -ru a/server/lib/mailIngestion.ts b/server/lib/mailIngestion.ts
+--- a/server/lib/mailIngestion.ts	2026-10-13 08:56:37
++++ b/server/lib/mailIngestion.ts	2026-10-13 08:56:37
+@@ -1,5 +1,8 @@
+ import { z } from 'zod'
+ 
++const GIFT_CARD_DESIGNS = ['STANDARD', 'MORSDAG', 'FARSDAG', 'JUL'] as const
++type GiftCardDesignValue = (typeof GIFT_CARD_DESIGNS)[number]
++
+ const orderTypeByKeyword = [
+   { pattern: /\bepassi\b/i, type: 'EPASSI' as const },
+   { pattern: /\bfriskv[aå]rdspott\b/i, type: 'FRISKVARD' as const },
+@@ -199,6 +202,14 @@
+   const giftCardName = useStructured && type === 'PRESENTKORT'
+     ? normalizeWhitespace(giftCardNameFromStructured ?? '') || null
+     : null
++  // Webben skickar design:STANDARD|MORSDAG|FARSDAG|JUL. Presentkort utan (giltig) design blir STANDARD,
++  // så att presentkortet alltid kan skapas.
++  const designFromStructured = normalizeWhitespace(structured.design ?? '').toUpperCase()
++  const giftCardDesign: GiftCardDesignValue | null = type === 'PRESENTKORT'
++    ? (GIFT_CARD_DESIGNS as readonly string[]).includes(designFromStructured) && useStructured
++      ? designFromStructured as GiftCardDesignValue
++      : 'STANDARD'
++    : null
+ 
+   if (!type || !amount || !email || !parsedName) {
+     throw createError({
+@@ -213,6 +224,7 @@
+     email,
+     name: parsedName,
+     personalNumber,
+-    giftCardName
++    giftCardName,
++    giftCardDesign
+   }
+ }

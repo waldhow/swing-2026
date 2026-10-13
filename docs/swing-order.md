@@ -26,6 +26,7 @@ email:kund@exempel.se
 name:Anna Andersson
 personnummer:19900101-1234   ← endast Friskvård
 name on giftcard:Pappa       ← endast Presentkort, om ifyllt
+design:JUL                   ← endast Presentkort: STANDARD | MORSDAG | FARSDAG | JUL (utan val STANDARD)
 
 referens:W1042           ← information till personalen, ignoreras av parsern
 produkt:Swing 1000
@@ -35,8 +36,16 @@ kalla:swinggolf.se
 
 Reply-To sätts till kunden. Radbrytningar i kunddata tas bort så att inga extra fält kan injiceras (testas i `tests/unit/MailOrderGatewayTest.php`).
 
+**Presentkortsdesign**
+
+swing-order behöver en design för att kunna skapa presentkortet. Utan design svarar `giftcard.get.ts` med *"Presentkortsdesign saknas på ordern"*, och `send-confirmation` bifogar inget kort. Mejltolken i swing-order läser i dag ingen design.
+
+- **Webben** skickar alltid raden `design:` för presentkort. Utan val i formuläret är värdet `STANDARD`.
+- **I swing-order** behövs en liten ändring. Den finns som patch i `docs/patches/swing-order-giftcard-design.patch` och appliceras med `git apply` i swing-order. Med ändringen läser `mailIngestion.ts` raden `design:` (ogiltig eller saknad blir `STANDARD`), och `mailImportService.ts` sparar `giftCardDesign` på ordern.
+- **När swing-order har ändringen:** sätt `orders.mailCarriesGiftCardDesign = true` i `.env`. Då visas designvalet i presentkortsformuläret på webben.
+- **Namnet på kortet** skrivs bara ut på designen Standard (`server/lib/giftCard.ts`), och formuläret säger det.
+
 **Begränsningar i mejlkanalen**
-- Presentkortsdesign kan inte föras över. Designvalet visas därför inte i formuläret i mejlläget.
 - `price` för kampanjpotter är kampanjens betalbelopp, till exempel 2500. Kodlagret i swing-order behöver koder med det beloppet.
 - Idempotensen i swing-order bygger på IMAP-UID. Om ett mejl skickas om från admin skapas en ny order, så kontrollera i swing-order först.
 

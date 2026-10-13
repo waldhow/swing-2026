@@ -32,7 +32,7 @@ $error   = $form['errors']['belopp'] ?? null;
     <?php if ($designError): ?><p class="ferr" id="f-design-err"><?= icon('info', 16) ?><?= esc($designError) ?></p><?php endif; ?>
   </fieldset>
   <?php endif; ?>
-  <?= partial('partials/field', ['name' => 'mottagare', 'label' => 'Namn på presentkortet', 'form' => $form, 'hint' => 'Mottagarens namn, om du vill att det står på kortet.', 'attrs' => ' maxlength="60"']) ?>
+  <?= partial('partials/field', ['name' => 'mottagare', 'label' => 'Namn på presentkortet', 'form' => $form, 'hint' => $orders->supportsGiftCardDesign() ? 'Mottagarens namn. Skrivs på kortet med designen Standard.' : 'Mottagarens namn, om du vill att det står på kortet.', 'attrs' => ' maxlength="60"']) ?>
   <?= partial('partials/order_buyer', ['form' => $form, 'emailHint' => 'Presentkortet levereras till den här adressen.']) ?>
   <?= partial('partials/order_terms', ['form' => $form]) ?>
   <div class="btn-row"><button class="btn btn-primary" type="submit" data-busy-label="Beställer…"><?= icon('gift', 20) ?>Beställ – betala med Swish</button></div>

@@ -236,6 +236,36 @@ final class FormsTest extends CIUnitTestCase
         $this->assertStringContainsString($orders[0]['reference'], $this->body($this->get('tack/bestallning/' . $orders[0]['public_token'] . '/')));
     }
 
+    public function testGiftCardDesignIsHiddenUntilSwingOrderReadsIt(): void
+    {
+        $sent = [];
+        \CodeIgniter\Events\Events::on('email', static function (array $archive) use (&$sent): void { $sent[] = $archive; });
+
+        $this->assertStringNotContainsString('name="design"', $this->body($this->get('presentkort/')));
+        $this->post('presentkort', ['belopp' => '300', 'name' => 'Anna', 'email' => 'anna@exempel.se', 'villkor' => '1']);
+
+        $this->assertNull($this->db->table('orders')->get()->getRowArray()['gift_card_design']);
+        $this->assertStringContainsString("design:STANDARD\n", $sent[0]['body'], 'swing-order får alltid en design');
+    }
+
+    public function testChosenGiftCardDesignReachesSwingOrder(): void
+    {
+        config('Orders')->mailCarriesGiftCardDesign = true;
+        $sent = [];
+        \CodeIgniter\Events\Events::on('email', static function (array $archive) use (&$sent): void { $sent[] = $archive; });
+
+        $html = $this->body($this->get('presentkort/'));
+        foreach (['STANDARD', 'FARSDAG', 'MORSDAG', 'JUL'] as $design) {
+            $this->assertStringContainsString('name="design" value="' . $design . '"', $html);
+        }
+        $this->assertStringContainsString('Skrivs på kortet med designen Standard.', $html);
+
+        $this->post('presentkort', ['belopp' => '500', 'design' => 'JUL', 'name' => 'Anna', 'email' => 'anna@exempel.se', 'villkor' => '1']);
+
+        $this->assertSame('JUL', $this->db->table('orders')->get()->getRowArray()['gift_card_design']);
+        $this->assertStringContainsString("design:JUL\n", $sent[0]['body']);
+    }
+
     public function testTamperedPotIsRejected(): void
     {
         $result = $this->post('spelpotter', ['produkt' => 'pott-999', 'name' => 'Anna', 'email' => 'anna@exempel.se', 'villkor' => '1']);

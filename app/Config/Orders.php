@@ -72,9 +72,16 @@ class Orders extends BaseConfig
         return $this->friskvardDirect && $this->isOperational() && config('Encryption')->key !== '';
     }
 
-    /** Presentkortsdesign kan bara föras över via API-kanalen. */
+    /**
+     * Designvalet för presentkort visas när swing-order kan ta emot det: alltid
+     * via API-kanalen, och via mejl när swing-orders parser läser raden
+     * "design:" (sätt orders.mailCarriesGiftCardDesign = true i .env då).
+     * Mejlet har alltid raden design: – utan val blir det STANDARD.
+     */
+    public bool $mailCarriesGiftCardDesign = false;
+
     public function supportsGiftCardDesign(): bool
     {
-        return $this->channel === 'api';
+        return $this->channel === 'api' || ($this->channel === 'mail' && $this->mailCarriesGiftCardDesign);
     }
 }
