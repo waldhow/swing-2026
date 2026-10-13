@@ -60,12 +60,16 @@ class Inquiries extends BaseController
             'message'          => $values['message'],
         ]);
 
-        return redirect()->to(page_path('tack/forfragan'), 303);
+        // Typen följer med till tacksidan för statistiken (generate_lead).
+        return redirect()->to(page_path('tack/forfragan') . '?typ=' . $type, 303);
     }
 
     public function thanks(): string
     {
+        $type = (string) $this->request->getGet('typ');
+
         return view('pages/tack_forfragan', [
+            'inquiryType' => in_array($type, self::TYPES, true) ? $type : 'okand',
             'meta'      => ['title' => 'Tack för din förfrågan | Swing Golf & Lounge', 'description' => 'Vi har tagit emot din förfrågan.', 'canonical' => null, 'robots' => 'noindex'],
             'navActive' => '',
             'trail'     => [],

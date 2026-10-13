@@ -8,6 +8,8 @@ $orders   = config('Orders');
 $amount   = (int) $order['pay_amount'];
 $swishUrl = Swish::paymentUrl($orders->swishNumber, $amount, $order['reference']);
 ?>
+<?php /* Statistik (bara efter samtycke, site.js): beställning gjord – typ och belopp, inga personuppgifter. En gång per order. */ ?>
+<div hidden data-track-event="bestallning" data-track-once="<?= esc(md5($order['reference'])) ?>" data-track-params="<?= esc(json_encode(['produkt' => strtolower($order['order_type']), 'value' => (int) $order['pay_amount'], 'currency' => 'SEK'])) ?>"></div>
 <header class="phero phero-plain">
   <div class="hero-scrim"></div>
   <div class="hero-in wrap">

@@ -63,7 +63,7 @@ final class FormsTest extends CIUnitTestCase
     {
         $result = $this->post('kontakt', ['name' => 'Anna Andersson', 'email' => 'Anna@Exempel.se', 'message' => 'Hej! Har ni öppet på julafton?']);
 
-        $result->assertRedirectTo(page_path('tack/forfragan'));
+        $result->assertRedirectTo(page_path('tack/forfragan') . '?typ=kontakt');
         $this->seeInDatabase('inquiries', ['type' => 'kontakt', 'email' => 'anna@exempel.se', 'status' => 'new']);
         $row = $this->db->table('inquiries')->get()->getRowArray();
         $this->assertNotNull($row['mailed_at']);
@@ -75,7 +75,7 @@ final class FormsTest extends CIUnitTestCase
         $this->post('foretagsevent', [
             'name' => 'Erik', 'organisation' => 'Exempelbolaget AB', 'email' => 'erik@foretag.se',
             'participants' => '18', 'preferred_date' => 'fredag 14 november', 'package_interest' => 'after-work', 'wants_food' => '1',
-        ])->assertRedirectTo(page_path('tack/forfragan'));
+        ])->assertRedirectTo(page_path('tack/forfragan') . '?typ=foretag');
 
         $this->seeInDatabase('inquiries', ['type' => 'foretag', 'participants' => 18, 'package_interest' => 'after-work', 'wants_food' => 1]);
     }
@@ -107,7 +107,7 @@ final class FormsTest extends CIUnitTestCase
         $this->email->returnValue = false;
 
         $this->post('kontakt', ['name' => 'Lisa', 'email' => 'lisa@exempel.se', 'message' => 'Hej'])
-            ->assertRedirectTo(page_path('tack/forfragan'));
+            ->assertRedirectTo(page_path('tack/forfragan') . '?typ=kontakt');
 
         $row = $this->db->table('inquiries')->where('email', 'lisa@exempel.se')->get()->getRowArray();
         $this->assertNull($row['mailed_at']);
@@ -202,6 +202,24 @@ final class FormsTest extends CIUnitTestCase
                 preg_match('#' . preg_quote($element, '#') . '[^>]*data-msg-' . $rule . '="([^"]+)"#', $page, $m);
                 $this->assertStringContainsString('</svg>' . $m[1] . '</p>', $server, "{$slug}: webbläsarens text för {$element} ({$rule}) skiljer sig från serverns");
             }
+        }
+    }
+
+    /** Statistikmarkeringar på tacksidorna: typ och belopp, aldrig personuppgifter. */
+    public function testThankYouPagesMarkConversionsWithoutPersonalData(): void
+    {
+        $lead = $this->body($this->get('tack/forfragan/?typ=foretag'));
+        $this->assertStringContainsString('data-track-event="generate_lead" data-track-params="{&quot;formular&quot;:&quot;foretag&quot;}"', $lead);
+        $this->assertStringContainsString('{&quot;formular&quot;:&quot;okand&quot;}', $this->body($this->get('tack/forfragan/?typ=<script>')));
+
+        $this->post('spelpotter', ['produkt' => 'pott-2000', 'name' => 'Anna Andersson', 'email' => 'anna@exempel.se', 'villkor' => '1']);
+        $order = $this->db->table('orders')->get()->getRowArray();
+        $html  = $this->body($this->get('tack/bestallning/' . $order['public_token'] . '/'));
+        $this->assertStringContainsString('data-track-event="bestallning"', $html);
+        $this->assertStringContainsString('{&quot;produkt&quot;:&quot;spelpott&quot;,&quot;value&quot;:2000,&quot;currency&quot;:&quot;SEK&quot;}', $html);
+        preg_match('#<div hidden data-track-event="bestallning"[^>]*>#', $html, $marker);
+        foreach (['anna', $order['reference'], $order['public_token']] as $private) {
+            $this->assertStringNotContainsStringIgnoringCase($private, $marker[0]);
         }
     }
 

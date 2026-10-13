@@ -322,6 +322,56 @@
       else if (choice === null) showConsent(true);
     }
 
+    // Händelser i Google Analytics – skickas bara när besökaren har godkänt
+    // statistik (annars finns ingen gtag). Inga personuppgifter skickas.
+    function track(name, params) {
+      if (window.__swingAnalytics && typeof window.gtag === "function") window.gtag("event", name, params || {});
+    }
+
+    // Var på sidan knappen sitter – syns som parametern "placering" i Analytics.
+    function placement(el) {
+      if (el.closest(".nav")) return "meny";
+      if (el.closest(".hero, .phero")) return "hero";
+      if (el.closest(".cta-band")) return "cta";
+      if (el.closest(".apps")) return "appar";
+      if (el.closest(".offer")) return "pottkort";
+      return "sida";
+    }
+
+    // Klick på Boka (Sweetspot på webben eller i appbutikerna), Köp spelpott och
+    // Begär offert. Länkar i menyernas undersidor, brödsmulor och sidfot räknas inte.
+    document.addEventListener("click", function (e) {
+      var a = e.target.closest && e.target.closest("a[href]");
+      if (!a || a.closest(".nav-group, .crumbs, footer")) return;
+      var url;
+      try { url = new URL(a.href); } catch (err) { return; }
+      var where = placement(a);
+      var page = location.pathname;
+      if (/(^|\.)sweetspot\.io$/.test(url.hostname)) {
+        track("klick_boka", { placering: where, mal: "webb", sida: page });
+      } else if (url.hostname === "apps.apple.com" && /sweetspot/.test(url.pathname)) {
+        track("klick_boka", { placering: where, mal: "app_store", sida: page });
+      } else if (url.hostname === "play.google.com" && /sweetspot/.test(url.search)) {
+        track("klick_boka", { placering: where, mal: "google_play", sida: page });
+      } else if (url.origin === location.origin && url.pathname === "/spelpotter/" && a.matches(".btn, .offer")) {
+        track("klick_kop_spelpott", { placering: where, sida: page, pott: (url.hash.match(/^#((?:pott|kampanj)-\d+)$/) || [])[1] || "" });
+      } else if (url.origin === location.origin && url.pathname === "/foretagsevent/" && url.hash === "#offert" && a.matches(".btn")) {
+        track("klick_begar_offert", { placering: where, sida: page });
+      }
+    });
+
+    // Slutförd förfrågan eller beställning (tacksidorna): data-track-event på sidan.
+    // Skickas en gång per förfrågan/order även om sidan laddas om.
+    Array.prototype.forEach.call(document.querySelectorAll("[data-track-event]"), function (el) {
+      var key = "swing_tracked_" + (el.dataset.trackOnce || el.dataset.trackEvent);
+      try { if (sessionStorage.getItem(key)) return; } catch (err) { /* privat läge: skicka ändå */ }
+      var params = {};
+      try { params = JSON.parse(el.dataset.trackParams || "{}"); } catch (err) { /* ogiltiga parametrar */ }
+      if (!window.__swingAnalytics) return;
+      track(el.dataset.trackEvent, params);
+      try { sessionStorage.setItem(key, "1"); } catch (err) { /* ingen lagring */ }
+    });
+
     // Fel från servern (utan JS, eller fel som bara servern kan se): felen står
     // vid fälten. Fokus till första felaktiga fältet eller till formulärets
     // felruta när felet gäller hela formuläret. Webbläsaren återställer fokus

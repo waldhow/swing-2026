@@ -10,4 +10,6 @@
     <div class="btn-row"><a class="btn btn-ghost" href="/">Till startsidan</a><?= partial('partials/book_button') ?></div>
   </div>
 </header>
+<?php /* Statistik (bara efter samtycke, site.js): skickad förfrågan, utan personuppgifter. */ ?>
+<div hidden data-track-event="generate_lead" data-track-params="<?= esc(json_encode(['formular' => $inquiryType ?? 'okand'])) ?>"></div>
 <?= $this->endSection() ?>

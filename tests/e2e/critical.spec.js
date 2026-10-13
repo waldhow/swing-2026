@@ -394,6 +394,44 @@ test('Google Analytics laddas bara efter ja, och samtycket går att dra tillbaka
   expect(gtag).toHaveLength(0);
 });
 
+// Statistikhändelser för Boka, Köp spelpott, Begär offert och skickad förfrågan.
+// Navigering och anrop till Google stoppas – inget skickas.
+test('klick på Boka, Köp spelpott och Begär offert mäts bara efter samtycke', async ({ page }) => {
+  await page.route(/googletagmanager\.com|google-analytics\.com/, (route) => route.abort());
+  await page.goto('/', { waitUntil: 'load' });
+  test.skip(await page.locator('#consent').count() === 0, 'ingen statistik konfigurerad (analytics.ga4Id)');
+  const events = () => page.evaluate(() => (window.dataLayer || []).filter((x) => x[0] === 'event').map((x) => [x[1], x[2]]));
+  const stopNavigation = () => page.evaluate(() => window.addEventListener('click', (e) => e.preventDefault(), true));
+
+  // Utan samtycke: inget registreras.
+  await page.locator('#consent').getByRole('button', { name: 'Neka' }).click();
+  await stopNavigation();
+  await page.locator('.hero a[href*="sweetspot"]').first().click();
+  expect(await events()).toEqual([]);
+
+  // Med samtycke.
+  await page.getByRole('button', { name: 'Cookie-inställningar' }).click();
+  await page.locator('#consent').getByRole('button', { name: 'Godkänn statistik' }).click();
+  await page.locator('.hero a[href*="sweetspot"]').first().click();
+  await page.locator('.hero a.btn[href="/spelpotter/"]').click();
+  await page.locator('a.offer[href="/spelpotter/#pott-2000"]').click();
+  await page.locator('a.btn[href="/foretagsevent/#offert"]').first().click();
+  await page.locator('footer a[href="/spelpotter/"]').first().click();
+
+  const got = await events();
+  expect(got).toContainEqual(['klick_boka', expect.objectContaining({ placering: 'hero', mal: 'webb', sida: '/' })]);
+  expect(got).toContainEqual(['klick_kop_spelpott', expect.objectContaining({ placering: 'hero', pott: '' })]);
+  expect(got).toContainEqual(['klick_kop_spelpott', expect.objectContaining({ placering: 'pottkort', pott: 'pott-2000' })]);
+  expect(got).toContainEqual(['klick_begar_offert', expect.objectContaining({ sida: '/' })]);
+  expect(got.filter(([name]) => name === 'klick_kop_spelpott'), 'sidfotslänkar räknas inte').toHaveLength(2);
+
+  // Skickad förfrågan (tacksidan) – en gång även om sidan laddas om.
+  await page.goto('/tack/forfragan/?typ=foretag', { waitUntil: 'load' });
+  expect(await events()).toContainEqual(['generate_lead', { formular: 'foretag' }]);
+  await page.reload({ waitUntil: 'load' });
+  expect((await events()).filter(([name]) => name === 'generate_lead')).toHaveLength(0);
+});
+
 test('okänd sida ger 404 med vägar vidare', async ({ page }) => {
   const response = await page.goto('/finns-inte/');
   expect(response.status()).toBe(404);
