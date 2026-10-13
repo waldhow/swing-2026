@@ -7,7 +7,7 @@ $inquiries = config('Inquiries');
 $orders    = config('Orders');
 $mail      = '<a href="mailto:' . esc($swing->email) . '">' . esc($swing->email) . '</a>';
 ?>
-<?= partial('partials/phero', ['eyebrow' => 'Integritet', 'h1' => 'Integritetspolicy', 'lede' => 'Så behandlar vi dina personuppgifter när du kontaktar oss, köper, bokar, deltar i tävlingar eller besöker webbplatsen.', 'trail' => $trail]) ?>
+<?= partial('partials/phero', ['eyebrow' => 'Integritet', 'h1' => 'Integritetspolicy', 'lede' => 'Så behandlar vi dina personuppgifter när du kontaktar oss, köper, bokar, deltar i tävlingar, besöker anläggningen eller webbplatsen.', 'trail' => $trail]) ?>
 
 <section class="sec">
   <div class="wrap">
@@ -20,6 +20,7 @@ $mail      = '<a href="mailto:' . esc($swing->email) . '">' . esc($swing->email)
         <li>Vi säljer aldrig dina uppgifter och lämnar inte ut dem till andra för deras marknadsföring.</li>
         <li>Webbplatsen använder inga cookies för statistik eller marknadsföring och inga spårningsverktyg.</li>
         <li>Personnummer frågar vi bara efter när du köper en friskvårdspott direkt hos oss, för friskvårdskvittot.</li>
+        <li>Lokalen är kamerabevakad, och det är skyltat på plats.</li>
         <li>Du kan alltid fråga vilka uppgifter vi har om dig, och be oss rätta eller radera dem.</li>
       </ul>
 
@@ -40,6 +41,7 @@ $mail      = '<a href="mailto:' . esc($swing->email) . '">' . esc($swing->email)
           <tr role="row"><th scope="row" role="rowheader">Bokföring och kvitton</th><td role="cell" data-label="Laglig grund">Rättslig förpliktelse (bokföringslagen)</td><td role="cell" data-label="Hur länge">Sju år efter utgången av det kalenderår då räkenskapsåret avslutades</td></tr>
           <tr role="row"><th scope="row" role="rowheader">Bokningar av speltid</th><td role="cell" data-label="Laglig grund">Avtal</td><td role="cell" data-label="Hur länge">Så länge bokningen kan behöva hanteras, och i <?= esc($booking->provider) ?> enligt deras villkor</td></tr>
           <tr role="row"><th scope="row" role="rowheader">Tävlingar och event</th><td role="cell" data-label="Laglig grund">Avtal, och berättigat intresse för resultatlistor</td><td role="cell" data-label="Hur länge">Deltagaruppgifter till och med att tävlingen är avslutad. Resultatlistor kan finnas kvar.</td></tr>
+          <tr role="row"><th scope="row" role="rowheader">Kamerabevakning i lokalen</th><td role="cell" data-label="Laglig grund">Berättigat intresse</td><td role="cell" data-label="Hur länge">En kort tid, sedan raderas inspelningarna automatiskt. Längre bara när en händelse utreds.</td></tr>
           <tr role="row"><th scope="row" role="rowheader">Skydda webbplatsen mot missbruk</th><td role="cell" data-label="Laglig grund">Berättigat intresse</td><td role="cell" data-label="Hur länge">Krypterad IP-adress högst en timme. Webbhotellets tekniska loggar enligt webbhotellets rutiner.</td></tr>
         </tbody>
       </table>
@@ -62,6 +64,10 @@ $mail      = '<a href="mailto:' . esc($swing->email) . '">' . esc($swing->email)
       <h2 id="tavlingar">När du deltar i tävlingar och event</h2>
       <p>Vi behandlar namn, kontaktuppgifter och de uppgifter som behövs för tävlingen, till exempel ålder eller födelseår när det finns åldersklasser. Resultatlistor med namn och placering kan publiceras på webbplatsen och i våra sociala medier. Den lagliga grunden är avtalet om ditt deltagande, och för resultatlistorna vårt berättigade intresse. Vill du inte synas i en resultatlista kan du säga till, så tar vi bort ditt namn.</p>
 
+      <h2 id="kamerabevakning">Kamerabevakning i lokalen</h2>
+      <p>Lokalen är kamerabevakad, och det är skyltat på plats. Anläggningen är normalt obemannad, och bevakningen ska förebygga och utreda brott, skadegörelse och olyckor och skydda besökare, personal och utrustning. Vi behandlar bilder från kamerorna. Den lagliga grunden är vårt berättigade intresse av att skydda anläggningen och de som vistas där.</p>
+      <p>Inspelningarna raderas automatiskt efter en kort tid och sparas längre bara när de behövs för att utreda en händelse. Bara ett fåtal behöriga har tillgång till dem, och de lämnas ut till polisen eller andra myndigheter bara vid misstanke om brott eller när lagen kräver det. Du har rätt att begära ut inspelningar där du syns, så länge de finns kvar och andra personers integritet kan skyddas.</p>
+
       <h2 id="epassi">Friskvård via Epassi</h2>
       <p>Köp med friskvårdsbidrag via Epassi görs i Epassis tjänst. Epassi ansvarar för de uppgifter du lämnar där. Vi får de uppgifter som behövs för att leverera köpet till dig.</p>
 
@@ -77,7 +83,7 @@ $mail      = '<a href="mailto:' . esc($swing->email) . '">' . esc($swing->email)
       <ul>
         <li><strong>Loopia:</strong> webbhotell, databas och utskick av e-post från webbplatsen.</li>
         <li><strong>Google (Google Workspace):</strong> vår e-post.</li>
-        <li><strong>Vercel och Supabase:</strong> driften av vårt ordersystem.</li>
+        <li><strong>Vercel och Supabase:</strong> driften av vårt ordersystem, med lagring inom EU (Irland).</li>
         <li><strong>Slack:</strong> interna notiser till personalen om nya beställningar.</li>
       </ul>
       <p>Följande ansvarar själva för sin behandling, som självständigt personuppgiftsansvariga:</p>
@@ -87,10 +93,10 @@ $mail      = '<a href="mailto:' . esc($swing->email) . '">' . esc($swing->email)
         <li><strong>Banker och Swish:</strong> betalningar.</li>
         <li><strong>Meta:</strong> Facebook och Instagram.</li>
       </ul>
-      <p>Vi lämnar ut uppgifter till myndigheter, till exempel Skatteverket, när lagen kräver det. Vi säljer aldrig dina uppgifter.</p>
+      <p>Vi lämnar ut uppgifter till myndigheter, till exempel Skatteverket eller polisen, när lagen kräver det. Vi säljer aldrig dina uppgifter.</p>
 
       <h2 id="overforing">Överföring utanför EU/EES</h2>
-      <p>Google, Vercel, Supabase, Slack och Meta är bolag med verksamhet i USA, och uppgifter kan behandlas utanför EU/EES. Överföringen sker då med stöd av EU-kommissionens beslut om EU–US Data Privacy Framework eller EU-kommissionens standardavtalsklausuler.</p>
+      <p>Vårt ordersystem lagras inom EU (Irland), och webbplatsen och dess databas finns hos Loopia i Sverige. Google, Slack och Meta kan behandla uppgifter utanför EU/EES. Även leverantörer som lagrar uppgifterna inom EU kan i vissa fall komma åt dem från länder utanför EU, till exempel vid support. Överföringen sker då med stöd av EU-kommissionens beslut om EU–US Data Privacy Framework eller EU-kommissionens standardavtalsklausuler.</p>
 
       <h2 id="sakerhet">Så skyddar vi uppgifterna</h2>
       <p>Webbplatsen använder krypterad anslutning (HTTPS). Personnummer sparas krypterade, och lösenord till vår administration sparas bara i hashad form. Bara behöriga medarbetare kommer åt uppgifterna. Uppgifter som inte längre behövs raderas automatiskt enligt tiderna ovan.</p>

@@ -64,11 +64,11 @@ final class PagesTest extends CIUnitTestCase
         $this->assertStringContainsString('raderas där efter ' . config('Inquiries')->retentionMonths . ' månader', $text);
         $this->assertStringContainsString('raderas efter ' . config('Orders')->retentionDays . ' dagar', $text);
         $this->assertStringContainsString('3 kap. 10 § dataskyddslagen', $text);
-        foreach (['Loopia', 'Google Workspace', 'Vercel och Supabase', 'Slack', 'Epassi', 'Data Privacy Framework', 'dataportabilitet'] as $must) {
+        foreach (['Loopia', 'Google Workspace', 'Vercel och Supabase', 'Slack', 'Epassi', 'Data Privacy Framework', 'dataportabilitet', 'Kamerabevakning i lokalen', 'skyltat på plats', 'inom EU (Irland)'] as $must) {
             $this->assertStringContainsString($must, $text, "integritetspolicyn ska nämna {$must}");
         }
         $this->assertStringContainsString('<table class="dtable dtable-text" role="table" aria-labelledby="oversikt">', $html);
-        $this->assertSame(6, substr_count($html, 'data-label="Hur länge"'), 'varje rad har etiketter för mobilvisningen');
+        $this->assertSame(7, substr_count($html, 'data-label="Hur länge"'), 'varje rad har etiketter för mobilvisningen');
         $this->assertStringNotContainsString('marknadsföring och logistik', $text, 'den gamla policyns delning för marknadsföring stämmer inte');
     }
 
