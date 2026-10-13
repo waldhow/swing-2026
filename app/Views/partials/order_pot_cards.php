@@ -72,7 +72,7 @@ $tag = $interactive ? 'label' : 'div';
       <?= partial('partials/field', ['name' => 'personnummer', 'label' => 'Personnummer', 'required' => true, 'autocomplete' => 'off', 'form' => $form, 'hint' => 'Behövs för friskvårdskvittot. ÅÅÅÅMMDD-NNNN.', 'attrs' => ' inputmode="numeric" maxlength="13" data-pnr', 'messages' => ['pnr-format' => lang('Forms.pnrFormat'), 'pnr-checksum' => lang('Forms.pnrChecksum')]]) ?>
       <?php endif; ?>
       <?= partial('partials/order_terms', ['form' => $form]) ?>
-      <div class="btn-row"><button class="btn btn-primary" type="submit"><?= icon('wallet', 20) ?>Beställ – betala med Swish</button></div>
+      <div class="btn-row"><button class="btn btn-primary" type="submit" data-busy-label="Beställer…"><?= icon('wallet', 20) ?>Beställ – betala med Swish</button></div>
       <p class="fhint">Efter beställningen visar vi hur du betalar. Vi använder dina uppgifter för att leverera beställningen, se <a href="<?= page_path('integritetspolicy') ?>" target="_blank" rel="noopener">integritetspolicyn<span class="sr-only"> (öppnas i ny flik)</span></a>.</p>
     </div>
     <div class="card">

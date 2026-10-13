@@ -195,8 +195,39 @@
       return !!box && box.classList.contains("has-error");
     }
 
+    // Skickat formulär: spinner och ny text i knappen (data-busy-label) tills
+    // nästa sida laddats. Ett andra klick skickar inte igen – inga dubbla
+    // beställningar. Knappen behåller bredden så att inget hoppar.
+    function setBusy(form, busy) {
+      var btn = form.querySelector('button[type="submit"]');
+      form.dataset.busy = busy ? "1" : "";
+      form.setAttribute("aria-busy", busy ? "true" : "false");
+      if (!btn) return;
+      if (busy) {
+        btn.dataset.idle = btn.innerHTML;
+        btn.style.minWidth = btn.offsetWidth + "px";
+        btn.innerHTML = '<span class="btn-spinner" aria-hidden="true"></span>';
+        btn.appendChild(document.createTextNode(btn.dataset.busyLabel || "Skickar…"));
+      } else if (btn.dataset.idle) {
+        btn.innerHTML = btn.dataset.idle;
+        btn.style.minWidth = "";
+      }
+      btn.classList.toggle("is-busy", busy);
+      btn.setAttribute("aria-disabled", busy ? "true" : "false");
+    }
+
+    // Tillbaka med bakåtknappen (sidan från webbläsarens cache): knappen ska gå att använda igen.
+    window.addEventListener("pageshow", function (e) {
+      if (!e.persisted) return;
+      Array.prototype.forEach.call(document.querySelectorAll('form[data-busy="1"]'), function (form) { setBusy(form, false); });
+    });
+
     Array.prototype.forEach.call(document.querySelectorAll("form[data-validate]"), function (form) {
       form.addEventListener("submit", function (e) {
+        if (form.dataset.busy === "1") {
+          e.preventDefault();
+          return;
+        }
         var first = null;
         var seen = {};
         Array.prototype.forEach.call(form.elements, function (el) {
@@ -210,7 +241,9 @@
         if (first) {
           e.preventDefault();
           showInvalid(first);
+          return;
         }
+        setBusy(form, true);
       });
 
       // Ett fält med fel kontrolleras igen medan man rättar, så felet försvinner

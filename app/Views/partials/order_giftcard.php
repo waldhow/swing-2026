@@ -35,6 +35,6 @@ $error   = $form['errors']['belopp'] ?? null;
   <?= partial('partials/field', ['name' => 'mottagare', 'label' => 'Namn på presentkortet', 'form' => $form, 'hint' => 'Mottagarens namn, om du vill att det står på kortet.', 'attrs' => ' maxlength="60"']) ?>
   <?= partial('partials/order_buyer', ['form' => $form, 'emailHint' => 'Presentkortet levereras till den här adressen.']) ?>
   <?= partial('partials/order_terms', ['form' => $form]) ?>
-  <div class="btn-row"><button class="btn btn-primary" type="submit"><?= icon('gift', 20) ?>Beställ – betala med Swish</button></div>
+  <div class="btn-row"><button class="btn btn-primary" type="submit" data-busy-label="Beställer…"><?= icon('gift', 20) ?>Beställ – betala med Swish</button></div>
   <p class="fhint">Efter beställningen visar vi hur du betalar. Vi använder dina uppgifter för att leverera beställningen, se <a href="<?= page_path('integritetspolicy') ?>" target="_blank" rel="noopener">integritetspolicyn<span class="sr-only"> (öppnas i ny flik)</span></a>.</p>
 </form>

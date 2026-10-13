@@ -438,3 +438,11 @@ html:not(.js) .nav-group:focus-within .nav-sub{display:block;visibility:visible;
   .app-badges .stores img{height:40px}
   .hero-apps{margin-top:20px}
 }
+
+/* Skickat formulär: spinner i knappen tills nästa sida laddats (site.js). */
+.btn.is-busy{cursor:progress;justify-content:center}
+.btn.is-busy:hover{filter:none}
+.btn-spinner{width:18px;height:18px;flex-shrink:0;border-radius:50%;border:2.5px solid currentColor;border-right-color:transparent;animation:btn-spin .7s linear infinite}
+@keyframes btn-spin{to{transform:rotate(360deg)}}
+/* Reducerad rörelse: långsammare men fortfarande synlig, den visar att något pågår. */
+@media (prefers-reduced-motion:reduce){.btn-spinner{animation:btn-spin 1.6s linear infinite!important}}

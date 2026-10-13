@@ -291,6 +291,38 @@ test.describe('utan JavaScript', () => {
   });
 });
 
+test('Beställ-knappen visar att beställningen skickas och kan inte klickas två gånger', async ({ page }) => {
+  await page.goto('/presentkort/', { waitUntil: 'load' });
+  await page.selectOption('#f-belopp', '300');
+  await page.fill('#f-name', 'E2E Test');
+  await page.fill('#f-email', 'e2e@example.com');
+  await page.check('#f-villkor');
+
+  // Räkna inskick som sajten släpper igenom och stoppa sedan navigeringen –
+  // inget skickas till servern. (Under en pågående navigering kan Playwright
+  // inte läsa av sidan, därför stoppas den här i stället för i nätverket.)
+  await page.evaluate(() => {
+    window.__submits = 0;
+    document.getElementById('bestall').addEventListener('submit', (e) => {
+      if (!e.defaultPrevented) window.__submits += 1;
+      e.preventDefault();
+    });
+  });
+
+  const button = page.locator('#bestall button[type="submit"]');
+  const before = await button.boundingBox();
+  await button.click();
+  await expect(button).toHaveClass(/is-busy/);
+  await expect(button).toHaveText('Beställer…');
+  await expect(button.locator('.btn-spinner')).toBeVisible();
+  await expect(button).toHaveAttribute('aria-disabled', 'true');
+  await expect(page.locator('#bestall')).toHaveAttribute('aria-busy', 'true');
+  expect(Math.round((await button.boundingBox()).width)).toBeGreaterThanOrEqual(Math.round(before.width) - 1);
+
+  await button.click({ force: true });
+  expect(await page.evaluate(() => window.__submits), 'andra klicket skickar inte igen').toBe(1);
+});
+
 // Förifylld Swish: QR-kod på datorn, knapp till appen i mobilen – samma betalningslänk.
 // Testerna lägger en riktig beställning, så de körs bara mot en lokal server.
 async function placeSwishOrder(page, baseURL) {
