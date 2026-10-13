@@ -5,6 +5,7 @@ $swing     = config('Swing');
 $booking   = config('Booking');
 $inquiries = config('Inquiries');
 $orders    = config('Orders');
+$ga        = config('Analytics')->enabled();
 $mail      = '<a href="mailto:' . esc($swing->email) . '">' . esc($swing->email) . '</a>';
 ?>
 <?= partial('partials/phero', ['eyebrow' => 'Integritet', 'h1' => 'Integritetspolicy', 'lede' => 'Så behandlar vi dina personuppgifter när du kontaktar oss, köper, bokar, deltar i tävlingar, besöker anläggningen eller webbplatsen.', 'trail' => $trail]) ?>
@@ -18,7 +19,11 @@ $mail      = '<a href="mailto:' . esc($swing->email) . '">' . esc($swing->email)
       <ul>
         <li>Vi behandlar bara de uppgifter som behövs för att svara dig, leverera det du köper, hantera bokningar och tävlingar och följa lagen.</li>
         <li>Vi säljer aldrig dina uppgifter och lämnar inte ut dem till andra för deras marknadsföring.</li>
+        <?php if ($ga): ?>
+        <li>Statistik med Google Analytics används bara om du godkänner det. Utan ditt samtycke sätts inga cookies för statistik, och inga för marknadsföring alls.</li>
+        <?php else: ?>
         <li>Webbplatsen använder inga cookies för statistik eller marknadsföring och inga spårningsverktyg.</li>
+        <?php endif; ?>
         <li>Personnummer frågar vi bara efter när du köper en friskvårdspott direkt hos oss, för friskvårdskvittot.</li>
         <li>Lokalen är kamerabevakad, och det är skyltat på plats.</li>
         <li>Du kan alltid fråga vilka uppgifter vi har om dig, och be oss rätta eller radera dem.</li>
@@ -42,6 +47,9 @@ $mail      = '<a href="mailto:' . esc($swing->email) . '">' . esc($swing->email)
           <tr role="row"><th scope="row" role="rowheader">Bokningar av speltid</th><td role="cell" data-label="Laglig grund">Avtal</td><td role="cell" data-label="Hur länge">Så länge bokningen kan behöva hanteras, och i <?= esc($booking->provider) ?> enligt deras villkor</td></tr>
           <tr role="row"><th scope="row" role="rowheader">Tävlingar och event</th><td role="cell" data-label="Laglig grund">Avtal, och berättigat intresse för resultatlistor</td><td role="cell" data-label="Hur länge">Deltagaruppgifter till och med att tävlingen är avslutad. Resultatlistor kan finnas kvar.</td></tr>
           <tr role="row"><th scope="row" role="rowheader">Kamerabevakning i lokalen</th><td role="cell" data-label="Laglig grund">Berättigat intresse</td><td role="cell" data-label="Hur länge">En kort tid, sedan raderas inspelningarna automatiskt. Längre bara när en händelse utreds.</td></tr>
+          <?php if ($ga): ?>
+          <tr role="row"><th scope="row" role="rowheader">Statistik över hur webbplatsen används</th><td role="cell" data-label="Laglig grund">Samtycke</td><td role="cell" data-label="Hur länge">Tills du drar tillbaka samtycket. Statistiken sparas i Google Analytics i högst 14 månader.</td></tr>
+          <?php endif; ?>
           <tr role="row"><th scope="row" role="rowheader">Skydda webbplatsen mot missbruk</th><td role="cell" data-label="Laglig grund">Berättigat intresse</td><td role="cell" data-label="Hur länge">Krypterad IP-adress högst en timme. Webbhotellets tekniska loggar enligt webbhotellets rutiner.</td></tr>
         </tbody>
       </table>
@@ -72,7 +80,13 @@ $mail      = '<a href="mailto:' . esc($swing->email) . '">' . esc($swing->email)
       <p>Köp med friskvårdsbidrag via Epassi görs i Epassis tjänst. Epassi ansvarar för de uppgifter du lämnar där. Vi får de uppgifter som behövs för att leverera köpet till dig.</p>
 
       <h2 id="webbplatsen">När du besöker webbplatsen</h2>
+      <?php if ($ga): ?>
+      <p><strong>Statistik med Google Analytics, bara om du godkänner det.</strong> Första gången du besöker webbplatsen frågar vi om vi får mäta besöket. Säger du ja laddas Google Analytics och sätter cookies (<code>_ga</code> och <code>_ga_…</code>, som finns kvar i upp till två år om du inte tar bort dem). Google får då uppgifter om ditt besök: vilka sidor du tittar på, hur du kom till oss, vilken typ av enhet och webbläsare du använder och ungefär var du befinner dig (land eller stad). Google Analytics sparar inte din IP-adress. Vi har stängt av Googles annonsfunktioner och Google signals, och vi använder statistiken bara för att förstå hur webbplatsen används och göra den bättre.</p>
+      <p>Den lagliga grunden är ditt samtycke. Säger du nej laddas Google Analytics inte alls. Du kan ändra dig när som helst under <em>Cookie-inställningar</em> längst ned på varje sida. Säger du nej i efterhand tar vi bort Analytics-cookies från din webbläsare. Ditt val sparas i en nödvändig cookie (<code>swing_consent</code>) i 12 månader, sedan frågar vi igen.</p>
+      <p>Andra cookies än dessa sätts inte på de publika sidorna. Inloggningen till vår administration använder en nödvändig cookie som bara gäller personalen. Typsnitt och bilder hämtas från vår egen server. Google Maps, <?= esc($booking->provider) ?>, Facebook och Instagram nås bara via länkar och öppnas först när du klickar.</p>
+      <?php else: ?>
       <p>Webbplatsen använder inga cookies för statistik eller marknadsföring, och vi använder inga spårningsverktyg. De publika sidorna sätter inga cookies alls. Inloggningen till vår administration använder en nödvändig cookie som bara gäller personalen. Typsnitt och bilder hämtas från vår egen server. Google Maps, <?= esc($booking->provider) ?>, Facebook och Instagram nås bara via länkar och öppnas först när du klickar.</p>
+      <?php endif; ?>
       <p>För att skydda formulären mot spam och missbruk begränsar vi hur många inskick som kan göras från samma IP-adress. IP-adressen sparas då i krypterad form (hashad) i högst en timme. Vårt webbhotell loggar tekniska uppgifter som IP-adress och tidpunkt för drift och säkerhet. Den lagliga grunden är vårt berättigade intresse av en säker webbplats.</p>
 
       <h2 id="sociala-medier">Sociala medier</h2>
@@ -83,6 +97,7 @@ $mail      = '<a href="mailto:' . esc($swing->email) . '">' . esc($swing->email)
       <ul>
         <li><strong>Loopia:</strong> webbhotell, databas och utskick av e-post från webbplatsen.</li>
         <li><strong>Google (Google Workspace):</strong> vår e-post.</li>
+        <?php if ($ga): ?><li><strong>Google (Google Analytics):</strong> besöksstatistik, bara om du har godkänt det.</li><?php endif; ?>
         <li><strong>Vercel och Supabase:</strong> driften av vårt ordersystem, med lagring inom EU (Irland).</li>
         <li><strong>Slack:</strong> interna notiser till personalen om nya beställningar.</li>
       </ul>
@@ -110,6 +125,7 @@ $mail      = '<a href="mailto:' . esc($swing->email) . '">' . esc($swing->email)
         <li>begära att behandlingen begränsas</li>
         <li>invända mot behandling som grundas på berättigat intresse</li>
         <li>få ut uppgifter du själv har lämnat i ett maskinläsbart format (dataportabilitet)</li>
+        <?php if ($ga): ?><li>när som helst dra tillbaka ditt samtycke till statistik, under Cookie-inställningar längst ned på sidan</li><?php endif; ?>
       </ul>
       <p>Kontakta oss på <?= $mail ?>. Vi svarar inom en månad och kan behöva be dig styrka din identitet först.</p>
 

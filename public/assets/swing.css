@@ -460,3 +460,17 @@ html:not(.js) .nav-group:focus-within .nav-sub{display:block;visibility:visible;
 
 /* Pottnamn i versaler via CSS – texten i HTML är "Swing 1000", så skärmläsare och röststyrning får det riktiga namnet. */
 .offer .name{text-transform:uppercase}
+
+/* Samtycke för statistik: fast längst ned ovanpå innehållet (påverkar inte layouten). */
+.consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:70;max-width:900px;margin:0 auto;padding:18px 22px;border:1px solid var(--line);border-radius:var(--r);background:rgba(24,15,7,.97);box-shadow:0 18px 48px rgba(0,0,0,.5)}
+.consent[hidden]{display:none}
+.consent-in{display:flex;gap:16px 26px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.consent-text{flex:1 1 380px}
+.consent h2{font-size:20px;margin:0 0 6px}
+.consent p{margin:0;font-size:14.5px;line-height:1.55;color:var(--txt2)}
+.consent p a{color:var(--cream);text-decoration:underline;text-underline-offset:3px}
+.consent-actions{display:flex;gap:10px;flex-wrap:wrap}
+.consent-actions .btn{height:48px;padding:0 22px}
+@media(max-width:520px){.consent{left:10px;right:10px;bottom:10px;padding:16px}.consent-actions{width:100%}.consent-actions .btn{flex:1 1 0;justify-content:center;padding:0 12px}}
+.foot-link{background:none;border:0;padding:0;font:inherit;color:var(--txt2);cursor:pointer}
+.foot-link:hover{color:var(--cream)}

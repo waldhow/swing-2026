@@ -24,6 +24,10 @@ $routes->get('tack/forfragan', 'Inquiries::thanks');
 $routes->get('tack/bestallning/(:segment)', 'Orders::thanks/$1');
 
 $routes->get('sitemap.xml', 'Seo::sitemap');
+// WordPress/Yoast-sitemaps som Google kan ha registrerade sedan gamla sajten.
+foreach (['sitemap_index.xml', 'wp-sitemap.xml', 'page-sitemap.xml', 'post-sitemap.xml'] as $oldSitemap) {
+    $routes->addRedirect($oldSitemap, 'sitemap.xml', 301);
+}
 $routes->get('robots.txt', 'Seo::robots');
 $routes->get('llms.txt', 'Seo::llms');
 

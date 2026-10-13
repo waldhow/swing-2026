@@ -120,11 +120,12 @@ $current   = explode('/', trim(service('request')->getUri()->getPath(), '/'))[0]
     </div>
     <div class="foot-bot">
       <span>© <?= date('Y') ?> <?= esc($swing->name) ?> · <?= esc($swing->legalName) ?>, org.nr <?= esc($swing->orgNumber) ?></span>
-      <span><a href="<?= page_path('kopvillkor') ?>">Köpvillkor</a> · <a href="<?= page_path('integritetspolicy') ?>">Integritetspolicy</a></span>
+      <span><a href="<?= page_path('kopvillkor') ?>">Köpvillkor</a> · <a href="<?= page_path('integritetspolicy') ?>">Integritetspolicy</a><?php if (config('Analytics')->enabled()): ?> · <button type="button" class="foot-link" data-consent-open>Cookie-inställningar</button><?php endif; ?></span>
     </div>
   </div>
 </footer>
 
+<?php if (config('Analytics')->enabled()): ?><?= partial('partials/consent') ?><?php endif; ?>
 <template id="ferr-icon"><?= icon('info', 16) ?></template>
 <script src="<?= asset('assets/site.js') ?>" defer></script>
 <?= $this->renderSection('scripts') ?>

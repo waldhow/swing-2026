@@ -256,6 +256,72 @@
       form.addEventListener("change", recheck);
     });
 
+    // Samtycke för statistik (Google Analytics, TECH-03). Inget laddas förrän
+    // besökaren sagt ja. Valet sparas i en nödvändig cookie och kan ändras via
+    // "Cookie-inställningar" i sidfoten; nej raderar Analytics-cookies.
+    var consent = document.getElementById("consent");
+    if (consent) {
+      var gaId = consent.dataset.ga;
+      var days = Number(consent.dataset.days) || 365;
+      var readChoice = function () {
+        var m = document.cookie.match(/(?:^|;\s*)swing_consent=(granted|denied)/);
+        return m ? m[1] : null;
+      };
+      var saveChoice = function (value) {
+        document.cookie = "swing_consent=" + value + "; Max-Age=" + days * 86400 + "; Path=/; SameSite=Lax" + (location.protocol === "https:" ? "; Secure" : "");
+      };
+      var loadAnalytics = function () {
+        if (window.__swingAnalytics) return;
+        window.__swingAnalytics = true;
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { window.dataLayer.push(arguments); };
+        window.gtag("consent", "default", { analytics_storage: "granted", ad_storage: "denied", ad_user_data: "denied", ad_personalization: "denied" });
+        window.gtag("js", new Date());
+        window.gtag("config", gaId, { allow_google_signals: false, allow_ad_personalization_signals: false });
+        var s = document.createElement("script");
+        s.async = true;
+        s.src = "https://www.googletagmanager.com/gtag/js?id=" + encodeURIComponent(gaId);
+        document.head.appendChild(s);
+      };
+      var removeAnalyticsCookies = function () {
+        var root = location.hostname.replace(/^www\./, "");
+        document.cookie.split(";").forEach(function (c) {
+          var name = c.split("=")[0].trim();
+          if (!/^_ga($|_)|^_gid$/.test(name)) return;
+          ["", "; Domain=" + location.hostname, "; Domain=." + root].forEach(function (domain) {
+            document.cookie = name + "=; Max-Age=0; Path=/" + domain;
+          });
+        });
+      };
+      var showConsent = function (open) { consent.hidden = !open; };
+
+      Array.prototype.forEach.call(consent.querySelectorAll("[data-consent]"), function (button) {
+        button.addEventListener("click", function () {
+          var before = readChoice();
+          var value = button.dataset.consent;
+          saveChoice(value);
+          showConsent(false);
+          if (value === "granted") {
+            loadAnalytics();
+          } else {
+            removeAnalyticsCookies();
+            // Redan laddad Analytics stoppas genom att sidan laddas om.
+            if (before === "granted" && window.__swingAnalytics) location.reload();
+          }
+        });
+      });
+      Array.prototype.forEach.call(document.querySelectorAll("[data-consent-open]"), function (button) {
+        button.addEventListener("click", function () {
+          showConsent(true);
+          consent.querySelector("[data-consent]").focus();
+        });
+      });
+
+      var choice = readChoice();
+      if (choice === "granted") loadAnalytics();
+      else if (choice === null) showConsent(true);
+    }
+
     // Fel från servern (utan JS, eller fel som bara servern kan se): felen står
     // vid fälten. Fokus till första felaktiga fältet eller till formulärets
     // felruta när felet gäller hela formuläret. Webbläsaren återställer fokus

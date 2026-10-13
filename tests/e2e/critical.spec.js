@@ -357,6 +357,43 @@ test.describe('i mobilen', () => {
   });
 });
 
+// Samtycke för statistik (TECH-03). Anrop till Google stoppas – inget skickas.
+test('Google Analytics laddas bara efter ja, och samtycket går att dra tillbaka', async ({ page, context, baseURL }) => {
+  const gtag = [];
+  await page.route(/googletagmanager\.com|google-analytics\.com/, (route) => { gtag.push(route.request().url()); return route.abort(); });
+  await page.goto('/', { waitUntil: 'load' });
+  const consent = page.locator('#consent');
+  test.skip(await consent.count() === 0, 'ingen statistik konfigurerad (analytics.ga4Id)');
+  const choice = async () => ((await context.cookies()).find((c) => c.name === 'swing_consent') || {}).value;
+
+  await expect(consent).toBeVisible();
+  expect(gtag, 'inget laddas före samtycke').toHaveLength(0);
+
+  await consent.getByRole('button', { name: 'Neka' }).click();
+  await expect(consent).toBeHidden();
+  expect(await choice()).toBe('denied');
+  await page.reload({ waitUntil: 'load' });
+  await expect(consent).toBeHidden();
+  expect(gtag, 'inget laddas efter nej').toHaveLength(0);
+
+  await page.getByRole('button', { name: 'Cookie-inställningar' }).click();
+  await expect(consent).toBeVisible();
+  await expect(consent.getByRole('button', { name: 'Neka' })).toBeFocused();
+  await consent.getByRole('button', { name: 'Godkänn statistik' }).click();
+  await expect.poll(() => gtag.some((u) => u.includes('gtag/js?id=G-'))).toBe(true);
+  expect(await choice()).toBe('granted');
+
+  // Nej i efterhand: Analytics-cookies tas bort och sidan laddas om utan Analytics.
+  const host = new URL(baseURL).hostname;
+  await context.addCookies([{ name: '_ga', value: 'GA1.1.123.456', domain: host, path: '/' }]);
+  gtag.length = 0;
+  await page.getByRole('button', { name: 'Cookie-inställningar' }).click();
+  await Promise.all([page.waitForEvent('load'), consent.getByRole('button', { name: 'Neka' }).click()]);
+  expect(await choice()).toBe('denied');
+  expect((await context.cookies()).some((c) => c.name === '_ga')).toBe(false);
+  expect(gtag).toHaveLength(0);
+});
+
 test('okänd sida ger 404 med vägar vidare', async ({ page }) => {
   const response = await page.goto('/finns-inte/');
   expect(response.status()).toBe(404);

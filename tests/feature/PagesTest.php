@@ -64,6 +64,46 @@ final class PagesTest extends CIUnitTestCase
         $this->assertStringContainsString('<span class="name">Swing 1000</span>', $html);
     }
 
+    /** Utan mätnings-ID: ingen statistik, ingen samtyckesruta (TECH-03). */
+    public function testNoAnalyticsWithoutMeasurementId(): void
+    {
+        $html = $this->fetch('');
+
+        $this->assertStringNotContainsString('id="consent"', $html);
+        $this->assertStringNotContainsString('data-consent-open', $html);
+        $this->assertStringNotContainsString('googletagmanager', $html);
+        $this->assertStringContainsString('inga cookies för statistik eller marknadsföring', strip_tags($this->fetch('integritetspolicy')));
+    }
+
+    /** Med mätnings-ID: samtyckesruta och sidfotslänk, men Google Analytics laddas aldrig av servern. */
+    public function testAnalyticsOnlyAfterConsent(): void
+    {
+        config('Analytics')->ga4Id = 'G-TEST12345';
+        $html = $this->fetch('');
+
+        $this->assertMatchesRegularExpression('#<section class="consent" id="consent" aria-labelledby="consent-title" data-ga="G-TEST12345" data-days="365" hidden>#', $html);
+        $this->assertStringContainsString('data-consent="denied">Neka</button>', $html);
+        $this->assertStringContainsString('data-consent="granted">Godkänn statistik</button>', $html);
+        $this->assertStringContainsString('<button type="button" class="foot-link" data-consent-open>Cookie-inställningar</button>', $html);
+        $this->assertStringNotContainsString('googletagmanager', $html, 'skriptet laddas bara av site.js efter ja');
+
+        $policy = strip_tags($this->fetch('integritetspolicy'));
+        foreach (['Statistik med Google Analytics, bara om du godkänner det.', 'Google Analytics sparar inte din IP-adress', 'swing_consent', 'dra tillbaka ditt samtycke'] as $must) {
+            $this->assertStringContainsString($must, $policy);
+        }
+        $this->assertStringNotContainsString('inga spårningsverktyg', $policy);
+    }
+
+    /** Gamla WordPress-sitemaps (registrerade i Search Console) leder till den nya. */
+    public function testOldSitemapsRedirectToNewSitemap(): void
+    {
+        foreach (['sitemap_index.xml', 'wp-sitemap.xml', 'page-sitemap.xml', 'post-sitemap.xml'] as $old) {
+            $result = $this->get($old);
+            $result->assertStatus(301);
+            $this->assertSame(site_url('sitemap.xml'), $result->getRedirectUrl(), $old);
+        }
+    }
+
     /** Brödsmulans första länk är beskrivande (Lighthouse link-text). */
     public function testBreadcrumbStartsWithDescriptiveLink(): void
     {
