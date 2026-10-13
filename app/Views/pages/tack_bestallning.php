@@ -23,7 +23,8 @@ $swishUrl = Swish::paymentUrl($orders->swishNumber, $amount, $order['reference']
       <div class="swish-pay-grid">
         <?php /* Mobil: knappen öppnar Swish-appen. Dator: QR-koden skannas med mobilen. Samma förifyllda betalning. */ ?>
         <div class="swish-app">
-          <a class="btn btn-primary" href="<?= esc($swishUrl) ?>"><?= icon('phone', 20) ?>Öppna Swish</a>
+          <?php /* Swish riktlinjer: officiell ikon (oredigerad) på vit platta, tillsammans med ordet Swish i text. */ ?>
+          <a class="btn btn-swish" href="<?= esc($swishUrl) ?>"><img src="<?= asset('assets/swish/swish-icon.svg') ?>" alt="" width="30" height="30" />Betala med Swish</a>
           <p class="fhint">Nummer, belopp och ordernummer är redan ifyllda. Du godkänner med BankID.</p>
         </div>
         <figure class="swish-qr">

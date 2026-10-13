@@ -261,6 +261,10 @@ select.inp option{background:var(--leather);color:var(--cream)}
 .swish-app,.swish-qr{grid-column:1}
 .swish-manual{grid-column:2;grid-row:1 / span 2}
 .swish-app .fhint{margin-top:10px;max-width:34ch}
+/* Swish-knapp: vit platta med Swish officiella ikon, sajtens typsnitt (Swish riktlinjer för webbshop). */
+.btn-swish{background:#fff;color:#16141a;padding:0 24px 0 16px;gap:12px;box-shadow:0 10px 28px rgba(0,0,0,.35)}
+.btn-swish:hover{color:#16141a;background:#f3f1f4}
+.btn-swish img{width:30px;height:30px;flex-shrink:0}
 .swish-qr{margin:0;width:208px}
 .swish-qr-box{background:#fff;border-radius:14px;padding:12px;line-height:0}
 .swish-qr-box svg{width:100%;height:auto;display:block}

@@ -314,10 +314,12 @@ test('tacksidan visar Swish-QR på datorn', async ({ page, baseURL }) => {
 test.describe('i mobilen', () => {
   test.use({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
 
-  test('tacksidan har knappen Öppna Swish i stället för QR', async ({ page, baseURL }) => {
+  test('tacksidan har knappen Betala med Swish i stället för QR', async ({ page, baseURL }) => {
     await placeSwishOrder(page, baseURL);
     await expect(page.locator('.swish-app a')).toBeVisible();
-    await expect(page.locator('.swish-app a')).toHaveText(/Öppna Swish/);
+    await expect(page.locator('.swish-app a')).toHaveText('Betala med Swish');
+    await expect(page.locator('.swish-app a img')).toHaveJSProperty('complete', true);
+    expect(await page.locator('.swish-app a img').evaluate((img) => img.naturalWidth)).toBeGreaterThan(0);
     await expect(page.locator('.swish-qr')).toBeHidden();
   });
 });

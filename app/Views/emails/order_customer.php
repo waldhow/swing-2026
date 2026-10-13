@@ -18,7 +18,7 @@ Namn på presentkortet: <?= $order['gift_card_name'] ?>
 <?php endif; ?>
 
 SÅ BETALAR DU
-Öppna Swish med allt ifyllt (tryck på länken i mobilen):
+Betala med Swish – nummer, belopp och ordernummer är ifyllda (tryck på länken i mobilen):
 <?= $swish ?>
 
 

@@ -8,7 +8,7 @@ Beställningar av spelpotter, presentkort och friskvårdspotter tas emot på web
 2. Webbplatsen validerar mot `Config\Swing` eller en aktiv kampanj. Belopp från formuläret används aldrig.
 3. Ordern sparas i tabellen `orders` med en kort referens, `W1042`. Den bygger på radens id och återanvänds aldrig. W skiljer den från swing-orders egna `ORD-`nummer. Kunden skriver referensen i Swish-meddelandet. Äldre ordrar har formatet `W-ÅÅMMDD-XXXX`.
 4. Ordern skickas till swing-order via vald kanal (`orders.channel`).
-5. Kunden ser en tacksida med en förifylld Swish-betalning och får samma uppgifter via e-post. Nummer, belopp och ordernummer är redan ifyllda och låsta. I mobilen öppnar knappen *Öppna Swish* appen, och på datorn visas en QR-kod. Båda går till samma länk, `https://app.swish.nu/1/p/sw/?sw=…&amt=…&msg=W1042`, enligt Swish utvecklarguide. Manuella uppgifter finns kvar som reserv.
+5. Kunden ser en tacksida med en förifylld Swish-betalning och får samma uppgifter via e-post. Nummer, belopp och ordernummer är redan ifyllda och låsta. I mobilen öppnar knappen *Betala med Swish* appen. Knappen är vit med Swish officiella ikon, enligt Swish riktlinjer för webbshoppar. På datorn visas en QR-kod. Båda går till samma länk, `https://app.swish.nu/1/p/sw/?sw=…&amt=…&msg=W1042`, enligt Swish utvecklarguide. Manuella uppgifter finns kvar som reserv.
 6. swing-order levererar koden när betalningen är verifierad.
 
 Misslyckas steg 4 sparas felet på ordern. Den syns i admin under **Beställningar** och kan skickas igen. Lokala kopior raderas efter `Orders::$retentionDays` (90) dagar, eftersom swing-order är huvudregistret.

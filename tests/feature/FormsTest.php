@@ -143,8 +143,9 @@ final class FormsTest extends CIUnitTestCase
         $thanks->assertStatus(200);
         $html  = $this->body($thanks);
         $swish = 'https://app.swish.nu/1/p/sw/?sw=1232172559&amp;amt=1000.00&amp;msg=' . $order['reference'];
-        $this->assertStringContainsString('href="' . $swish . '"', $html, 'Öppna Swish med allt ifyllt');
+        $this->assertStringContainsString('href="' . $swish . '"', $html, 'Betala med Swish med allt ifyllt');
         $this->assertMatchesRegularExpression('#<div class="swish-qr-box"><svg role="img" aria-label="QR-kod för Swish#', $html);
+        $this->assertMatchesRegularExpression('#<a class="btn btn-swish" href="[^"]+"><img src="/assets/swish/swish-icon\.svg\?v=\d+" alt=""[^>]*>Betala med Swish</a>#', $html);
         $this->assertStringContainsString('123 217 2559', $html);
         $this->assertStringContainsString("1\u{00A0}000\u{00A0}kr", $html);
         $this->assertStringContainsString($order['reference'], $html);
