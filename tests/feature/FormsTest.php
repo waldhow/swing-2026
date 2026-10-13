@@ -141,7 +141,10 @@ final class FormsTest extends CIUnitTestCase
 
         $thanks = $this->get('tack/bestallning/' . $order['public_token'] . '/');
         $thanks->assertStatus(200);
-        $html = $this->body($thanks);
+        $html  = $this->body($thanks);
+        $swish = 'https://app.swish.nu/1/p/sw/?sw=1232172559&amp;amt=1000.00&amp;msg=' . $order['reference'];
+        $this->assertStringContainsString('href="' . $swish . '"', $html, 'Öppna Swish med allt ifyllt');
+        $this->assertMatchesRegularExpression('#<div class="swish-qr-box"><svg role="img" aria-label="QR-kod för Swish#', $html);
         $this->assertStringContainsString('123 217 2559', $html);
         $this->assertStringContainsString("1\u{00A0}000\u{00A0}kr", $html);
         $this->assertStringContainsString($order['reference'], $html);
@@ -161,6 +164,7 @@ final class FormsTest extends CIUnitTestCase
         $this->assertStringStartsWith("type:Presentkort\nprice:300\nemail:anna@exempel.se\nname:Anna\n", $sent[0]['body']);
         $this->assertStringContainsString("name on giftcard:Pappa\n", $sent[0]['body']);
         $this->assertStringContainsString('123 217 2559', $sent[1]['body']);
+        $this->assertMatchesRegularExpression('#^https://app\.swish\.nu/1/p/sw/\?sw=1232172559&amt=300\.00&msg=W\d{4,}$#m', $sent[1]['body'], 'kunden kan öppna Swish från mejlet');
     }
 
     /**

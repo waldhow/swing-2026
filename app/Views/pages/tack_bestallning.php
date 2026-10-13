@@ -1,8 +1,12 @@
 <?= $this->extend('layouts/main') ?>
 <?= $this->section('content') ?>
 <?php
-$swing  = config('Swing');
-$orders = config('Orders');
+use App\Libraries\Swish;
+
+$swing    = config('Swing');
+$orders   = config('Orders');
+$amount   = (int) $order['pay_amount'];
+$swishUrl = Swish::paymentUrl($orders->swishNumber, $amount, $order['reference']);
 ?>
 <header class="phero phero-plain">
   <div class="hero-scrim"></div>
@@ -14,12 +18,26 @@ $orders = config('Orders');
 </header>
 <section class="sec-tight">
   <div class="wrap" style="max-width:760px">
-    <div class="notice">
+    <div class="notice swish-pay">
       <h2>Betala med Swish</h2>
-      <div class="swish">
-        <div class="row"><span class="k">Swisha till</span><span class="v"><?= esc($orders->swishNumber) ?></span></div>
-        <div class="row"><span class="k">Belopp</span><span class="v"><?= kr((int) $order['pay_amount']) ?></span></div>
-        <div class="row"><span class="k">Meddelande</span><span class="v"><?= esc($order['reference']) ?></span></div>
+      <div class="swish-pay-grid">
+        <?php /* Mobil: knappen öppnar Swish-appen. Dator: QR-koden skannas med mobilen. Samma förifyllda betalning. */ ?>
+        <div class="swish-app">
+          <a class="btn btn-primary" href="<?= esc($swishUrl) ?>"><?= icon('phone', 20) ?>Öppna Swish</a>
+          <p class="fhint">Nummer, belopp och ordernummer är redan ifyllda. Du godkänner med BankID.</p>
+        </div>
+        <figure class="swish-qr">
+          <div class="swish-qr-box"><?= Swish::qrSvg($swishUrl, 'QR-kod för Swish: ' . strip_tags(kr($amount)) . ' till ' . $orders->swishNumber . ', meddelande ' . $order['reference']) ?></div>
+          <figcaption>Skanna med mobilkameran eller i Swish-appen. Nummer, belopp och ordernummer fylls i automatiskt.</figcaption>
+        </figure>
+        <div class="swish-manual">
+          <h3>Eller swisha manuellt</h3>
+          <div class="swish">
+            <div class="row"><span class="k">Swisha till</span><span class="v"><?= esc($orders->swishNumber) ?></span></div>
+            <div class="row"><span class="k">Belopp</span><span class="v"><?= kr($amount) ?></span></div>
+            <div class="row"><span class="k">Meddelande</span><span class="v"><?= esc($order['reference']) ?></span></div>
+          </div>
+        </div>
       </div>
       <p>Beställningen hanteras inte förrän betalningen har kommit in.</p>
     </div>

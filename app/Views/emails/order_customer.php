@@ -1,6 +1,7 @@
 <?php
 /** Textmejl till kunden efter beställning. $order, $swing, $config */
 $amount = number_format((int) $order['pay_amount'], 0, ',', ' ');
+$swish  = \App\Libraries\Swish::paymentUrl($config->swishNumber, (int) $order['pay_amount'], $order['reference']);
 ?>
 Hej <?= $order['buyer_name'] ?>!
 
@@ -17,7 +18,11 @@ Namn på presentkortet: <?= $order['gift_card_name'] ?>
 <?php endif; ?>
 
 SÅ BETALAR DU
-Swisha <?= $amount ?> kr till <?= $config->swishNumber ?> och skriv <?= $order['reference'] ?> i meddelandet.
+Öppna Swish med allt ifyllt (tryck på länken i mobilen):
+<?= $swish ?>
+
+
+Eller swisha <?= $amount ?> kr till <?= $config->swishNumber ?> och skriv <?= $order['reference'] ?> i meddelandet.
 
 Vi hanterar beställningen när betalningen har kommit in. Du får en bekräftelse med din kod via e-post, normalt inom 24 timmar.
 

@@ -290,6 +290,38 @@ test.describe('utan JavaScript', () => {
   });
 });
 
+// Förifylld Swish: QR-kod på datorn, knapp till appen i mobilen – samma betalningslänk.
+// Testerna lägger en riktig beställning, så de körs bara mot en lokal server.
+async function placeSwishOrder(page, baseURL) {
+  test.skip(!/^http:\/\/(localhost|127\.0\.0\.1)[:/]/.test(baseURL), 'lägger en riktig beställning – körs bara lokalt');
+  await page.goto('/presentkort/');
+  await page.selectOption('#f-belopp', '300');
+  await page.fill('#f-name', 'E2E Test');
+  await page.fill('#f-email', 'e2e@example.com');
+  await page.check('#f-villkor');
+  await page.locator('#bestall button[type="submit"]').click();
+  await expect(page).toHaveURL(/\/tack\/bestallning\/[a-f0-9]{32}\/(#bestall)?$/);
+}
+
+test('tacksidan visar Swish-QR på datorn', async ({ page, baseURL }) => {
+  await placeSwishOrder(page, baseURL);
+  await expect(page.locator('.swish-qr svg')).toBeVisible();
+  await expect(page.locator('.swish-app')).toBeHidden();
+  const ref = (await page.locator('.swish .row').nth(2).locator('.v').innerText()).trim();
+  expect(await page.locator('.swish-app a').getAttribute('href')).toBe(`https://app.swish.nu/1/p/sw/?sw=1232172559&amt=300.00&msg=${ref}`);
+});
+
+test.describe('i mobilen', () => {
+  test.use({ viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true });
+
+  test('tacksidan har knappen Öppna Swish i stället för QR', async ({ page, baseURL }) => {
+    await placeSwishOrder(page, baseURL);
+    await expect(page.locator('.swish-app a')).toBeVisible();
+    await expect(page.locator('.swish-app a')).toHaveText(/Öppna Swish/);
+    await expect(page.locator('.swish-qr')).toBeHidden();
+  });
+});
+
 test('okänd sida ger 404 med vägar vidare', async ({ page }) => {
   const response = await page.goto('/finns-inte/');
   expect(response.status()).toBe(404);
