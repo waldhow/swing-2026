@@ -52,6 +52,26 @@ final class PagesTest extends CIUnitTestCase
         return $result->response()->getBody();
     }
 
+    /** Integritetspolicyn: riktiga fakta från konfigurationen, rätt myndighet, tillgänglig översikt. */
+    public function testPrivacyPolicyIsCompleteAndCorrect(): void
+    {
+        $html = $this->fetch('integritetspolicy');
+        $text = strip_tags($html);
+
+        $this->assertStringNotContainsString('Datainspektionen', $text, 'myndigheten heter IMY sedan 2021');
+        $this->assertStringContainsString('Integritetsskyddsmyndigheten (IMY)', $text);
+        $this->assertStringContainsString(config('Swing')->legalName . ', org.nr ' . config('Swing')->orgNumber, $text);
+        $this->assertStringContainsString('raderas där efter ' . config('Inquiries')->retentionMonths . ' månader', $text);
+        $this->assertStringContainsString('raderas efter ' . config('Orders')->retentionDays . ' dagar', $text);
+        $this->assertStringContainsString('3 kap. 10 § dataskyddslagen', $text);
+        foreach (['Loopia', 'Google Workspace', 'Vercel och Supabase', 'Slack', 'Epassi', 'Data Privacy Framework', 'dataportabilitet'] as $must) {
+            $this->assertStringContainsString($must, $text, "integritetspolicyn ska nämna {$must}");
+        }
+        $this->assertStringContainsString('<table class="dtable dtable-text" role="table" aria-labelledby="oversikt">', $html);
+        $this->assertSame(6, substr_count($html, 'data-label="Hur länge"'), 'varje rad har etiketter för mobilvisningen');
+        $this->assertStringNotContainsString('marknadsföring och logistik', $text, 'den gamla policyns delning för marknadsföring stämmer inte');
+    }
+
     /**
      * Alla länkar till andra webbplatser öppnas i ny flik (ägarens önskemål).
      * Undantag: data-same-tab (Swish-länken öppnar appen).

@@ -175,7 +175,7 @@ class Pages extends BaseConfig
             'view'        => 'integritetspolicy',
             'label'       => 'Integritetspolicy',
             'title'       => 'Integritetspolicy | Swing Golf & Lounge',
-            'description' => 'Så behandlar Swing Golf & Lounge dina personuppgifter när du kontaktar oss, beställer eller besöker webbplatsen.',
+            'description' => 'Så behandlar Swing Golf & Lounge dina personuppgifter vid kontakt, köp, bokning, tävlingar och på webbplatsen – lagliga grunder, lagringstider och dina rättigheter.',
             'nav'         => '',
             'priority'    => '0.2',
         ],

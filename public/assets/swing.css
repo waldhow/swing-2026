@@ -146,6 +146,17 @@ a.facts-main:hover{color:var(--brass);text-decoration-color:var(--brass)}
 .dtable td{font-weight:700;white-space:nowrap}
 .dtable tbody tr:last-child th,.dtable tbody tr:last-child td{border-bottom:0}
 @media(max-width:520px){.dtable th,.dtable td{padding:12px 14px}.dtable{font-size:14.5px}}
+/* Tabell med löptext (t.ex. integritetspolicyn): texten bryts, i mobilen en rad per block med etiketter. */
+.dtable-text td{white-space:normal;font-weight:400;color:var(--txt);line-height:1.5}
+.dtable-text tbody th{width:27%}
+.dtable-text td[data-label="Laglig grund"]{width:30%}
+@media(max-width:640px){
+  .dtable-text thead{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+  .dtable-text tbody tr{display:block;padding:16px 18px;border-bottom:1px solid var(--line-soft)}
+  .dtable-text tbody tr:last-child{border-bottom:0}
+  .dtable-text tbody th,.dtable-text td,.dtable-text td[data-label]{display:block;width:auto;padding:0;border:0}
+  .dtable-text td::before{content:attr(data-label);display:block;margin:10px 0 2px;font-family:var(--fm);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--txt2)}
+}
 .note{font-size:14px;color:var(--txt2);margin-top:12px}
 
 /* Räkneexempel pris per person */
