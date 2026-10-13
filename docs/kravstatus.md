@@ -95,7 +95,7 @@ Se `README.md` ("Var ändrar jag vad?" och "Struktur"). De viktigaste besluten:
 - Bokningslänken till Sweetspot är verifierad (200).
 - Kontaktleveransen är testad med mock. Riktig SMTP verifieras på Loopia.
 - Stripe är inte live och inte byggt.
-- Ingen driftsättning är gjord, det kräver ditt uttryckliga klartecken. Se `docs/drift-loopia.md`.
+- Live på https://swinggolf.se sedan 2026-10-13 (ersatte WordPress, som finns kvar som filbackup). Se `docs/drift-loopia.md`.
 
 ## 6. Blockers
 

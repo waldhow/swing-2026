@@ -6,8 +6,18 @@ Loopias webbhotell kör nginx framför Apache med PHP och MariaDB. Kontot har SS
 
 | Miljö | Adress | Mappar på servern | Env-fil lokalt |
 |---|---|---|---|
-| Test | https://beta.swinggolf.se | `~/beta.swinggolf.se/public_html`, `~/beta.swinggolf.se/swing-app` | `.env.production` (just nu riktad mot beta) |
-| Live | https://swinggolf.se | `~/swinggolf.se/public_html`, `~/swinggolf.se/swing-app` | samma fil med live-adressen |
+| Live (sedan 2026-10-13 08:39) | https://swinggolf.se | `~/swinggolf.se/public_html`, `~/swinggolf.se/swing-app` | `.env.production` |
+| Test (stängd 2026-10-13) | https://beta.swinggolf.se | `~/beta.swinggolf.se/public_html` (platshållare) | `.env.beta` |
+
+Live använder databasen som skapades för beta (`mysql687.loopia.se`), med samma `encryption.key`. Nyckeln hör till databasen och får inte bytas.
+
+`~/swinggolf.se/public_html/tools/` är ett separat presentkortsverktyg från 2023. Det ingår inte i bygget, och skriptet raderar det aldrig.
+
+**Backa till WordPress:** de gamla WordPress-filerna ligger orörda i `~/swinggolf.se/wordpress-backup-2026-10-13/`, och WordPress-databasen är inte ändrad.
+
+```bash
+cd ~/swinggolf.se && mv public_html public_html-ny && mv wordpress-backup-2026-10-13 public_html
+```
 
 Env-filerna och `.loopia` ignoreras av git och följer aldrig med i bygget.
 
@@ -17,9 +27,9 @@ Env-filerna och `.loopia` ignoreras av git och följer aldrig med i bygget.
 
 ```bash
 composer test && composer build:loopia
-LOOPIA_SSH=<användare>@ssh.loopia.se bin/deploy-loopia.sh beta.swinggolf.se
-# första gången, eller när env ändrats:
-LOOPIA_SSH=<användare>@ssh.loopia.se UPLOAD_ENV=.env.production bin/deploy-loopia.sh beta.swinggolf.se
+CONFIRM_PROD=yes LOOPIA_SSH=<användare>@ssh.loopia.se bin/deploy-loopia.sh swinggolf.se
+# när env ändrats:
+CONFIRM_PROD=yes LOOPIA_SSH=<användare>@ssh.loopia.se UPLOAD_ENV=.env.production bin/deploy-loopia.sh swinggolf.se
 ```
 
 Skriptet laddar upp `public_html/` och `swing-app/` (kod, `vendor/`), skapar `writable/` utan att skriva över loggar eller cache, laddar upp env-filen som `swing-app/.env` med `chmod 600` när `UPLOAD_ENV` är satt, och tömmer sidcachen. Migreringar: `ssh … 'cd ~/<domän>/swing-app && php spark migrate --all'` eller `/admin/setup/?token=…`.

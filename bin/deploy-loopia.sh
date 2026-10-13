@@ -38,7 +38,8 @@ remote "test -d '$DOMAIN/public_html'" || { echo "~/$DOMAIN/public_html finns in
 remote "mkdir -p '$DOMAIN/swing-app'"
 
 echo "→ public_html/"
-rsync -az --delete --exclude '.well-known/' -e "$RSH" "$DIST/public_html/" "$LOOPIA_SSH:$DOMAIN/public_html/"
+# tools/ är ett separat presentkortsverktyg (2023) på swinggolf.se – får aldrig raderas.
+rsync -az --delete --exclude '.well-known/' --exclude 'tools/' -e "$RSH" "$DIST/public_html/" "$LOOPIA_SSH:$DOMAIN/public_html/"
 
 echo "→ swing-app/ (kod och beroenden)"
 for dir in app vendor; do
