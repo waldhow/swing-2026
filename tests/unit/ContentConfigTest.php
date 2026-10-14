@@ -87,6 +87,8 @@ final class ContentConfigTest extends CIUnitTestCase
         $api->apiUrl = 'https://crew.swinggolf.se/api/integrations/orders';
         $this->assertTrue($api->isOperational());
         $this->assertTrue($api->supportsGiftCardDesign());
+        $this->assertTrue($orders->supportsGiftCardDesign(), 'swing-order läser raden design: i mejlet');
+        $orders->mailCarriesGiftCardDesign = false;
         $this->assertFalse($orders->supportsGiftCardDesign());
     }
 

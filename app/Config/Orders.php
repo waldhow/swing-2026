@@ -74,11 +74,11 @@ class Orders extends BaseConfig
 
     /**
      * Designvalet för presentkort visas när swing-order kan ta emot det: alltid
-     * via API-kanalen, och via mejl när swing-orders parser läser raden
-     * "design:" (sätt orders.mailCarriesGiftCardDesign = true i .env då).
-     * Mejlet har alltid raden design: – utan val blir det STANDARD.
+     * via API-kanalen, och via mejl eftersom swing-orders mejltolk läser raden
+     * "design:". Mejlet har alltid raden design: – utan val blir det STANDARD.
+     * Vilka designer som visas styrs av säsongen (App\Libraries\GiftCardDesigns).
      */
-    public bool $mailCarriesGiftCardDesign = false;
+    public bool $mailCarriesGiftCardDesign = true;
 
     public function supportsGiftCardDesign(): bool
     {

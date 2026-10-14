@@ -1,4 +1,6 @@
 <?php
+use App\Libraries\GiftCardDesigns;
+
 /** Beställningsformulär för digitalt presentkort (CONTENT-03). $form */
 $form   ??= ['values' => [], 'errors' => []];
 $swing   = config('Swing');
@@ -25,14 +27,14 @@ $error   = $form['errors']['belopp'] ?? null;
   <fieldset class="field<?= $designError ? ' has-error' : '' ?>"<?= $designError ? ' aria-describedby="f-design-err"' : '' ?>>
     <legend class="ilab">Design</legend>
     <div class="choice-list choice-row">
-      <?php foreach ($swing->giftCardDesigns as $key => $label): ?>
+      <?php foreach (array_intersect_key($swing->giftCardDesigns, array_flip(GiftCardDesigns::available())) as $key => $label): ?>
       <label class="choice"><input type="radio" name="design" value="<?= esc($key) ?>"<?= $design === $key ? ' checked' : '' ?><?= $designError ? ' aria-invalid="true"' : '' ?> /><span><?= esc($label) ?></span></label>
       <?php endforeach; ?>
     </div>
     <?php if ($designError): ?><p class="ferr" id="f-design-err"><?= icon('info', 16) ?><?= esc($designError) ?></p><?php endif; ?>
   </fieldset>
   <?php endif; ?>
-  <?= partial('partials/field', ['name' => 'mottagare', 'label' => 'Namn på presentkortet', 'form' => $form, 'hint' => $orders->supportsGiftCardDesign() ? 'Mottagarens namn. Skrivs på kortet med designen Standard.' : 'Mottagarens namn, om du vill att det står på kortet.', 'attrs' => ' maxlength="60"']) ?>
+  <?= partial('partials/field', ['name' => 'mottagare', 'label' => 'Namn på presentkortet', 'form' => $form, 'hint' => 'Mottagarens namn. Skrivs på kortet.', 'attrs' => ' maxlength="60"']) ?>
   <?= partial('partials/order_buyer', ['form' => $form, 'emailHint' => 'Presentkortet levereras till den här adressen.']) ?>
   <?= partial('partials/order_terms', ['form' => $form]) ?>
   <div class="btn-row"><button class="btn btn-primary" type="submit" data-busy-label="Beställer…"><?= icon('gift', 20) ?>Beställ – betala med Swish</button></div>
