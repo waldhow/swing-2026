@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Libraries\GiftCardDesigns;
 use App\Models\CampaignModel;
 use App\Models\OrderModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
@@ -53,7 +54,11 @@ class Orders extends BaseController
         if ($slug === 'presentkort') {
             $rules['mottagare'] = ['label' => 'namn på presentkortet', 'rules' => 'permit_empty|max_length[60]'];
             if ($config->supportsGiftCardDesign()) {
-                $rules['design'] = ['label' => 'design', 'rules' => 'required|in_list[' . implode(',', array_keys(config('Swing')->giftCardDesigns)) . ']'];
+                $rules['design'] = [
+                    'label'  => 'design',
+                    'rules'  => 'permit_empty|in_list[' . implode(',', GiftCardDesigns::available()) . ']',
+                    'errors' => ['in_list' => 'Det här kortet säljs inte just nu.'],
+                ];
             }
         }
 
@@ -80,7 +85,8 @@ class Orders extends BaseController
             'buyer_email'      => mb_strtolower($values['email']),
             'personal_number'  => $slug === 'friskvard' ? $values['personnummer'] : null,
             'gift_card_name'   => $slug === 'presentkort' && $values['mottagare'] !== '' ? $values['mottagare'] : null,
-            'gift_card_design' => $slug === 'presentkort' && $config->supportsGiftCardDesign() ? $values['design'] : null,
+            // Utan val (t.ex. ett formulär från före designvalet) blir det Standard.
+            'gift_card_design' => $slug === 'presentkort' && $config->supportsGiftCardDesign() ? ($values['design'] ?: 'STANDARD') : null,
         ]);
 
         return redirect()->to(page_path('tack/bestallning/' . $order['public_token']), 303);

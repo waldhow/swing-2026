@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use CodeIgniter\Config\Factories;
+use CodeIgniter\I18n\Time;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use CodeIgniter\Test\FeatureTestTrait;
@@ -50,6 +51,7 @@ final class FormsTest extends CIUnitTestCase
         parent::tearDown();
         Factories::reset('config');
         Services::reset(true);
+        Time::setTestNow();
     }
 
     private function body($result): string
@@ -254,8 +256,9 @@ final class FormsTest extends CIUnitTestCase
         $this->assertStringContainsString($orders[0]['reference'], $this->body($this->get('tack/bestallning/' . $orders[0]['public_token'] . '/')));
     }
 
-    public function testGiftCardDesignIsHiddenUntilSwingOrderReadsIt(): void
+    public function testGiftCardDesignCanBeTurnedOff(): void
     {
+        config('Orders')->mailCarriesGiftCardDesign = false;
         $sent = [];
         \CodeIgniter\Events\Events::on('email', static function (array $archive) use (&$sent): void { $sent[] = $archive; });
 
@@ -268,20 +271,41 @@ final class FormsTest extends CIUnitTestCase
 
     public function testChosenGiftCardDesignReachesSwingOrder(): void
     {
-        config('Orders')->mailCarriesGiftCardDesign = true;
+        Time::setTestNow('2026-12-01 12:00', 'Europe/Stockholm');
         $sent = [];
         \CodeIgniter\Events\Events::on('email', static function (array $archive) use (&$sent): void { $sent[] = $archive; });
 
         $html = $this->body($this->get('presentkort/'));
-        foreach (['STANDARD', 'FARSDAG', 'MORSDAG', 'JUL'] as $design) {
+        foreach (['STANDARD', 'JUL'] as $design) {
             $this->assertStringContainsString('name="design" value="' . $design . '"', $html);
         }
-        $this->assertStringContainsString('Skrivs på kortet med designen Standard.', $html);
+        foreach (['FARSDAG', 'MORSDAG'] as $design) {
+            $this->assertStringNotContainsString('value="' . $design . '"', $html, "{$design} säljs inte i december");
+        }
+        $this->assertStringContainsString('Mottagarens namn. Skrivs på kortet.', $html);
 
         $this->post('presentkort', ['belopp' => '500', 'design' => 'JUL', 'name' => 'Anna', 'email' => 'anna@exempel.se', 'villkor' => '1']);
 
         $this->assertSame('JUL', $this->db->table('orders')->get()->getRowArray()['gift_card_design']);
         $this->assertStringContainsString("design:JUL\n", $sent[0]['body']);
+    }
+
+    public function testGiftCardDesignOutOfSeasonIsRejected(): void
+    {
+        Time::setTestNow('2026-07-15 12:00', 'Europe/Stockholm');
+
+        $html = $this->body($this->get('presentkort/'));
+        $this->assertStringContainsString('name="design" value="STANDARD"', $html, 'Standard säljs alltid');
+        $this->assertStringNotContainsString('value="JUL"', $html);
+
+        $result = $this->post('presentkort', ['belopp' => '500', 'design' => 'JUL', 'name' => 'Anna', 'email' => 'anna@exempel.se', 'villkor' => '1']);
+
+        $result->assertStatus(422);
+        $this->assertStringContainsString('Det här kortet säljs inte just nu.', $this->body($result));
+        $this->assertSame(0, $this->db->table('orders')->countAllResults());
+
+        $this->post('presentkort', ['belopp' => '500', 'name' => 'Anna', 'email' => 'anna@exempel.se', 'villkor' => '1']);
+        $this->assertSame('STANDARD', $this->db->table('orders')->get()->getRowArray()['gift_card_design'], 'utan val blir det Standard');
     }
 
     public function testTamperedPotIsRejected(): void

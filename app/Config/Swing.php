@@ -170,7 +170,7 @@ class Swing extends BaseConfig
 
     /**
      * Presentkortsdesigner — nycklarna är swing-orders giftCardDesign-värden.
-     * Mejlkanalen kan inte föra över designen ännu (se docs/swing-order.md).
+     * Jul, Mors dag och Fars dag kan bara väljas under sin säsong (App\Libraries\GiftCardDesigns).
      */
     public array $giftCardDesigns = [
         'STANDARD' => 'Standard',

@@ -38,12 +38,17 @@ Reply-To sätts till kunden. Radbrytningar i kunddata tas bort så att inga extr
 
 **Presentkortsdesign**
 
-swing-order behöver en design för att kunna skapa presentkortet. Utan design svarar `giftcard.get.ts` med *"Presentkortsdesign saknas på ordern"*, och `send-confirmation` bifogar inget kort. Mejltolken i swing-order läser i dag ingen design.
-
 - **Webben** skickar alltid raden `design:` för presentkort. Utan val i formuläret är värdet `STANDARD`.
-- **I swing-order** behövs en liten ändring. Den finns som patch i `docs/patches/swing-order-giftcard-design.patch` och appliceras med `git apply` i swing-order. Med ändringen läser `mailIngestion.ts` raden `design:` (ogiltig eller saknad blir `STANDARD`), och `mailImportService.ts` sparar `giftCardDesign` på ordern.
-- **När swing-order har ändringen:** sätt `orders.mailCarriesGiftCardDesign = true` i `.env`. Då visas designvalet i presentkortsformuläret på webben.
-- **Namnet på kortet** skrivs bara ut på designen Standard (`server/lib/giftCard.ts`), och formuläret säger det.
+- **swing-order** läser raden (branch `giftcard-design` i swing-order, som ersätter den tidigare patchen). Saknad eller okänd design blir `STANDARD`, och en order utan design räknas också som Standard.
+- **Säsonger:** formuläret visar bara designer som säljs just nu, enligt `app/Libraries/GiftCardDesigns.php`.
+  - Jul: 24 okt–27 dec.
+  - Mors dag (sista söndagen i maj) och Fars dag (andra söndagen i november): från två månader före till och med tredje dagen efter.
+  - Standard: alltid.
+  - Reglerna är desamma som i swingbooking och i swing-order (`utils/giftCardDesigns.ts`).
+  - En design utanför säsong avvisas med *"Det här kortet säljs inte just nu."*
+- **Av/på:** designvalet är på som standard (`orders.mailCarriesGiftCardDesign = true`). Med `false` i `.env` säljs bara Standard.
+- **Namnet på kortet** skrivs ut under "Till" på alla designer. Utan namn får kortet en "Till dig"-variant.
+- **Driftsättning:** swing-order ska vara driftsatt först, så att designen och namnet hamnar rätt på korten.
 
 **Begränsningar i mejlkanalen**
 - `price` för kampanjpotter är kampanjens betalbelopp, till exempel 2500. Kodlagret i swing-order behöver koder med det beloppet.
