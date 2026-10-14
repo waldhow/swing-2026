@@ -11,6 +11,10 @@ Ordernummer: <?= $order['reference'] ?>
 
 Produkt: <?= $order['product_name'] ?>
 
+<?php if (! empty($order['gift_card_design'])): ?>
+Design: <?= $swing->giftCardDesigns[$order['gift_card_design']] ?? $order['gift_card_design'] ?>
+
+<?php endif; ?>
 Att betala: <?= $amount ?> kr
 <?php if (! empty($order['gift_card_name'])): ?>
 Namn på presentkortet: <?= $order['gift_card_name'] ?>

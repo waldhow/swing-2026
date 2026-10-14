@@ -49,6 +49,7 @@ $swishUrl = Swish::paymentUrl($orders->swishNumber, $amount, $order['reference']
       <dl class="detail-list">
         <dt>Ordernummer</dt><dd><?= esc($order['reference']) ?></dd>
         <dt>Produkt</dt><dd><?= esc($order['product_name']) ?></dd>
+        <?php if (! empty($order['gift_card_design'])): ?><dt>Design</dt><dd><?= esc($swing->giftCardDesigns[$order['gift_card_design']] ?? $order['gift_card_design']) ?></dd><?php endif; ?>
         <?php if ((int) $order['value_amount'] !== (int) $order['pay_amount']): ?><dt>Spelvärde</dt><dd><?= kr((int) $order['value_amount']) ?></dd><?php endif; ?>
         <?php if (! empty($order['gift_card_name'])): ?><dt>Namn på kortet</dt><dd><?= esc($order['gift_card_name']) ?></dd><?php endif; ?>
         <dt>E-post</dt><dd><?= esc($order['buyer_email']) ?></dd>

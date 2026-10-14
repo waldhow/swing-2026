@@ -286,8 +286,14 @@ final class FormsTest extends CIUnitTestCase
 
         $this->post('presentkort', ['belopp' => '500', 'design' => 'JUL', 'name' => 'Anna', 'email' => 'anna@exempel.se', 'villkor' => '1']);
 
-        $this->assertSame('JUL', $this->db->table('orders')->get()->getRowArray()['gift_card_design']);
+        $order = $this->db->table('orders')->get()->getRowArray();
+        $this->assertSame('JUL', $order['gift_card_design']);
         $this->assertStringContainsString("design:JUL\n", $sent[0]['body']);
+
+        // Kunden ser vilket kort som beställts, både på tacksidan och i mejlet.
+        $this->assertStringContainsString('<dt>Design</dt><dd>Jul</dd>', $this->body($this->get('tack/bestallning/' . $order['public_token'] . '/')));
+        $customer = array_values(array_filter($sent, static fn (array $m): bool => str_contains($m['body'], 'Tack för din beställning')));
+        $this->assertStringContainsString("Design: Jul\n", $customer[0]['body'] ?? '');
     }
 
     public function testGiftCardDesignOutOfSeasonIsRejected(): void
