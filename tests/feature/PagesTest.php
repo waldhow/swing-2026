@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use CodeIgniter\Config\Factories;
+use CodeIgniter\I18n\Time;
 use CodeIgniter\Test\CIUnitTestCase;
 use CodeIgniter\Test\DatabaseTestTrait;
 use CodeIgniter\Test\FeatureTestTrait;
@@ -354,6 +355,22 @@ final class PagesTest extends CIUnitTestCase
         $html = $this->fetch('vanliga-fragor');
         $this->assertStringContainsString('"FAQPage"', $html);
         $this->assertStringContainsString('Hur fungerar dörrkoden?', $html);
+    }
+
+    public function testPromotionShowsUnderHeroOnlyWhileValid(): void
+    {
+        foreach (['2026-10-25 08:00' => true, '2026-10-30 23:30' => true, '2026-10-24 23:59' => false, '2026-10-31 00:01' => false] as $now => $visible) {
+            Time::setTestNow($now, 'Europe/Stockholm');
+            $html = $this->fetch('');
+            if ($visible) {
+                $this->assertMatchesRegularExpression('#</header>(?:\s|<!--.*?-->)*<section class="sec promo" aria-labelledby="erbjudande-hostlov-2026">#', $html, "{$now}: direkt under hero");
+                $this->assertStringContainsString('<code>swing-hostlov</code>', $html);
+                $this->assertStringContainsString('Lovet blev just <em>varmare.</em>', $html);
+            } else {
+                $this->assertStringNotContainsString('swing-hostlov', $html, "{$now}: erbjudandet ska vara dolt");
+            }
+        }
+        Time::setTestNow();
     }
 
     public function testTrackmanGuideShowsWholeGuideWithArticleAndFaqMarkup(): void

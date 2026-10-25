@@ -322,6 +322,21 @@
       else if (choice === null) showConsent(true);
     }
 
+    // Kopiera rabattkod (erbjudandet på startsidan). Koden är också vanlig markerbar text.
+    Array.prototype.forEach.call(document.querySelectorAll("[data-copy]"), function (btn) {
+      if (!navigator.clipboard) return;
+      btn.hidden = false;
+      var label = btn.querySelector("[data-copy-label]");
+      var original = label.textContent;
+      btn.addEventListener("click", function () {
+        navigator.clipboard.writeText(btn.dataset.copy).then(function () {
+          label.textContent = "Koden är kopierad";
+          btn.classList.add("is-copied");
+          setTimeout(function () { label.textContent = original; btn.classList.remove("is-copied"); }, 2500);
+        });
+      });
+    });
+
     // TrackMan-guiden: nivåval, innehållsförteckning och Smash Factor-kalkylator.
     // Allt innehåll finns i HTML:en – utan JS syns guiden som en vanlig sida.
     var guide = document.getElementById("tm-guide");

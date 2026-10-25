@@ -5,6 +5,7 @@ namespace App\Libraries;
 use App\Models\CampaignModel;
 use App\Models\CompetitionModel;
 use CodeIgniter\Exceptions\PageNotFoundException;
+use CodeIgniter\I18n\Time;
 use Config\Pages;
 use Throwable;
 
@@ -98,6 +99,7 @@ final class PageRenderer
                 'currentCompetitions' => $this->safe(static fn () => array_slice(model(CompetitionModel::class)->current(), 0, 3)),
                 'faqItems'            => service('faq')->pick(['hur-bokar-jag', 'per-person', 'dorrkod', 'klubbor', 'var-ligger-swing']),
                 'guideMetrics'        => service('trackmanGuide')->keyMetrics(),
+                'promotion'           => self::activePromotion(),
             ],
             'spelpotter'     => [
                 'campaignPots' => $this->safe(static fn () => model(CampaignModel::class)->activePots()),
@@ -112,6 +114,20 @@ final class PageRenderer
             'trackman-guide' => ['guide' => service('trackmanGuide')],
             default          => [],
         };
+    }
+
+    /** Första erbjudandet i Swing::$promotions som gäller i dag (svensk tid), annars null. */
+    public static function activePromotion(): ?array
+    {
+        $today = Time::now('Europe/Stockholm')->toDateString();
+
+        foreach (config('Swing')->promotions as $promotion) {
+            if ($promotion['from'] <= $today && $today <= $promotion['until']) {
+                return $promotion;
+            }
+        }
+
+        return null;
     }
 
     private function safe(callable $query): array

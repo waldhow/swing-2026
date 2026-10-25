@@ -13,6 +13,7 @@ if (! function_exists('icon')) {
     {
         static $paths = [
             'check' => '<path d="M5 12.5l4.5 4.5L19 7"/>',
+            'copy' => '<rect x="9" y="9" width="11" height="11" rx="2"/><path d="M15 9V6a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h3"/>',
             'arrowR' => '<path d="M5 12h14M13 6l6 6-6 6"/>',
             'monitor' => '<rect x="2.5" y="3.5" width="19" height="13" rx="2.5"/><path d="M8 21h8M12 16.5V21"/>',
             'cup' => '<path d="M7 4h10v5a5 5 0 0 1-10 0V4z"/><path d="M17 5.5h2.5a2.5 2.5 0 0 1 0 5H17M7 5.5H4.5a2.5 2.5 0 0 0 0 5H7M9 19h6M12 14v5"/>',

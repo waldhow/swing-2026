@@ -38,6 +38,10 @@ $images  = config('Images');
   </div>
 </header>
 
+<?php if (! empty($promotion)): ?>
+<?= partial('partials/promotion', ['promotion' => $promotion]) ?>
+<?php endif; ?>
+
 <section class="sec sec-alt" aria-labelledby="appar">
   <div class="wrap">
     <div class="sec-head">

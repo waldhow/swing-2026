@@ -641,3 +641,34 @@ dialog.tmg-toc::backdrop{background:rgba(0,0,0,.6)}
 .tmg-teaser-what{font-size:14px;line-height:1.4;color:var(--txt2)}
 @media(min-width:961px){.tmg-teaser-in{grid-template-columns:minmax(0,1fr) minmax(0,1fr)}}
 @media(max-width:420px){.tmg-teaser-list{grid-template-columns:1fr}}
+
+/* Tidsbegränsat erbjudande under startsidans hero (Swing::$promotions) */
+.promo{background:var(--walnut);border-bottom:1px solid var(--line-soft)}
+.promo-in{display:grid;gap:28px 64px;align-items:center}
+.promo-text h2{margin:10px 0 14px;font-size:clamp(34px,4.6vw,56px)}
+.promo-text h2 em{color:var(--brass)}
+.promo-text .lede{max-width:54ch}
+.promo-text .lede{margin-bottom:0}
+.promo-cta{margin:0}
+.promo-offer{display:grid;grid-template-columns:minmax(0,.75fr) minmax(0,1.25fr);gap:18px}
+.promo-discount{margin:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;padding:26px 18px;border:1px solid var(--brass);background:var(--oak);text-align:center;color:var(--cream)}
+.promo-pct{font-family:var(--f);font-weight:800;font-size:clamp(46px,5.4vw,66px);line-height:1;letter-spacing:-.02em;color:var(--brass);white-space:nowrap}
+.promo-code{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;padding:24px 18px;background:var(--cream);color:#1c1108;border:2px dashed rgba(28,17,8,.45);outline:1px solid var(--cream);outline-offset:3px;text-align:center}
+.promo-code-label{margin:0;font-family:var(--fm);font-size:12.5px;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:#5b3d1c}
+.promo-code-value{margin:0}
+.promo-code-value code{font-family:var(--fm);font-weight:700;font-size:clamp(22px,2.5vw,32px);line-height:1.15;color:#1c1108;background:none;padding:0;user-select:all;white-space:nowrap}
+.promo-copy{display:inline-flex;align-items:center;gap:8px;min-height:40px;padding:0 16px;border-radius:999px;border:1px solid rgba(28,17,8,.35);background:transparent;color:#1c1108;font:600 14px/1 var(--f);cursor:pointer}
+.promo-copy:hover{background:rgba(28,17,8,.08)}
+.promo-copy:focus-visible{outline:3px solid #1c1108;outline-offset:2px}
+.promo-copy.is-copied{border-color:#1c1108}
+@media(min-width:961px){
+  .promo-in{grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-areas:"text offer" "cta offer"}
+  .promo-text{grid-area:text;align-self:end}
+  .promo-offer{grid-area:offer}
+  .promo-cta{grid-area:cta;align-self:start}
+}
+@media(max-width:520px){
+  .promo-offer{grid-template-columns:1fr;gap:14px}
+  .promo-discount{flex-direction:row;gap:12px;padding:16px 18px}
+  .promo-pct{font-size:44px}
+}

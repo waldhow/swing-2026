@@ -432,6 +432,16 @@ test('klick på Boka, Köp spelpott och Begär offert mäts bara efter samtycke'
   expect((await events()).filter(([name]) => name === 'generate_lead')).toHaveLength(0);
 });
 
+test('höstlovskoden kan kopieras från startsidan', async ({ page, context }) => {
+  const promo = page.locator('.promo');
+  await page.goto('/');
+  test.skip(await promo.count() === 0, 'inget erbjudande just nu');
+  await context.grantPermissions(['clipboard-read', 'clipboard-write']);
+  await promo.locator('[data-copy]').click();
+  await expect(promo.locator('[data-copy-label]')).toHaveText('Koden är kopierad');
+  expect(await page.evaluate(() => navigator.clipboard.readText())).toBe(await promo.locator('code').textContent());
+});
+
 test.describe('TrackMan-guiden', () => {
   test('nivåvalet markerar råden, visar rätt nivåavsnitt och sparas', async ({ page }) => {
     await page.goto('/trackman-guide/');

@@ -184,6 +184,27 @@ class Swing extends BaseConfig
         'Nättraby Vägkrog' => 'https://www.nattrabyvagkrog.se/',
     ];
 
+    /**
+     * Tidsbegränsade erbjudanden som visas direkt under startsidans hero, från och
+     * med 'from' till och med 'until' (svensk tid). Utgångna erbjudanden döljs av
+     * sig själva – startsidan cachas en timme, så de försvinner senast 01.00.
+     * 'titleEm' är rubrikens kursiva slut.
+     */
+    public array $promotions = [
+        [
+            'id'            => 'hostlov-2026',
+            'from'          => '2026-10-25',
+            'until'         => '2026-10-30',
+            'eyebrow'       => 'Höstlov · 26–30 oktober',
+            'title'         => 'Lovet blev just',
+            'titleEm'       => 'varmare.',
+            'text'          => 'Grått och blött ute? Hos oss är det varmt, torrt och skönt. Ta med barnen, kompisarna eller hela familjen och spela 20 % billigare måndag–fredag 26–30 oktober.',
+            'discount'      => '−20 %',
+            'discountLabel' => 'på golftid',
+            'code'          => 'swing-hostlov',
+        ],
+    ];
+
     /** Partners som får nämnas med namn (inga logotyper utan godkännande, B09). */
     public array $partners = [
         'Trummenäs GK',
