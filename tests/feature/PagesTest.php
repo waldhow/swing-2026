@@ -523,6 +523,7 @@ final class PagesTest extends CIUnitTestCase
         $this->assertStringNotContainsString('Inställd tävling', $html);
         $this->assertStringContainsString('Tidigare tävlingar', $html);
         $this->assertSame(1, substr_count($html, '"SportsEvent"'), 'Event-markup bara för publicerad tävling med datum');
+        $this->assertStringContainsString('"description":"Kommande tävling – golftävling i TrackMan-simulator hos Swing Golf', html_entity_decode($html), 'description saknas aldrig, även utan sammanfattning');
 
         $this->fetch('tavlingar/kommande');
         $this->get('tavlingar/utkast/')->assertStatus(404);

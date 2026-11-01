@@ -169,14 +169,27 @@ final class StructuredData
         if (! empty($competition['ends_at'])) {
             $event['endDate'] = (new DateTimeImmutable($competition['ends_at'], $tz))->format(DATE_ATOM);
         }
-        if (! empty($competition['summary'])) {
-            $event['description'] = $competition['summary'];
-        }
+        // Google vill alltid ha description: sammanfattningen, annars början av
+        // beskrivningen, annars en allmän rad om tävlingen.
+        $event['description'] = $this->eventDescription($competition);
+        $event['image']       = picture_url('simulator');
 
         return $event;
     }
 
     /** Event-markup för en lista tävlingar (de utan datum hoppas över). */
+    private function eventDescription(array $competition): string
+    {
+        foreach (['summary', 'description'] as $field) {
+            $text = trim(preg_replace('/\s+/u', ' ', (string) ($competition[$field] ?? '')));
+            if ($text !== '') {
+                return mb_strlen($text) > 300 ? rtrim(mb_substr($text, 0, 297)) . '…' : $text;
+            }
+        }
+
+        return $competition['title'] . ' – golftävling i TrackMan-simulator hos ' . $this->swing->name . ' i ' . $this->swing->locality . '.';
+    }
+
     public function events(array $competitions): array
     {
         return array_values(array_filter(array_map($this->event(...), $competitions)));
