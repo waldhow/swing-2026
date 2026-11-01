@@ -11,7 +11,7 @@ Gäller kodomgången 2026-10-11. Krav-ID enligt `krav/ai/data/requirements.json`
 - Teknisk SEO: unik metadata, kanoniska URL:er, JSON-LD, sitemap, robots, llms.txt och 301 från WordPress.
 - Tester: 153 PHPUnit-tester och 45 Playwright-tester. Bygg för Loopia.
 
-**Inte byggt:** Stripe, eget bokningssystem, Golfguiden, Team Swing-profiler, engelska. Se `BLOCKERS.md`.
+**Inte byggt:** Stripe, eget bokningssystem, Golfguiden, engelska. Se `BLOCKERS.md`.
 
 ## 2. Kravbevis
 
@@ -33,7 +33,7 @@ Gäller kodomgången 2026-10-11. Krav-ID enligt `krav/ai/data/requirements.json`
 | CONTENT-05 | DONE | Ingen alkoholservering utlovas (testat). Catering "efter överenskommelse". |
 | CONTENT-06 | DONE | `/infor-besoket/` stämmer med regelbladet. Länk från Sweetspots bokningsbekräftelse görs i Sweetspot. |
 | CONTENT-07 | DONE | `competitions`-tabell, admin, lista, detaljsida och tomt läge. `PagesTest::testCompetitionsAreFilteredAndGetEventMarkup`. |
-| CONTENT-08 | DONE | Generell Team Swing-sida, inga profiler eller belopp. Profiler: X10. |
+| CONTENT-08 | DONE | `/team-swing/` med fem spelarprofiler (`Config\TeamSwing`, underlag från spelarna 2026-11-01), puff på startsidan och SportsTeam-markup. Inga belopp. `PagesTest::testTeamSwingPresentsEveryPlayerAndHomeLinksToThem`. |
 | CONTENT-09 | DONE | `Config\Images`, med bilder godkända av ägaren 2026-10-11. |
 | SEO-01 | DONE | Egna serverrenderade URL:er med avslutande snedstreck, canonical och H1 (`PagesTest`). |
 | SEO-02 | DONE | SEO-matrisen i `Config\Pages`. `testTitlesAndDescriptionsAreUnique`. |

@@ -132,10 +132,11 @@ class Pages extends BaseConfig
         'team-swing' => [
             'view'        => 'team-swing',
             'label'       => 'Team Swing',
-            'title'       => 'Team Swing | Swing Golf & Lounge',
-            'description' => 'Team Swing stöttar golfare som satsar på sin utveckling. Upptäck vårt engagemang för golfen och lär känna teamet när det presenteras.',
+            'title'       => 'Team Swing – våra spelare | Swing Golf & Lounge',
+            'description' => 'Möt Team Swing: fem golfare från Blekinge och Skåne som tränar och tävlar i simulatorgolf hos oss – om målen, inomhusgolfen och de bästa golfminnena.',
             'nav'         => 'tavlingar',
-            'priority'    => '0.5',
+            'priority'    => '0.6',
+            'schema'      => 'team',
         ],
         'om-oss' => [
             'view'        => 'om-oss',

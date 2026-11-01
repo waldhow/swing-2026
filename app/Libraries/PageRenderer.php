@@ -50,6 +50,9 @@ final class PageRenderer
             $jsonLd[] = $schema->article($this->pages->fill($page['title']), $this->pages->fill($page['description']), page_url($slug), picture_url('simulator'));
             $jsonLd[] = $schema->faq(service('trackmanGuide')->faq());
         }
+        if (($page['schema'] ?? '') === 'team') {
+            $jsonLd[] = $schema->sportsTeam(config('TeamSwing')->players, page_url($slug));
+        }
         if (! empty($data['currentCompetitions'])) {
             array_push($jsonLd, ...$schema->events($data['currentCompetitions']));
         }
@@ -99,6 +102,7 @@ final class PageRenderer
                 'currentCompetitions' => $this->safe(static fn () => array_slice(model(CompetitionModel::class)->current(), 0, 3)),
                 'faqItems'            => service('faq')->pick(['hur-bokar-jag', 'per-person', 'dorrkod', 'klubbor', 'var-ligger-swing']),
                 'guideMetrics'        => service('trackmanGuide')->keyMetrics(),
+                'teamPlayers'         => config('TeamSwing')->players,
                 'promotion'           => self::activePromotion(),
             ],
             'spelpotter'     => [

@@ -210,6 +210,24 @@ $images  = config('Images');
   </div>
 </section>
 
+<?php if (! empty($teamPlayers)): ?>
+<section class="sec ts-teaser" aria-labelledby="team-swing">
+  <div class="wrap ts-teaser-in">
+    <div class="ts-teaser-text">
+      <p class="eyebrow">Team Swing</p>
+      <h2 id="team-swing">Fem golfare som inte tar vinterpaus</h2>
+      <p class="lede">Från simulatorgolfens världstopp till Nordic League och collegedrömmar i USA. Möt spelarna som tränar och tävlar hos oss i vinter.</p>
+      <div class="btn-row"><a class="btn btn-ghost" href="<?= page_path('team-swing') ?>">Möt Team Swing<?= icon('arrowR', 20) ?></a></div>
+    </div>
+    <ul class="ts-faces" role="list">
+      <?php foreach ($teamPlayers as $p): ?>
+      <li><a href="<?= page_path('team-swing') ?>#<?= esc($p['slug'], 'attr') ?>"><?= picture('team-' . $p['slug'], '(max-width: 560px) 30vw, 180px', false, '') ?><span><?= esc($p['name']) ?></span></a></li>
+      <?php endforeach; ?>
+    </ul>
+  </div>
+</section>
+<?php endif; ?>
+
 <section class="sec sec-alt" aria-labelledby="galleri">
   <div class="wrap">
     <div class="sec-head">

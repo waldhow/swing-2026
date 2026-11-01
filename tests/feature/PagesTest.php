@@ -373,6 +373,32 @@ final class PagesTest extends CIUnitTestCase
         Time::setTestNow();
     }
 
+    public function testTeamSwingPresentsEveryPlayerAndHomeLinksToThem(): void
+    {
+        $players = config('TeamSwing')->players;
+        $html    = $this->fetch('team-swing');
+
+        $this->assertCount(5, $players);
+        $this->assertStringContainsString('"@type":"SportsTeam"', $html);
+        foreach ($players as $p) {
+            $this->assertStringContainsString('<article class="sec ts-player', $html);
+            $this->assertMatchesRegularExpression('#<article [^>]*id="' . $p['slug'] . '"#', $html);
+            $this->assertStringContainsString('>' . esc($p['name']) . '</h2>', $html);
+            $this->assertStringContainsString('/assets/team/' . $p['slug'] . '.jpg', $html);
+            $this->assertFileExists(FCPATH . 'assets/team/' . $p['slug'] . '-960.webp');
+            foreach (array_keys(config('TeamSwing')->questions) as $key) {
+                $this->assertNotEmpty($p['answers'][$key] ?? null, "{$p['slug']} saknar svar på {$key}");
+            }
+        }
+        $this->assertStringNotContainsString('när profilerna är klara', $html);
+
+        $home = $this->fetch('');
+        $this->assertStringContainsString('<h2 id="team-swing">', $home);
+        foreach ($players as $p) {
+            $this->assertStringContainsString('href="/team-swing/#' . $p['slug'] . '"', $home);
+        }
+    }
+
     public function testTrackmanGuideShowsWholeGuideWithArticleAndFaqMarkup(): void
     {
         $html = $this->fetch('trackman-guide');

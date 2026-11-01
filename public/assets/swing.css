@@ -672,3 +672,41 @@ dialog.tmg-toc::backdrop{background:rgba(0,0,0,.6)}
   .promo-discount{flex-direction:row;gap:12px;padding:16px 18px}
   .promo-pct{font-size:44px}
 }
+
+/* ---------- Team Swing ---------- */
+.ts-roster{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:20px}
+.ts-card{display:flex;flex-direction:column;gap:4px;color:var(--cream);text-decoration:none}
+.ts-card-img{display:block;aspect-ratio:3/4;overflow:hidden;border-radius:var(--r);border:1px solid var(--line);margin-bottom:10px;background:var(--walnut)}
+.ts-card-img img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .4s}
+.ts-card:hover .ts-card-img img{transform:scale(1.03)}
+.ts-card-name{font-family:var(--fd);font-size:21px;line-height:1.2}
+.ts-card:hover .ts-card-name{color:var(--brass)}
+.ts-card-club{font-size:14px;color:var(--txt2)}
+.ts-player{scroll-margin-top:0}
+.ts-player-in{display:grid;gap:32px 72px;align-items:start}
+.ts-player-img{aspect-ratio:3/4;overflow:hidden;border-radius:var(--r-lg);border:1px solid var(--line);box-shadow:var(--shadow);max-width:440px}
+.ts-player-img img{width:100%;height:100%;object-fit:cover;display:block}
+.ts-player-text h2{margin:8px 0 6px;font-size:clamp(34px,4.4vw,52px)}
+.ts-tagline{margin:0 0 28px;font-family:var(--fd);font-style:italic;font-size:21px;line-height:1.4;color:var(--brass)}
+.ts-answer{padding:20px 0;border-top:1px solid var(--line)}
+.ts-answer h3{margin:0 0 8px;font-family:var(--f);font-size:15px;font-weight:700;letter-spacing:.01em;color:var(--cream-2)}
+.ts-answer p{margin:0;max-width:62ch;font-size:17px;line-height:1.65;color:rgba(246,236,218,.84)}
+.ts-answer p+p{margin-top:12px}
+@media(min-width:961px){
+  .ts-player-in{grid-template-columns:minmax(0,440px) minmax(0,1fr)}
+  .ts-player-img{position:sticky;top:110px}
+}
+@media(max-width:960px){.ts-roster{grid-template-columns:repeat(3,minmax(0,1fr))}.ts-player-img{max-width:420px}}
+@media(max-width:560px){.ts-roster{grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.ts-card-name{font-size:18px}.ts-player-img{max-width:none}}
+
+/* Startsidans puff för Team Swing */
+.ts-teaser{border-top:1px solid var(--line-soft)}
+.ts-teaser-in{display:grid;gap:36px 64px;align-items:center}
+.ts-teaser-text h2{margin:10px 0 14px;font-size:clamp(32px,4.4vw,52px)}
+.ts-faces{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.ts-faces a{display:flex;flex-direction:column;gap:8px;color:var(--txt2);text-decoration:none;font-size:13.5px;line-height:1.3}
+.ts-faces picture{display:block;aspect-ratio:3/4;overflow:hidden;border-radius:var(--r-sm);border:1px solid var(--line)}
+.ts-faces img{width:100%;height:100%;object-fit:cover;display:block}
+.ts-faces a:hover{color:var(--brass)}
+@media(min-width:961px){.ts-teaser-in{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr)}}
+@media(max-width:560px){.ts-faces{grid-template-columns:repeat(3,minmax(0,1fr))}}

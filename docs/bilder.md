@@ -18,3 +18,8 @@ done
 Lägg sedan till bilden i `Config\Images::$images` och, om den ska synas i galleriet, i `$gallery`.
 
 Hero-bilden finns i 800, 1280 och 1920 px och förladdas på startsidan (LCP). Övriga bilder laddas med `loading="lazy"`.
+
+## Team Swing
+
+Spelarbilderna ligger i `public/assets/team/` (`<slug>.jpg` 720×960 som reserv, WebP i 480 och 960 px) och registreras som `team-<slug>` i `Config\Images`. De är beskurna till 3:4 och sparade utan EXIF – originalen från mobilen innehöll GPS-position. Gör likadant med nya bilder, till exempel med Pillow (`ImageOps.exif_transpose`, beskär, `save` utan exif).
+

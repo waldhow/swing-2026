@@ -92,6 +92,30 @@ final class StructuredData
     }
 
     /**
+     * Team Swing som idrottslag med spelarna och deras hemmaklubbar.
+     *
+     * @param list<array{slug: string, name: string, club: string}> $players
+     */
+    public function sportsTeam(array $players, string $url): array
+    {
+        return [
+            '@context' => 'https://schema.org',
+            '@type'    => 'SportsTeam',
+            'name'     => 'Team Swing',
+            'sport'    => 'Golf',
+            'url'      => $url,
+            'parentOrganization' => ['@type' => 'Organization', 'name' => $this->swing->name, 'url' => page_url()],
+            'athlete'  => array_map(static fn (array $p): array => [
+                '@type'    => 'Person',
+                'name'     => $p['name'],
+                'url'      => $url . '#' . $p['slug'],
+                'image'    => picture_url('team-' . $p['slug']),
+                'memberOf' => ['@type' => 'SportsOrganization', 'name' => $p['club']],
+            ], $players),
+        ];
+    }
+
+    /**
      * @param list<array{q: string, a: string}> $items svaren får innehålla enkel HTML
      */
     public function faq(array $items): array
